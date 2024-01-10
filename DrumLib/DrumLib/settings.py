@@ -46,6 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'comments_app.apps.CommentsAppConfig',
+    'discography_app.apps.DiscographyAppConfig',
+    'drummers_app.apps.DrummersAppConfig',
+    'music_player_app.apps.MusicPlayerAppConfig',
+    'random_album_generator.apps.RandomAlbumGeneratorAppConfig',
+    'user_management.apps.UserManagementAppConfig',
 ]
 
 MIDDLEWARE = [
