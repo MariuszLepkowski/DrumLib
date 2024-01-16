@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'music_player_app.apps.MusicPlayerAppConfig',
     'random_album_generator_app.apps.RandomAlbumGeneratorAppConfig',
     'user_management_app.apps.UserManagementAppConfig',
+    'home_app.apps.HomeAppConfig',
 ]
 
 MIDDLEWARE = [
