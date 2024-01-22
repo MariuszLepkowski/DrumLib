@@ -40,3 +40,18 @@ class Album(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Artist(models.Model):
+    """
+    Model representing a music artist.
+
+    Attributes:
+    - name: Artist name.
+    - collaborating_drummers: Many-to-many relationship with Drummer model, stores drummers collaborating with the artist.
+    """
+    name = models.CharField(max_length=255)
+    collaborating_drummers = models.ManyToManyField(Drummer, related_name='collaborated_artists', blank=True)
+
+    def __str__(self):
+        return self.name
