@@ -1,3 +1,27 @@
 from django.db import models
+from discography_app.models import Artist
 
-# Create your models here.
+
+class Drummer(models.Model):
+    """
+    Model representing a drummer.
+
+    Attributes:
+    - name: Drummer's full name.
+    - bio: Drummer's biography.
+    - year_of_birth: Year of drummer's birth.
+    - year_of_death: Year of drummer's death (optional, can be null if still alive or year of death is unknown).
+    - origin: Drummer's place of origin.
+    - photos: Many-to-many relationship with DrummerPhoto model, stores drummer's photos.
+    - collaborating_artists: Many-to-many relationship with Artist model, indicating artists the drummer has collaborated with.
+    """
+    name = models.CharField(max_length=255)
+    bio = models.TextField()
+    year_of_birth = models.IntegerField()
+    year_of_death = models.IntegerField(blank=True, null=True)
+    origin = models.CharField(max_length=255, blank=True, null=True)
+    photos = models.ManyToManyField('DrummerPhoto', related_name='drummer', blank=True)
+    collaborating_artists = models.ManyToManyField(Artist, related_name='collaborating_drummers', blank=True)
+
+    def __str__(self):
+        return self.name
