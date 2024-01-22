@@ -25,3 +25,24 @@ class Drummer(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class DrummerPhoto(models.Model):
+    """
+    Model representing a photo of a drummer.
+
+    Attributes:
+    - drummers: Many-to-many relationship with Drummer model, indicating the drummers associated with the photo.
+    - image: Binary representation of the drummer's photo.
+
+    """
+    drummers = models.ManyToManyField(Drummer, related_name='photos')
+    image = models.BinaryField()
+
+    def __str__(self):
+        drummer_names = ", ".join(drummer.name for drummer in self.drummers.all())
+
+        if len(self.drummers.all()) > 1:
+            return f"Photo with {drummer_names}"
+        else:
+            return f"{drummer_names}'s Photo"
