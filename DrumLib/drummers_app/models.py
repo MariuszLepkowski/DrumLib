@@ -9,12 +9,16 @@ class Drummer(models.Model):
     - name: Drummer's full name.
     - bio: Drummer's biography.
     - birth_date: Drummer's date of birth.
+    - death_date: Drummer's date of death (optional, can be null if still alive or date of death is unknown).
+    - nationality: Drummer's nationality.
     - photos: Many-to-many relationship with DrummerPhoto model, stores drummer's photos.
     - collaborating_artists: Many-to-many relationship with Artist model, indicating artists the drummer has collaborated with.
     """
     name = models.CharField(max_length=255)
     bio = models.TextField()
     birth_date = models.DateField()
+    death_date = models.DateField(blank=True, null=True)
+    nationality = models.CharField(max_length=255)
     photos = models.ManyToManyField('DrummerPhoto', related_name='drummers_on_photo', blank=True)
     collaborating_artists = models.ManyToManyField('discography_app.Artist', blank=True)
 
