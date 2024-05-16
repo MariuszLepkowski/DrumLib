@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'random_album_generator_app.apps.RandomAlbumGeneratorAppConfig',
     'user_management_app.apps.UserManagementAppConfig',
     'home_app.apps.HomeAppConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
