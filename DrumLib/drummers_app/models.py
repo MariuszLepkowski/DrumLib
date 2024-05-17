@@ -19,8 +19,8 @@ class Drummer(models.Model):
     birth_date = models.DateField(blank=True, null=True)
     death_date = models.DateField(blank=True, null=True)
     nationality = models.CharField(max_length=255, blank=True, null=True)
-    photos = models.ManyToManyField('DrummerPhoto', related_name='photos_of_drummer', blank=True)
-    collaborating_artists = models.ManyToManyField('discography_app.Artist', blank=True)
+    photos = models.ManyToManyField('DrummerPhoto', related_name='drummers_on_photo', blank=True)
+    collaborating_artists = models.ManyToManyField('discography_app.Artist', related_name='drummers_collaborating_with_artist', blank=True)
 
     def __str__(self):
         return self.name
@@ -34,7 +34,7 @@ class DrummerPhoto(models.Model):
     - drummers: Many-to-many relationship with Drummer model, indicating the drummers associated with the photo.
     - image: Binary representation of the drummer's photo.
     """
-    drummers = models.ManyToManyField('Drummer', related_name='drummers_on_photo', blank=True)
+    drummers = models.ManyToManyField('Drummer', related_name='photos_of_drummer', blank=True)
     image = models.BinaryField()
 
     def __str__(self):
