@@ -1,0 +1,18 @@
+{% include "includes/header.html" %}
+
+<body>
+
+{% include "includes/navbar.html" %}
+
+<div class="main-content container mt-4">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<div class="footer">
+    {% include "includes/footer.html" %}
+</div>
+
+{% include "includes/scripts.html" %}
+
+</body>
