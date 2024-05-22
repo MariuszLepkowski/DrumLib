@@ -1,0 +1,41 @@
+body {
+    background-color: #181a1b;
+}
+
+.navbar {
+    border-bottom: 2px solid gray;
+}
+
+#navbarNav {
+    margin-left: 100px;
+}
+
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    color: white;
+    margin-bottom: 90px;
+    padding-top: 20px;
+}
+
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color:#181a1b;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    border-top: 2px solid gray;
+
+}
+
+
+.drumlib-logo1 {
+    width: 230px;
+}
+
+.drumlib-logo3 {
+    width: 100px;
+}
