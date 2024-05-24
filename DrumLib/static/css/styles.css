@@ -2,23 +2,91 @@ body {
     background-color: #181a1b;
 }
 
+
+/**************************** Navbar ***********************************/
 .navbar {
+
     border-bottom: 2px solid gray;
+
 }
 
 #navbarNav {
     margin-left: 100px;
+
 }
 
+/**************************** Main content ***********************************/
 .main-content {
-    flex: 1;
     overflow-y: auto;
     color: white;
-    margin-bottom: 90px;
-    padding-top: 20px;
 }
 
 
+/**************************** Home page ***********************************/
+.welcome-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 120px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    margin-top: 40px;
+    margin-right: 150px;
+}
+
+#welcome-section, #features-section {
+    padding: 20px;
+    background-color: rgb(38, 42, 43);;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#welcome-section h1, #features-section h1 {
+    margin-top: 0;
+}
+
+#welcome-section p, #features-section p {
+    margin: 0;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    justify-content: flex-start;
+    margin-bottom: 60px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .welcome-container {
+        grid-template-columns: 1fr;
+    }
+
+    .image-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .image-container img {
+        width: 100%;
+    }
+}
+
+/**************************** Footer ***********************************/
 .footer {
     position: fixed;
     bottom: 0;
@@ -28,14 +96,27 @@ body {
     text-align: center;
     font-size: 12px;
     border-top: 2px solid gray;
-
 }
 
 
+/**************************** Styles for images ***********************************/
 .drumlib-logo1 {
     width: 230px;
 }
 
+.drumlib-logo2 {
+    display:flex;
+    width: 300px;
+}
+
 .drumlib-logo3 {
     width: 100px;
+}
+
+.drummers-collage1 {
+width: 100%;
+}
+
+.drummers-collage2 {
+width: 100%;
 }
