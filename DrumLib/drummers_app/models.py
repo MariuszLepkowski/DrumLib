@@ -33,9 +33,11 @@ class DrummerPhoto(models.Model):
     Attributes:
     - drummers: Many-to-many relationship with Drummer model, indicating the drummers associated with the photo.
     - image: Binary representation of the drummer's photo.
+    - source: Field indicating the author or source of the photo.
     """
     drummers = models.ManyToManyField('Drummer', related_name='photos_of_drummer', blank=True)
     image = models.BinaryField()
+    source = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         drummer_names = ", ".join(drummer.name for drummer in self.drummers.all())
