@@ -6,5 +6,6 @@ app_name = "drummers_app"
 
 urlpatterns = [
     path("drummers/", views.drummers, name="drummers"),
-    path("drummers/<drummer_name>/", views.drummer_profile, name="drummer_card"),
+    path("drummers/<drummer_name>/", views.drummer_profile, name="drummer_profile"),
+    path("drummers/add-drummer", views.add_drummer, name="drummers"),
 ]

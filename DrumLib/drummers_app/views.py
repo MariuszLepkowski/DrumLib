@@ -10,5 +10,10 @@ def drummers(request):
 
 
 def drummer_profile(request, drummer_name):
-    response = (f'drummer_profile view. Displays {drummer_name} profile with basic information and an associated discography.')
+    response = f'drummer_profile view. Displays {drummer_name} profile with basic information and an associated discography.'
     return HttpResponse(response, drummer_name)
+
+
+def add_drummer(request):
+    response = 'add_drummer view. Allows users to add_new drummer to db through form.'
+    return HttpResponse(response)
