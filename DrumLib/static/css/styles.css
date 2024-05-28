@@ -22,6 +22,7 @@ body {
 }
 
 
+
 /**************************** Home page ***********************************/
 .welcome-container {
     display: grid;
@@ -113,3 +114,14 @@ body {
     width: 100px;
 }
 
+
+/**************************** Badges with section titles ***********************************/
+.text-bg-primary {
+    font-size: 2rem;
+     /* Ustawienie rozmiaru czcionki */
+    /* Inne style */
+}
+
+#section-title {
+margin-left:100px;
+}

@@ -3,14 +3,10 @@
 {% block title %}Drummers - DrumLib{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>List of Drummers</h1>
-    <ul class="list-group">
-        {% for drummer in drummers %}
-        <li class="list-group-item">
-            <a href="{% url 'drummer_profile' drummer.name %}">{{ drummer.name }}</a> - {{ drummer.band }}
-        </li>
-        {% endfor %}
-    </ul>
+
+<div id="section-title">
+    <span class="badge text-bg-primary">{% block page_title %}{{ title }}{% endblock %}</span>
 </div>
+
+
 {% endblock %}
