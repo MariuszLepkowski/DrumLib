@@ -1,5 +1,7 @@
 body {
     background-color: #181a1b;
+
+
 }
 
 
@@ -118,10 +120,25 @@ body {
 /**************************** Badges with section titles ***********************************/
 .text-bg-primary {
     font-size: 2rem;
-     /* Ustawienie rozmiaru czcionki */
-    /* Inne style */
 }
 
 #section-title {
-margin-left:100px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 50px;
+    border-bottom: 2px solid gray;
+}
+
+.drummers-bg{
+    width: 100%;
+}
+
+.centered-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    height:80%;
+    width:100%;
 }

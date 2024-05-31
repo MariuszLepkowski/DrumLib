@@ -4,6 +4,8 @@
 
 {% block content %}
 <div id="section-title">
-     <span class="badge text-bg-primary">{% block page_title %}{{ title }}{% endblock %}</span>
+    <span class="badge text-bg-primary centered-badge">{% block page_title %}{{ title }}{% endblock %}</span>
+    {% load static %}
+    <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
 </div>
 {% endblock %}
