@@ -7,9 +7,7 @@ body {
 
 /**************************** Navbar ***********************************/
 .navbar {
-
     border-bottom: 2px solid gray;
-
 }
 
 #navbarNav {
@@ -28,25 +26,30 @@ body {
 /**************************** Home page ***********************************/
 .welcome-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 1fr 2fr;
+    gap: 100px;
     margin-bottom: 120px;
-    padding: 20px;
+    padding: 60px;
     max-width: 1200px;
     margin: auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom:100px;
 }
 
 .text-container {
     display: flex;
     flex-direction: column;
-    gap: 70px;
-    margin-top: 40px;
-    margin-right: 150px;
+    gap: 80px;
+    margin-top: 0px;
+    width:110%;
+
 }
 
 #welcome-section, #features-section {
     padding: 20px;
-    background-color: rgb(38, 42, 43);;
+    background-color: #0d6efd;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
