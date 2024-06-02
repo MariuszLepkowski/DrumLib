@@ -36,7 +36,7 @@ class DrummerPhoto(models.Model):
     - source: Field indicating the author or source of the photo.
     """
     drummers = models.ManyToManyField('Drummer', related_name='photos_of_drummer', blank=True)
-    image = models.BinaryField()
+    image = models.ImageField(upload_to='drummer_photos/', blank=True, null=True)
     source = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
