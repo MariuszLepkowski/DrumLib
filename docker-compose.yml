@@ -4,7 +4,7 @@ services:
 
   web:
     image: python:3.8
-    command: bash -c "apt-get update && apt-get install -y graphviz libgraphviz-dev && pip install -r /code/requirements.txt && python /code/DrumLib/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "apt-get update && apt-get install -y graphviz libgraphviz-dev && pip install -r /code/requirements.txt && python /code/DrumLib/manage.py migrate && python /code/DrumLib/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
