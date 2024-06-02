@@ -10,4 +10,23 @@
     <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
 </div>
 
+
+<div class="container mt-4">
+    <div class="row">
+        {% for drummer in drummers %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if drummer.photos.exists %}
+                <img src="{{ drummer.photos.first.image.url }}" class="card-img-top" alt="{{ drummer.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ drummer.name }}</h5>
+                    <a href="{% url 'drummers_app:drummer_profile' drummer_name=drummer.name %}" class="btn btn-primary">View Profile</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
