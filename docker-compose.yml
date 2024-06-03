@@ -19,7 +19,7 @@ services:
         POSTGRES_USER: ${DB_USER}
         POSTGRES_PASSWORD: ${DB_PASSWORD}
       volumes:
-        - pgdata:/var/lib/drumlib_db/data
+        - DrumLibDBVolume:/var/lib/postgresql/data
 
 volumes:
-  pgdata:
+  DrumLibDBVolume:
