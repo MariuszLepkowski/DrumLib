@@ -7,7 +7,6 @@ services:
     command: bash -c "apt-get update && apt-get install -y graphviz libgraphviz-dev && pip install -r /code/requirements.txt && python /code/DrumLib/manage.py migrate && python /code/DrumLib/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
-      - /home/mariusz/Desktop/drummer_photos:/code/drummer_photos
     ports:
       - "8000:8000"
     depends_on:
@@ -19,3 +18,8 @@ services:
         POSTGRES_DB: ${DB_NAME}
         POSTGRES_USER: ${DB_USER}
         POSTGRES_PASSWORD: ${DB_PASSWORD}
+      volumes:
+        - pgdata:/var/lib/drumlib_db/data
+
+volumes:
+  pgdata:
