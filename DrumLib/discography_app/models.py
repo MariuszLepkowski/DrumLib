@@ -12,6 +12,7 @@ class Album(models.Model):
     - genre: Music genre of the album.
     - drummers: Many-to-many relationship with Drummer model, stores drummers associated with the album.
     - tracks: Many-to-many relationship with Track model, stores tracks included in the album.
+    - album_url: album_url.
     """
     title = models.CharField(max_length=255)
     artists = models.ManyToManyField('Artist', related_name='albums_featured', blank=True)
@@ -48,6 +49,7 @@ class Track(models.Model):
     - title: Track title.
     - artist: Many-to-many relationship with Artist model, indicating artists or bands associated with the track.
     - drummers: Many-to-many relationship with Drummer model, stores drummers associated with the track.
+    - track_url: track URL.
     """
     title = models.CharField(max_length=255)
     artists = models.ManyToManyField('Artist', related_name='tracks_with_artist', blank=True)

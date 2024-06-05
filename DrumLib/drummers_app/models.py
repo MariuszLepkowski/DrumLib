@@ -33,7 +33,8 @@ class DrummerPhoto(models.Model):
     Attributes:
     - drummers: Many-to-many relationship with Drummer model, indicating the drummers associated with the photo.
     - image: Binary representation of the drummer's photo.
-    - source: Field indicating the author or source of the photo.
+    - source: Field indicating the source of the photo.
+    - image_author: Field indicating the author of the photo.
     """
     drummers = models.ManyToManyField('Drummer', related_name='photos_of_drummer', blank=True)
     image = models.ImageField(upload_to='drummer_photos/', blank=True, null=True)
