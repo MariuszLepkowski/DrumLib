@@ -19,6 +19,7 @@ class Album(models.Model):
     genre = models.CharField(max_length=255, blank=True, null=True)
     drummers = models.ManyToManyField('drummers_app.Drummer', related_name='albums_played', blank=True)
     tracks = models.ManyToManyField('Track', related_name='albums', blank=True)
+    album_url = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -51,6 +52,7 @@ class Track(models.Model):
     title = models.CharField(max_length=255)
     artists = models.ManyToManyField('Artist', related_name='tracks_with_artist', blank=True)
     drummers = models.ManyToManyField("drummers_app.Drummer", related_name='tracks_played', blank=True)
+    track_url = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title

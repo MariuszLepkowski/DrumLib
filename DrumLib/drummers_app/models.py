@@ -38,6 +38,7 @@ class DrummerPhoto(models.Model):
     drummers = models.ManyToManyField('Drummer', related_name='photos_of_drummer', blank=True)
     image = models.ImageField(upload_to='drummer_photos/', blank=True, null=True)
     source = models.CharField(max_length=255, blank=True, null=True)
+    image_author = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         drummer_names = ", ".join(drummer.name for drummer in self.drummers.all())
