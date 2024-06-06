@@ -34,7 +34,7 @@ class Artist(models.Model):
     - name: Artist name.
     - collaborating_drummers: Many-to-many relationship with Drummer model, stores drummers collaborating with the artist.
     """
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     collaborating_drummers = models.ManyToManyField("drummers_app.Drummer", related_name='artists_collaborating_with_drummer', blank=True)
 
     def __str__(self):
