@@ -145,3 +145,14 @@ body {
     height:80%;
     width:100%;
 }
+
+
+/**************************** Drummer Image Inside Card ***********************************/
+.card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+
