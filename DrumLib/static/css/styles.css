@@ -19,6 +19,7 @@ body {
 .main-content {
     overflow-y: auto;
     color: white;
+    margin-bottom:100px;
 }
 
 
@@ -146,6 +147,11 @@ body {
     width:100%;
 }
 
+.badge {
+    margin-bottom: 20px;
+}
+
+
 
 /**************************** Drummer Image Inside Card ***********************************/
 .card-img-top {
@@ -184,4 +190,23 @@ body {
     margin-left:80px;
     margin-top:90px;
     max-height:120px;
+}
+
+.drummer-photos {
+    margin-top: 70px;
+}
+
+#drummer-bio {
+    max-width: 450px;
+    margin: 0 auto;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+#drummer-bio p {
+    margin-bottom: 4em;
+}
+
+#drummer-bio p::first-line {
+    font-weight: bold;
 }

@@ -10,8 +10,8 @@
     <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
 </div>
 
-
-<div class="container mt-4">
+<div class="main-content">
+    <div class="drummers-explorer container mt-4">
     <div class="row">
         {% for drummer in drummers %}
         <div class="col-md-4 mb-4">
@@ -28,5 +28,8 @@
         {% endfor %}
     </div>
 </div>
+
+</div>
+
 
 {% endblock %}

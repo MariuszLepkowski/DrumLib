@@ -1,5 +1,7 @@
 {% extends "includes/base.html" %}
 
+{% load custom_filters %}
+
 {% block title %}Drummer profile - DrumLib{% endblock %}
 
 {% block content %}
@@ -12,4 +14,49 @@
         <img src="{{ drummer.photos.first.image.url }}" class="drummer-profile-img" alt="{{ drummer.name }}">
     </section>
 </div>
+
+<div class="main content">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- Biography Section -->
+                    <section id="drummer-bio">
+                        <span class="badge text-bg-primary">Biography</span>
+                        <div>
+                            <p>{{ drummer.bio|split_paragraphs:3|safe }}</p>
+                        </div>
+                    </section>
+
+            <!-- Collaborating Artists Section -->
+            <section id="collaborating-artists" class="mt-4">
+                <span class="badge text-bg-primary">{{ title }} collaborated with:</span>
+                <ul>
+                    {% for artist in drummer.collaborating_artists.all %}
+                    <li>{{ artist.name }}</li>
+                    {% empty %}
+                    <p>No collaborating artists found.</p>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+
+        <div class="drummer-photos col-md-4">
+            <!-- Photos Section -->
+            <section id="drummer-photos" class="mt-4">
+
+                <div class="row">
+                   {% for photo in drummer.photos.all %}
+                        {% if not forloop.first %}
+                        <div class="col-md-12 mb-4">
+                            <img src="{{ photo.image.url }}" class="img-fluid rounded" alt="Photo of {{ drummer.name }}">
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</div>
+
 {% endblock %}
