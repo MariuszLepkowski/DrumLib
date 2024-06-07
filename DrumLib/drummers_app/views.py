@@ -26,8 +26,11 @@ def drummer_profile(request, drummer_name):
     # response = f'drummer_profile view. Displays {drummer_name} profile with basic information and an associated discography.'
     # return HttpResponse(response, drummer_name)
     template_name = "drummers_app/drummer-profile.html"
+
+    drummer =  Drummer.objects.get(name=drummer_name)
     context = {
-        'title': f'{drummer_name}'
+        'title': f'{drummer_name}',
+        'drummer': drummer,
     }
 
     return render(request, template_name, context)

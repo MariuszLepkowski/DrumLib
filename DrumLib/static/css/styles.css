@@ -155,4 +155,33 @@ body {
     object-position: center;
 }
 
+/**************************** drummer-profile section ***********************************/
 
+#drummer-profile {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    border-bottom: 2px solid gray;
+}
+
+.drummer-profile-img {
+    height: 330px;
+
+}
+
+#drummer-profile-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width:500px;
+    margin-bottom: 20px;
+}
+
+#drummer-name {
+    display: flex;
+    align-items: right;
+    justify-content: center;
+    margin-left:80px;
+    margin-top:90px;
+    max-height:120px;
+}

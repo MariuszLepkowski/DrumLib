@@ -3,9 +3,13 @@
 {% block title %}Drummer profile - DrumLib{% endblock %}
 
 {% block content %}
-<div id="section-title">
-    <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1>{{ title }}</h1>{% endblock %}</span>
-    {% load static %}
-    <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
+<div id="drummer-profile">
+    <section id="drummer-name">
+        <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1>{{ title }}</h1>{% endblock %}</span>
+    </section>
+
+    <section id="drummer-profile-image">
+        <img src="{{ drummer.photos.first.image.url }}" class="drummer-profile-img" alt="{{ drummer.name }}">
+    </section>
 </div>
 {% endblock %}
