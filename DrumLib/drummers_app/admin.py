@@ -1,13 +1,17 @@
 from django.contrib import admin
-
-# Register your models here.
-
 from .models import Drummer, DrummerPhoto
 
 
-class AuthorAdmin(admin.ModelAdmin):
-    pass
+@admin.register(Drummer)
+class DrummerAdmin(admin.ModelAdmin):
+    filter_horizontal = ('photos', 'collaborating_artists')
+    list_display = ('name', 'birth_date', 'death_date', 'nationality')
 
+@admin.register(DrummerPhoto)
+class DrummerPhotoAdmin(admin.ModelAdmin):
+    filter_horizontal = ('drummers',)
+    list_display = ('source', 'image_author')
 
-admin.site.register(Drummer, AuthorAdmin)
-admin.site.register(DrummerPhoto, AuthorAdmin)
+# Alternatively, you can use admin.site.register with the admin class
+# admin.site.register(Drummer, DrummerAdmin)
+# admin.site.register(DrummerPhoto, DrummerPhotoAdmin)
