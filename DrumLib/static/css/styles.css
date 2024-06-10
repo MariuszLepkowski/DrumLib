@@ -210,3 +210,33 @@ body {
 #drummer-bio p::first-line {
     font-weight: bold;
 }
+
+
+/**************************** Discographies ***********************************/
+
+.discographies {
+    max-width: 1000px;
+}
+
+
+.drummer-list{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+
+.name{
+    padding-top:150px;
+text-align: center;
+margin-left: 68px;
+
+}
+
+
+.disc-photo {
+
+    max-width: 300px; /* Maksymalna szerokość to 100% szerokości kontenera */
+    height: auto; /* Automatyczna wysokość proporcjonalna do szerokości */
+}
+
+

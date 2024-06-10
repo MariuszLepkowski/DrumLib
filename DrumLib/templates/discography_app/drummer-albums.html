@@ -1,0 +1,19 @@
+{% extends "includes/base.html" %}
+
+{% block title %}{{ drummer.name }}'s Albums - DrumLib{% endblock %}
+
+{% block content %}
+<div id="section-title">
+    <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1>{{ title }}</h1>{% endblock %}</span>
+    {% load static %}
+    <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
+</div>
+    <ul class="list-group">
+        {% for album in albums %}
+        <li class="list-group-item">
+            <a href="{% url 'discography_app:drummer_tracks' drummer_name=drummer.name %}">{{ album.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

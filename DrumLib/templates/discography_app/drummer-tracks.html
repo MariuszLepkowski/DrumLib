@@ -1,0 +1,18 @@
+{% extends "includes/base.html" %}
+
+{% block title %}{{ drummer.name }}'s Tracks - DrumLib{% endblock %}
+
+{% block content %}
+<div id="section-title">
+    <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1>{{ title }}</h1>{% endblock %}</span>
+    {% load static %}
+    <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
+</div>
+
+    <ul class="list-group">
+        {% for track in tracks %}
+        <li class="list-group-item">{{ track.title }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
