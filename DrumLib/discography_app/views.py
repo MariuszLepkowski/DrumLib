@@ -17,7 +17,7 @@ def drummers_list(request):
 
 def drummer_albums(request, drummer_name):
     drummer = get_object_or_404(Drummer, name=drummer_name)
-    albums = Album.objects.filter(drummers=drummer).order_by('title')
+    albums = Album.objects.filter(drummers=drummer).order_by('title').prefetch_related('artists')
 
     context = {
         'title': f"{drummer}'s albums",
@@ -37,3 +37,15 @@ def drummer_tracks(request, drummer_name):
         'tracks': tracks,
     }
     return render(request, 'discography_app/drummer-tracks.html', context)
+
+
+def album_tracks(request, album_title):
+    album = get_object_or_404(Album, title=album_title)
+    tracks = album.tracks.all()
+
+    context = {
+        'title': album_title,
+        'tracks': tracks,
+    }
+
+    return render(request, 'discography_app/album-tracks.html', context)

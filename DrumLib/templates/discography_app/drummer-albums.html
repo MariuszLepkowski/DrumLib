@@ -11,7 +11,10 @@
     <ul class="list-group">
         {% for album in albums %}
         <li class="list-group-item">
-            <a href="{% url 'discography_app:drummer_tracks' drummer_name=drummer.name %}">{{ album.title }}</a>
+            {% for artist in album.artists.all %}
+                <h2>{{ artist.name }} - {{ album.title }}</h2>
+            <a href="{% url 'discography_app:album_tracks' album_title=album.title %}" class="btn btn-primary btn-sm">View Tracklist</a>
+            {% endfor %}
         </li>
         {% endfor %}
     </ul>
