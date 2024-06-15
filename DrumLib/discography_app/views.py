@@ -29,7 +29,7 @@ def drummer_albums(request, drummer_name):
 
 def drummer_tracks(request, drummer_name):
     drummer = get_object_or_404(Drummer, name=drummer_name)
-    tracks = Track.objects.filter(drummers=drummer).order_by('title')
+    tracks = Track.objects.filter(drummers=drummer).prefetch_related('artists').order_by('artists__name')
 
     context = {
         'title': f"{drummer}'s tracks",
