@@ -1,7 +1,5 @@
 body {
     background-color: #181a1b;
-
-
 }
 
 
@@ -240,3 +238,8 @@ margin-left: 68px;
 }
 
 
+/**************************** Buttons ***********************************/
+
+#play-track-button {
+    margin-left: 15px;
+}

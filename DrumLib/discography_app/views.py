@@ -42,10 +42,12 @@ def drummer_tracks(request, drummer_name):
 def album_tracks(request, album_title):
     album = get_object_or_404(Album, title=album_title)
     tracks = album.tracks.all()
+    artists = album.artists.all()
 
     context = {
         'title': album_title,
         'tracks': tracks,
+        'artists': artists,
     }
 
     return render(request, 'discography_app/album-tracks.html', context)
