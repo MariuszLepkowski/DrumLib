@@ -1,0 +1,27 @@
+<!-- Audio Player -->
+<div class="player" >
+    <div id="title">Loading...</div>
+
+    <div id="container">
+        <div id="player-controls">
+            <div id="youtube-icon" onclick="togglePlayPause()"></div>
+
+            <div id="progressContainer" onclick="seekToTime(event)">
+                <div id="progressBar"></div>
+                <div id="progressThumb"></div>
+            </div>
+            <div id="timeInfo">0:00 / 0:00</div>
+            <div id="volumeButton" onclick="toggleMute()"></div>
+
+            <!-- Slider for volume control -->
+            <input type="range" min="0" max="100" value="100" step="1" id="volumeSlider" oninput="changeVolume(this.value); updateVolumeIcon();">
+
+        </div>
+    </div>
+
+    <div data-video="RMx7uHtZbuo" data-autoplay="0" data-loop="1" id="youtube-audio"></div>
+    <div id="alternative-link" style="display: none;">
+
+</div>
+
+{% include "includes/scripts.html" %}

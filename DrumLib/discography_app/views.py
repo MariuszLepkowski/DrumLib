@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Album, Track
 from drummers_app.models import Drummer
 from drummers_app.views import sort_by_last_name
+from .utils import get_video_id
 
 
 def drummers_list(request):
@@ -31,6 +32,9 @@ def drummer_tracks(request, drummer_name):
     drummer = get_object_or_404(Drummer, name=drummer_name)
     tracks = Track.objects.filter(drummers=drummer).prefetch_related('artists').order_by('artists__name')
 
+    for track in tracks:
+        track.video_id = get_video_id(track.track_url)
+
     context = {
         'title': f"{drummer}'s tracks",
         'drummer': drummer,
@@ -43,6 +47,9 @@ def album_tracks(request, album_title):
     album = get_object_or_404(Album, title=album_title)
     tracks = album.tracks.all()
     artists = album.artists.all()
+
+    for track in tracks:
+        track.video_id = get_video_id(track.track_url)
 
     context = {
         'title': album_title,
