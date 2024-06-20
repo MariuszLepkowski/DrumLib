@@ -364,3 +364,9 @@ margin-left: 68px;
 #volumeButton.muted {
     background-image: url('/static/assets/img/volume-mute.svg');
 }
+
+#youtube-logo {
+    width: 100px;
+    height: auto;
+    margin-top: 5px;
+}

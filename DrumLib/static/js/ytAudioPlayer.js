@@ -307,27 +307,6 @@ document.getElementById('volume-icon').addEventListener('click', function() {
 });
 
 
-
-// Function to update volume icon based on volume slider value
-function updateVolumeIcon() {
-  var volumeIcon = document.getElementById('volume-icon');
-  var volumeSlider = document.getElementById('volumeSlider');
-  var volumeValue = parseInt(volumeSlider.value);
-
-  if (volumeValue === 0) {
-      volumeIcon.src = '/static/assets/img/volume-mute.png';
-  } else {
-      volumeIcon.src = '/static/assets/img/volume-up.png';
-  }
-}
-
-// Add event listener to update volume icon when volume slider value changes
-document.getElementById('volumeSlider').addEventListener('input', updateVolumeIcon);
-
-// Call the function to update volume icon after the player is ready
-player.addEventListener('onReady', updateVolumeIcon);
-
-
 function updateVolumeIcon() {
   var volumeButton = document.getElementById('volumeButton');
   if (volumeButton) {
