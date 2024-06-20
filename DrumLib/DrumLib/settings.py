@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'comments_app.apps.CommentsAppConfig',
     'discography_app.apps.DiscographyAppConfig',
     'drummers_app.apps.DrummersAppConfig',
-    'music_player_app.apps.MusicPlayerAppConfig',
     'random_album_generator_app.apps.RandomAlbumGeneratorAppConfig',
     'user_management_app.apps.UserManagementAppConfig',
     'home_app.apps.HomeAppConfig',
