@@ -66,7 +66,7 @@ function startTitleChecking() {
         if (titleElement && titleElement.textContent.trim() !== "") {
             clearInterval(titleCheckInterval);
         } else {
-            // Sprawdź, czy audio jest odtwarzane
+
             if (!isPlaying) {
                 console.log("Show Alternative Link!");
                 showAlternativeLink(document.getElementById("youtube-audio").dataset.video);
@@ -104,7 +104,6 @@ function formatTime(time) {
     var seconds = Math.floor(time % 60);
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
-
 
 
 // Function to seek to a specific time
@@ -205,8 +204,8 @@ document.addEventListener('click', function(event) {
         var videoId = button.getAttribute('data-video-id');
 
         updateHTMLView(videoId);
-        console.log('Zaktualizowano data-video na:', videoId);
-        console.log('Kliknięto przycisk z identyfikatorem wideo:', videoId);
+        console.log('data-video updated to:', videoId);
+        console.log('Clicked button with videoId:', videoId);
     }
 });
 
@@ -218,11 +217,11 @@ document.addEventListener('click', function(event) {
         var videoId = button.getAttribute('data-video-id');
 
         updateHTMLView(videoId);
-        console.log('Zaktualizowano data-video na:', videoId);
+        console.log('data-video updated to:', videoId);
 
         document.querySelector('.player').style.display = 'block';
 
-        console.log('Kliknięto przycisk z identyfikatorem wideo:', videoId);
+        console.log('Clicked button with videoId:', videoId);
     }
 });
 
