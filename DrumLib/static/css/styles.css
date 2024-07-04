@@ -370,3 +370,28 @@ margin-left: 68px;
     height: auto;
     margin-top: 5px;
 }
+
+
+/********************************** Album Generator Section ****************************************/
+
+#album-section {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.album-cover {
+    border: 2px solid #007bff;
+    border-radius: 5px;
+}
+
+.list-group-item {
+    background-color: #fff;
+}
+
+.centered-badge {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}

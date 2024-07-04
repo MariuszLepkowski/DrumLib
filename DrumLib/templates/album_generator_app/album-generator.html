@@ -1,16 +1,40 @@
 {% extends "includes/base.html" %}
 
-{% block title %}{{ drummer.name }}'s Tracks - DrumLib{% endblock %}
+{% block title %}Random Album Generator - DrumLib{% endblock %}
 
 {% block content %}
 <div id="section-title">
-    <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1>{{ title }}</h1>{% endblock %}</span>
+    <span class="badge text-bg-primary centered-badge">
+        {% block page_title %}<h1>{{ title }}</h1>{% endblock %}
+    </span>
     {% load static %}
     <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
 </div>
 
+<div id="album-section" class="container mt-4">
+    <div class="row">
 
-<div id="player-section">
-    {% include "includes/player.html" %}
+        <div class="col-md-8">
+            <h2>{{ drummer }}</h2>
+            {% if album and artists != None %}
+                <h3>{{ artists }} - {{ album }}</h3>
+                <ul class="list-group list-group-flush">
+                    {% for track in album.tracks.all %}
+                        <li class="list-group-item">{{ track.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No album found for this drummer.</p>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            {% if album.cover %}
+                <img src="{{ album.cover.url }}" class="img-fluid album-cover" alt="Album cover">
+            {% endif %}
+        </div>
+
+    </div>
 </div>
 {% endblock %}
+

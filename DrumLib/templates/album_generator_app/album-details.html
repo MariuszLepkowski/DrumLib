@@ -1,12 +1,24 @@
 {% extends "includes/base.html" %}
 
-{% block title %}{{ drummer.name }}'s Tracks - DrumLib{% endblock %}
+{% block title %}Generated Album - DrumLib{% endblock %}
 
 {% block content %}
 <div id="section-title">
-    <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1>{% for artist in artists %} {{ artist.name }} {% endfor %} - {{ title }}</h1>{% endblock %}</span>
-    {% load static %}
+    <span class="badge text-bg-primary centered-badge">
+        {% block page_title %}<h1>{{ title }}</h1>{% endblock %}
+    </span>
 </div>
+
+{% if album %}
+
+<br>
+    <h1>{{ artists }} - {{ album.title }}</h1>
+    <br>
+    <h4>Drummer: {{drummer}}</h4>
+    <h5>Release year: {{ album.release_year }}</h5>
+    <h5>Genre: {{ album.genre }}</h5>
+
+    <br>
 
     <ul class="list-group">
         {% for track in tracks %}
@@ -22,12 +34,19 @@
                 </svg>
                 YouTube
             </a>
+
         </li>
         {% endfor %}
     </ul>
 
 
+
+{% else %}
+    <p>No albums found for {{ drummer }} on the database.</p>
+{% endif %}
+
 <div id="player-section">
     {% include "includes/player.html" %}
 </div>
+
 {% endblock %}

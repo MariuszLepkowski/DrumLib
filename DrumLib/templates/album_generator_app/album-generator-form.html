@@ -1,0 +1,28 @@
+{% extends "includes/base.html" %}
+
+{% block title %}Album Generator - DrumLib{% endblock %}
+
+{% block content %}
+<div id="section-title">
+    <span class="badge text-bg-primary centered-badge">
+        {% block page_title %}<h1>{{ title }}</h1>{% endblock %}
+    </span>
+    {% load static %}
+    <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
+</div>
+
+<div class="container mt-4">
+    <form method="post" action="{% url 'album_generator_app:generate_random_album' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="drummer">Select Drummer:</label>
+            <select id="drummer" name="drummer" class="form-control">
+                {% for drummer in drummers %}
+                    <option value="{{ drummer.id }}">{{ drummer.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Generate Random Album</button>
+    </form>
+</div>
+{% endblock %}
