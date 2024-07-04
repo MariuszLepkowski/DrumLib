@@ -1,5 +1,4 @@
-from django.shortcuts import render, HttpResponse
-from django.http import JsonResponse
+from django.shortcuts import render
 from random import choice
 from drummers_app.models import Drummer
 from discography_app.models import Album
@@ -11,8 +10,12 @@ def random_album(request):
     albums = Album.objects.filter(drummers=random_drummer)
     album = choice(albums) if albums.exists() else None
 
-    return JsonResponse({
+    context = {
+        'title': 'Album Generator',
         'drummer': random_drummer.name,
-        'album': album.title if album else 'No album found'
-    })
-    # return HttpResponse("Random album generator")
+        'album': album.title if album else 'No album found',
+    }
+
+    return render(request, 'album_generator_app/album-generator.html', context)
+
+
