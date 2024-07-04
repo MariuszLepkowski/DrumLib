@@ -24,7 +24,7 @@ urlpatterns = [
     path("drummers/", include("drummers_app.urls")),
     path('discographies/', include('discography_app.urls')),
     path('admin/', admin.site.urls),
-    path('random-album-generator/', include('random_album_generator_app.urls')),
+    path('album-generator/', include('album_generator_app.urls')),
 ]
 
 if settings.DEBUG:

@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'random_album_generator_app'
+app_name = 'album_generator_app'
 
 
 urlpatterns = [
