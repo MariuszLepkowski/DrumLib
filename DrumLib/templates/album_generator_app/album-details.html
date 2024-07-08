@@ -18,7 +18,7 @@
         <h5 class="mb-4">Genre: {{ album.genre }}</h5>
 
         <!-- Apply the new class here -->
-        <h3 class="tracklist-heading">Tracklist:</h3>
+        <h3 class="tracklist-heading">Tracks played by {{ drummer }}:</h3>
         <ul class="list-group mb-4">
             {% for track in tracks %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -49,6 +49,7 @@
     <p class="mb-4">No albums found for {{ drummer }} on the database.</p>
     <a href="{% url 'album_generator_app:album_generator_form' %}" type="button" class="btn btn-primary">Back to Album Generator</a>
 {% endif %}
+</div>
 
 <div id="player-section" class="mt-4">
     {% include "includes/player.html" %}

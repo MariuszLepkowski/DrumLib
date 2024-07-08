@@ -30,7 +30,7 @@
 from django.shortcuts import render
 from random import choice
 from drummers_app.models import Drummer
-from discography_app.models import Album
+from discography_app.models import Album, Track
 from discography_app.utils import get_video_id
 
 
@@ -50,7 +50,7 @@ def generate_random_album(request):
     album = choice(albums) if albums.exists() else None
 
     if album and album.tracks.exists():
-        tracks = album.tracks.all()
+        tracks = Track.objects.filter(albums=album, drummers=random_drummer)
 
         for track in tracks:
             track.video_id = get_video_id(track.track_url)

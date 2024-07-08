@@ -43,9 +43,10 @@ def drummer_tracks(request, drummer_name):
     return render(request, 'discography_app/drummer-tracks.html', context)
 
 
-def album_tracks(request, album_title):
+def album_tracks(request, album_title, drummer_name):
+    drummer = get_object_or_404(Drummer, name=drummer_name)
     album = get_object_or_404(Album, title=album_title)
-    tracks = album.tracks.all()
+    tracks = Track.objects.filter(albums=album, drummers=drummer)
     artists = album.artists.all()
 
     for track in tracks:
@@ -56,6 +57,7 @@ def album_tracks(request, album_title):
         'tracks': tracks,
         'artists': artists,
         'album': album,
+        'drummer': drummer,
     }
 
     return render(request, 'discography_app/album-tracks.html', context)
