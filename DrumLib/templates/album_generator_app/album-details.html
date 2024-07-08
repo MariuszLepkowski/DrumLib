@@ -19,7 +19,7 @@
     <h5>Genre: {{ album.genre }}</h5>
 
     <br>
-
+    <h2>Album Tracklist: </h2>
     <ul class="list-group">
         {% for track in tracks %}
         <li class="list-group-item">{{ track.title }}
@@ -44,6 +44,9 @@
 {% else %}
     <p>No albums found for {{ drummer }} on the database.</p>
 {% endif %}
+<br>
+
+<a href="{% url 'album_generator_app:album_generator_form' %}"  type="button" class="btn btn-primary">Generate another album</a>
 
 </div>
 

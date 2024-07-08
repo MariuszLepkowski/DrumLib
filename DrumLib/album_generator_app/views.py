@@ -64,7 +64,7 @@ def generate_random_album(request):
         artists = None
 
     context = {
-        'title': 'Generated album',
+        'title': 'Album Generator',
         'drummer': random_drummer,
         'album': album,
         'artists': artists,
