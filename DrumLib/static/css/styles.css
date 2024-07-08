@@ -395,3 +395,35 @@ margin-left: 68px;
     margin: 0 auto;
     text-align: center;
 }
+
+
+/********************************** Album Generator - Album Details ****************************************/
+.album-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 20px;
+    margin-top:20px;
+}
+
+.album-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.album-cover {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.album-cover img {
+    width: 300px;  /* Ustaw szerokość okładki albumu */
+    height: 300px; /* Ustaw wysokość okładki albumu */
+    object-fit: cover; /* Dopasuj obrazek do kontenera */
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+
