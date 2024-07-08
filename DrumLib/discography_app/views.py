@@ -55,6 +55,7 @@ def album_tracks(request, album_title):
         'title': album_title,
         'tracks': tracks,
         'artists': artists,
+        'album': album,
     }
 
     return render(request, 'discography_app/album-tracks.html', context)

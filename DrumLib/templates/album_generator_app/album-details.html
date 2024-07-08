@@ -9,7 +9,6 @@
     </span>
 </div>
 
-
 {% if album %}
 <div class="album-container">
     <div class="album-details">
@@ -18,12 +17,14 @@
         <h5 class="mb-2">Release year: {{ album.release_year }}</h5>
         <h5 class="mb-4">Genre: {{ album.genre }}</h5>
 
-        <h3 class="mb-3">Tracklist:</h3>
+        <!-- Apply the new class here -->
+        <h3 class="tracklist-heading">Tracklist:</h3>
         <ul class="list-group mb-4">
-            <ul class="list-group">
-                {% for track in tracks %}
-                <li class="list-group-item">{{ track.title }}
-                    <button type="button" class="btn btn-success play-button" data-video-url="{{ track.track_url }}" data-video-id="{{ track.video_id }}">
+            {% for track in tracks %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ track.title }}
+                <div>
+                    <button type="button" class="btn btn-success play-button me-2" data-video-url="{{ track.track_url }}" data-video-id="{{ track.video_id }}">
                         Play track
                     </button>
                     <a href="{{ track.track_url }}" target="_blank" class="btn btn-outline-danger">
@@ -32,34 +33,24 @@
                         </svg>
                         YouTube
                     </a>
-                </li>
-    {% endfor %}
-</ul>
-
-<br>
-
-<a href="{% url 'album_generator_app:album_generator_form' %}" type="button" class="btn btn-primary">Generate another album</a>
-
-{% else %}
-    <p>No albums found for {{ drummer }} on the database.</p>
-
-<br>
-<a href="{% url 'album_generator_app:album_generator_form' %}" type="button" class="btn btn-primary">Back to Album Generator</a>
-{% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'album_generator_app:album_generator_form' %}" type="button" class="btn btn-primary mb-4">Generate another album</a>
     </div>
-    <div class="album-cover">
+
+    <div class="album-cover ms-4">
         <img src="{{ album.album_cover.url }}" alt="{{ album.title }} cover" class="img-fixed">
     </div>
-
 </div>
 
-<br>
+{% else %}
+    <p class="mb-4">No albums found for {{ drummer }} on the database.</p>
+    <a href="{% url 'album_generator_app:album_generator_form' %}" type="button" class="btn btn-primary">Back to Album Generator</a>
+{% endif %}
 
-
-
-</div>
-
-<div id="player-section">
+<div id="player-section" class="mt-4">
     {% include "includes/player.html" %}
 </div>
 
