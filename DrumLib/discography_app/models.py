@@ -13,6 +13,7 @@ class Album(models.Model):
     - drummers: Many-to-many relationship with Drummer model, stores drummers associated with the album.
     - tracks: Many-to-many relationship with Track model, stores tracks included in the album.
     - album_url: album_url.
+    - album_cover: Cover image of the album.
     """
     title = models.CharField(max_length=255)
     artists = models.ManyToManyField('Artist', related_name='albums_featured', blank=True)
@@ -21,6 +22,7 @@ class Album(models.Model):
     drummers = models.ManyToManyField('drummers_app.Drummer', related_name='albums_played', blank=True)
     tracks = models.ManyToManyField('Track', related_name='albums', blank=True)
     album_url = models.TextField(blank=True, null=True)
+    album_cover = models.ImageField(upload_to='album_covers/', blank=False, null=False)
 
     def __str__(self):
         return self.title
