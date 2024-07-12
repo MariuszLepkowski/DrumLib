@@ -1,0 +1,17 @@
+{% extends "includes/base.html" %}
+
+{% block title %}Login - DrumLib {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
+        <h2 class="card-title text-center mb-4">Log in</h2>
+        <form method='POST'>
+            {%csrf_token%}
+            {% load crispy_forms_tags %}
+            {{form|crispy}}
+        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        Need An Account? <a href='{% url 'user_management_app:register' %}'>Sign Up</a></form>
+    </div>
+</div>
+{% endblock %}
