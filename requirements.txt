@@ -4,3 +4,4 @@ python-dotenv==1.0.0
 django_extensions==3.2.3
 pygraphviz
 Pillow
+django-crispy-forms

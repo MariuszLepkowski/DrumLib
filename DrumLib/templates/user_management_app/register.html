@@ -1,0 +1,31 @@
+{% extends "includes/base.html" %}
+
+{% block title %}Sign up - DrumLib{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
+        <h2 class="card-title text-center mb-4">Sign Up</h2>
+
+        {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            {{ form|crispy }}
+
+            <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+        </form>
+        <p class="text-center mt-3">Already have an account? <a href="">Login</a></p>
+    </div>
+</div>
+{% endblock %}
+
+

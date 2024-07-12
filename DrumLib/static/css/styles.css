@@ -1,5 +1,5 @@
-body {
-    background-color: #181a1b;
+#main-body {
+ background-color:black;Zz
 }
 
 
@@ -16,7 +16,7 @@ body {
 /**************************** Main content ***********************************/
 .main-content {
     overflow-y: auto;
-    color: white;
+    color: #454a4d;
     margin-bottom:165px;
 }
 
@@ -35,6 +35,7 @@ body {
     margin: 0;
     padding: 0;
     margin-bottom:100px;
+
 }
 
 .text-container {
@@ -44,6 +45,7 @@ body {
     margin-top: 0px;
     width:110%;
 
+
 }
 
 #welcome-section, #features-section {
@@ -51,14 +53,17 @@ body {
     background-color: #0d6efd;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-color: white;
 }
 
 #welcome-section h1, #features-section h1 {
     margin-top: 0;
+    color: white;
 }
 
 #welcome-section p, #features-section p {
     margin: 0;
+    color: white;
 }
 
 .image-container {
@@ -214,21 +219,40 @@ body {
 
 .discographies {
     max-width: 1000px;
-}
-
-
-.drummer-list{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
 
 }
 
-.name{
-    padding-top:150px;
-    text-align: center;
-    margin-left: 68px;
+
+.drummer-list {
+    display: flex;
+    align-items: center; /* Wyśrodkowanie elementów w pionie */
+    justify-content: space-between; /* Równe rozłożenie elementów na osi poziomej */
+    gap: 20px; /* Odstęp między elementami */
+    max-width: 600px;
+    margin-left:120px;
 
 }
+
+.name {
+    flex: 1; /* Rozciągnięcie name na całą dostępną przestrzeń */
+    text-align: left; /* Wyrównanie tekstu do lewej */
+}
+
+.disc-photo {
+    max-width: 300px; /* Maksymalna szerokość zdjęcia */
+    height: auto; /* Automatyczna wysokość proporcjonalna do szerokości */
+    padding-top:30px;
+    padding-bottom:30px;
+}
+
+
+
+
+.discography-profile-img {
+    max-width: 300px;
+    align-items: right;
+}
+
 .album-container-2 {
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -241,10 +265,7 @@ body {
     max-width:300px;
 }
 
-.disc-photo {
-    max-width: 300px;
-    height: auto;
-}
+
 
 .album-container {
     display: grid;
@@ -460,4 +481,47 @@ body {
 .tracklist-heading {
     margin-top: 2rem; /* Dodatkowy margines górny */
  /* Dodatkowy margines dolny */
+}
+
+
+/********************************** Registration form ****************************************/
+
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.registration-success {
+    text-align: center;
+    font-size: 1.5rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 50%;
+    padding: 20px;
+    background-color: #ffe8e6;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    color: #721c24; /* Ciemny czerwony kolor tekstu */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Dodatkowy cień */
 }
