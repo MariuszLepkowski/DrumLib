@@ -1,0 +1,20 @@
+{% extends "includes/base.html" %}
+
+{% block title %}Profile - DrumLib{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
+        <h2 class="card-title text-center mb-4">Profile</h2>
+        {% if user.first_name %}
+            <p><strong>First name:</strong> {{ user.first_name }}</p>
+        {% endif %}
+
+        {% if user.last_name %}
+            <p><strong>Last name:</strong> {{ user.last_name }}</p>
+        {% endif %}
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+</div>
+{% endblock %}

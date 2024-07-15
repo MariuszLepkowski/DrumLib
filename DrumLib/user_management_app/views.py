@@ -3,6 +3,7 @@ from django.contrib import messages
 from .forms import UserRegistrationForm, CustomAuthenticationForm
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -27,3 +28,8 @@ class CustomLoginView(LoginView):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+@login_required
+def profile(request):
+    return render(request, 'user_management_app/profile.html')

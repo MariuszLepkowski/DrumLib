@@ -25,7 +25,7 @@ urlpatterns = [
     path('discographies/', include('discography_app.urls')),
     path('admin/', admin.site.urls),
     path('album-generator/', include('album_generator_app.urls')),
-    path('auth/', include('user_management_app.urls')),
+    path('', include('user_management_app.urls')),
 ]
 
 if settings.DEBUG:
