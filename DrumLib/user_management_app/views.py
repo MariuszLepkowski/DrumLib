@@ -13,6 +13,8 @@ def register(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account for {username} created successfully!')
             return render(request,'user_management_app/registration-success.html')
+        else:
+            messages.error(request, 'Registration failed. Please correct the errors below.')
     else:
         form = UserRegistrationForm()
     return render(request, 'user_management_app/register.html', {'form': form})
