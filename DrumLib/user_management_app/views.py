@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, CustomAuthenticationForm
 from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView
 
 
 def register(request):
@@ -15,6 +16,10 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'user_management_app/register.html', {'form': form})
+
+
+class CustomLoginView(LoginView):
+    authentication_form = CustomAuthenticationForm
 
 
 def logout_view(request):

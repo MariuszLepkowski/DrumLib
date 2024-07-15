@@ -10,9 +10,14 @@
             {%csrf_token%}
             {% load crispy_forms_tags %}
             {{form|crispy}}
-        <button type="submit" class="btn btn-primary btn-block">Log in</button>
-        Need An Account? <a href='{% url 'user_management_app:register' %}'>Sign Up</a>
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </form>
+
+        <div id="reset-password-join">
+            <p class="text-center">Forgot your password <a href="#">Reset Password</a></p>
+            <p class="text-center">Don't have an account? <a href="{% url 'user_management_app:register' %}">Join Now</a></p>
+        </div>
     </div>
 </div>
+
 {% endblock %}
