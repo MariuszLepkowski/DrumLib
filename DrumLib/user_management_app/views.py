@@ -22,6 +22,7 @@ def register(request):
 
 
 class CustomLoginView(LoginView):
+    template_name = 'user_management_app/login.html'
     authentication_form = CustomAuthenticationForm
 
 
