@@ -13,6 +13,20 @@
 
 }
 
+    .avatar, .avatar-placeholder {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .avatar-placeholder {
+        background-color: #007bff;  /* Błękitne tło */
+        color: white;
+    }
 /**************************** Main content ***********************************/
 .main-content {
     overflow-y: auto;
@@ -531,3 +545,4 @@ body {
 #reset-password-join {
     margin-top:20px;
 }
+

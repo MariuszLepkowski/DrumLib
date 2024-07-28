@@ -14,7 +14,16 @@
             <p><strong>Last name:</strong> {{ user.last_name }}</p>
         {% endif %}
         <p><strong>Username:</strong> {{ user.username }}</p>
+        {% if user.profile.personal_info %}
+            <p><strong>About:</strong> {{ user.profile.personal_info }}</p>
+        {% endif %}
         <p><strong>Email:</strong> {{ user.email }}</p>
+        {% if user.profile.avatar %}
+            <p><strong>Avatar: </strong> <img src="{{ user.profile.avatar.url }}" alt="Avatar" style="width: 100px; height: 100px;"></p>
+        {% else %}
+            <p><strong>Avatar: </strong> No avatar uploaded.</p>
+        {% endif %}
+        <a href="{% url 'user_management_app:edit_profile' %}" class="btn btn-primary btn-block mt-3">Edit Profile</a>
     </div>
 </div>
 {% endblock %}

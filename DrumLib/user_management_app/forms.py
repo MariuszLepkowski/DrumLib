@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
+from .models import Profile
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -36,4 +37,20 @@ class CustomAuthenticationForm(AuthenticationForm):
                 self.confirm_login_allowed(self.user_cache)
 
         return self.cleaned_data
+
+
+class UserProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30, required=False, help_text='Optional')
+    last_name = forms.CharField(max_length=30, required=False, help_text='Optional')
+    personal_info = forms.CharField(widget=forms.Textarea, required=False, help_text='Optional')
+    avatar = forms.ImageField(required=False, help_text='Optional')
+
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'personal_info', 'avatar']
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].initial = self.instance.user.first_name
+        self.fields['last_name'].initial = self.instance.user.last_name
 

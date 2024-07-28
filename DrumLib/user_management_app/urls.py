@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from .views import register, logout_view, CustomLoginView, profile
+from .views import register, logout_view, CustomLoginView, profile, edit_profile
 
 app_name = 'user_management_app'
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('accounts/login/', CustomLoginView.as_view(template_name='user_management_app/login.html'), name='login'),
     path('logout/', logout_view, name='logout'),
     path('profile/', profile, name='profile'),
+    path('edit_profile/', edit_profile, name='edit_profile'),
 
     path('accounts/password_reset/', auth_views.PasswordResetView.as_view(template_name='user_management_app/password_reset.html'), name='password_reset'),
     path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='user_management_app/password_reset_done.html'), name='password_reset_done'),

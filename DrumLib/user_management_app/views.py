@@ -1,19 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm, CustomAuthenticationForm
-from django.contrib.auth import logout
+from .forms import UserRegistrationForm, CustomAuthenticationForm,  UserProfileForm
+from django.contrib.auth import logout, login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 def register(request):
-    if request.method == 'POST': #if the form has been submitted
-        form = UserRegistrationForm(request.POST) #form bound with post data
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account for {username} created successfully!')
-            return render(request,'user_management_app/registration-success.html')
+            login(request, user)
+            return redirect('user_management_app:profile')
         else:
             messages.error(request, 'Registration failed. Please correct the errors below.')
     else:
@@ -34,3 +36,16 @@ def logout_view(request):
 @login_required
 def profile(request):
     return render(request, 'user_management_app/profile.html')
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated!')
+            return redirect('user_management_app:profile')
+    else:
+        form = UserProfileForm(instance=request.user.profile)
+    return render(request, 'user_management_app/edit_profile.html', {'form': form})
