@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Album, Track
 from drummers_app.models import Drummer
 from drummers_app.views import sort_by_last_name
 from .utils import get_video_id
+from comments_app.forms import CommentForm
+from comments_app.models import Comment
 
 
 def drummers_list(request):
@@ -52,12 +54,28 @@ def album_tracks(request, album_title, drummer_name):
     for track in tracks:
         track.video_id = get_video_id(track.track_url)
 
+    comments = Comment.objects.filter(album=album, drummer=drummer)
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.album = album
+            comment.drummer = drummer
+            comment.save()
+
+            return redirect('discography_app:album_tracks', album_title=album.title, drummer_name=drummer.name)
+
     context = {
         'title': album_title,
         'tracks': tracks,
         'artists': artists,
         'album': album,
         'drummer': drummer,
+        'form': form,
+        'comments': comments,
     }
 
     return render(request, 'discography_app/album-tracks.html', context)

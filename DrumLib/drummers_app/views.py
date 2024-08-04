@@ -1,5 +1,8 @@
 from django.shortcuts import render, HttpResponse
 from .models import Drummer, DrummerPhoto
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from comments_app.forms import CommentForm
 
 
 def sort_by_last_name(drummer):
@@ -21,16 +24,29 @@ def drummers(request):
     return render(request, template_name, context)
 
 
-
 def drummer_profile(request, drummer_name):
-    # response = f'drummer_profile view. Displays {drummer_name} profile with basic information and an associated discography.'
-    # return HttpResponse(response, drummer_name)
     template_name = "drummers_app/drummer-profile.html"
 
-    drummer =  Drummer.objects.get(name=drummer_name)
+    drummer = Drummer.objects.get(name=drummer_name)
+
+    comments = drummer.comment_set.all()
+    form = CommentForm()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.drummer = drummer
+            comment.save()
+
+            return redirect('drummers_app:drummer_profile', drummer_name=drummer.name)
+
     context = {
         'title': f'{drummer_name}',
         'drummer': drummer,
+        'form': form,
+        'comments': comments,
     }
 
     return render(request, template_name, context)
