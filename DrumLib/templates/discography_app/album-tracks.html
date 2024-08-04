@@ -32,7 +32,42 @@
         <img src="{{ album.album_cover.url }}" alt="{{ album.title }} cover" class="album-cover-img2">
     </div>
 
+
+<div class="comments-section">
+    <span class="badge text-bg-primary">
+        <h1>Comments</h1>
+    </span>
+
+    {% if user.is_authenticated %}
+        <div class="add-comment mt-4">
+            <form method="post" action="{% url 'discography_app:album_tracks' album_title=album.title drummer_name=drummer.name %}">
+                {% csrf_token %}
+                <input type="hidden" name="drummer_name" value="{{ drummer.name }}">
+                {% load crispy_forms_tags %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Add Comment</button>
+            </form>
+        </div>
+    {% else %}
+        <p>You must be <a href="{% url 'user_management_app:login' %}">logged in</a> to add a comment.</p>
+    {% endif %}
+    <br><br>
+
+    {% for comment in comments %}
+        <div class="comment">
+            <p>
+                {% if comment.author.profile.avatar %}
+                    <img src="{{ comment.author.profile.avatar.url }}" alt="Avatar" width="32" height="32" class="rounded-circle">
+                {% else %}
+                    <div class="avatar-placeholder rounded-circle">{{ comment.author.username|slice:":1" }}</div>
+                {% endif %}
+                <strong>{{ comment.author }}</strong> on {{ comment.created_at|date:"F j, Y, g:i a" }}:
+            </p>
+            <p>{{ comment.text }}</p>
+        </div>
+    {% endfor %}
 </div>
+
 </div>
 <div id="player-section">
     {% include "includes/player.html" %}

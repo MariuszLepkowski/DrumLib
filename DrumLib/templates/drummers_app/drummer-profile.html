@@ -59,4 +59,39 @@
 </div>
 </div>
 
+<div class="comments-section">
+    <span class="badge text-bg-primary">
+        <h1>Comments</h1>
+    </span>
+
+    {% if user.is_authenticated %}
+        <div class="add-comment mt-4">
+            <form method="post" action="{% url 'comments_app:add_comment' 'drummer' drummer.id %}">
+                {% csrf_token %}
+                {% load crispy_forms_tags %}
+                {{form|crispy}}
+                <button type="submit" class="btn btn-primary">Add Comment</button>
+            </form>
+        </div>
+    {% else %}
+        <p>You must be <a href="{% url 'user_management_app:login' %}">logged in</a> to add a comment.</p>
+    {% endif %}
+    <br><br>
+
+        {% for comment in drummer.comment_set.all %}
+            <div class="comment">
+                <p>
+                    {% if comment.author.profile.avatar %}
+                        <img src="{{ user.profile.avatar.url }}" alt="Avatar" width="32" height="32" class="rounded-circle">
+                    {% else %}
+                        <div class="avatar-placeholder rounded-circle">{{ comment.author.username|slice:":1" }}</div>
+                    {% endif %}
+                    <strong>{{ comment.author }}</strong> on {{ comment.created_at|date:"F j, Y, g:i a" }}:
+
+                <p>{{ comment.text }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+
 {% endblock %}
