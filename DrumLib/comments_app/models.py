@@ -11,8 +11,7 @@ class Comment(models.Model):
 
     drummer = models.ForeignKey(Drummer, on_delete=models.CASCADE, null=True, blank=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, null=True, blank=True)
-    track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f'Comment by {self.author} on {self.created_at}'
+        return f'Comment by {self.author} on {self.created_at}: {self.text}'
 
