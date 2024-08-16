@@ -5,3 +5,4 @@ django_extensions==3.2.3
 pygraphviz
 Pillow
 django-crispy-forms
+crispy-bootstrap5
