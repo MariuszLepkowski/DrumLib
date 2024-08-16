@@ -78,7 +78,7 @@
     {% endif %}
     <br><br>
 
-        {% for comment in drummer.comment_set.all %}
+        {% for comment in comments %}
             <div class="comment">
                 <p>
                     {% if comment.author.profile.avatar %}

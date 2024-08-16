@@ -29,7 +29,7 @@ def drummer_profile(request, drummer_name):
 
     drummer = Drummer.objects.get(name=drummer_name)
 
-    comments = drummer.comment_set.all()
+    comments = drummer.comment_set.filter(album__isnull=True)
     form = CommentForm()
 
     if request.method == 'POST':
