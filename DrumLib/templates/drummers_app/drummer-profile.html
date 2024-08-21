@@ -82,13 +82,21 @@
             <div class="comment">
                 <p>
                     {% if comment.author.profile.avatar %}
-                        <img src="{{ user.profile.avatar.url }}" alt="Avatar" width="32" height="32" class="rounded-circle">
+                        <img src="{{ comment.author.profile.avatar.url }}" alt="Avatar" width="32" height="32" class="rounded-circle">
                     {% else %}
                         <div class="avatar-placeholder rounded-circle">{{ comment.author.username|slice:":1" }}</div>
                     {% endif %}
                     <strong>{{ comment.author }}</strong> on {{ comment.created_at|date:"F j, Y, g:i a" }}:
 
                 <p>{{ comment.text }}</p>
+
+                {% if comment.author == user or user.is_staff %}
+                    <a href="{% url 'comments_app:edit_comment' comment.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <form method="post" action="{% url 'comments_app:delete_comment' comment.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

@@ -1,8 +1,8 @@
-# comments_app/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from drummers_app.models import Drummer
 from discography_app.models import Album
+from .models import Comment
 from .forms import CommentForm
 
 
@@ -38,3 +38,29 @@ def add_comment(request, content_type, object_id):
 
     return render(request, 'comments_app/add_comment.html', {'form': form})
 
+@login_required
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id, author=request.user)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            if comment.album:
+                return redirect('discography_app:album_tracks', album_title=comment.album.title, drummer_name=comment.drummer.name)
+            elif comment.drummer:
+                return redirect('drummers_app:drummer_profile', drummer_name=comment.drummer.name)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'comments_app/edit_comment.html', {'form': form})
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if comment.author == request.user or request.user.is_staff:
+        if comment.album:
+            redirect_url = redirect('discography_app:album_tracks', album_title=comment.album.title, drummer_name=comment.drummer.name)
+        elif comment.drummer:
+            redirect_url = redirect('drummers_app:drummer_profile', drummer_name=comment.drummer.name)
+        comment.delete()
+        return redirect_url
+    return redirect('drummers_app:drummer_profile', drummer_name=comment.drummer.name)  # Fallback in case of failure
