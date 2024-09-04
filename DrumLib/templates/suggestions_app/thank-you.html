@@ -7,8 +7,12 @@
     <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1>Suggest Content</h1>{% endblock %}</span>
     {% load static %}
     <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
+
+</div>
+<div id="thank-section">
     <h1>Thanks For Your Suggestion!</h1>
-    <p>Your suggestion has been submitted to the DrumLib administration. The DrumLib team will work on adding your suggested content to the site.</p>
-    <a href="{% url 'home_app:home_page' %}">Return to Home</a>
+    <p>Your suggestion has been submitted to the DrumLib administration. <br>
+        The DrumLib team will work on adding your suggested content to the site.</p>
+    <a href="{% url 'home_app:home_page' %}" class="btn btn-primary">Back to homepage</a>
 </div>
 {% endblock %}
