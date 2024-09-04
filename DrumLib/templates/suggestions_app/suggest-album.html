@@ -8,4 +8,14 @@
     {% load static %}
     <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
 </div>
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow-sm" style="max-width: 400px; width: 100%;">
+        <h2 class="card-title text-center mb-4">What album would you like to be added to DrumLib?</h2>
+        <form method='POST'>
+            {%csrf_token%}
+            {% load crispy_forms_tags %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-primary btn-block">Send suggestion</button>
+        </form>
 {% endblock %}
