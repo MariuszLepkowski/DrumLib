@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'album_generator_app.apps.RandomAlbumGeneratorAppConfig',
     'user_management_app.apps.UserManagementAppConfig',
     'home_app.apps.HomeAppConfig',
+    'suggestions_app.apps.SuggestionsAppConfig',
     'django_extensions',
 
     'crispy_forms',
