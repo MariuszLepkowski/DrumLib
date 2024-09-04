@@ -4,8 +4,28 @@
 
 {% block content %}
 <div id="section-title">
-    <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1>Suggest Content</h1>{% endblock %}</span>
+    <span class="badge text-bg-primary centered-badge">
+        {% block page_title %}
+            <h1>Suggest Content</h1>
+        {% endblock %}
+    </span>
     {% load static %}
-    <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
+    <img src="{% static 'assets/img/section-title-bg-img.jpg' %}" class="drummers-bg">
+</div>
+
+<div class="container mt-5">
+    <p class="lead text-center">Let us know which drummer or album you'd like to see in DrumLib.</p>
+
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <!-- Button to suggest a drummer -->
+        <a href="{% url 'suggestions_app:suggest_drummer' %}" class="btn btn-primary btn-lg">
+            Suggest a Drummer
+        </a>
+
+        <!-- Button to suggest an album -->
+        <a href="{% url 'suggestions_app:suggest_album' %}" class="btn btn-secondary btn-lg">
+            Suggest an Album
+        </a>
+    </div>
 </div>
 {% endblock %}
