@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import DrummerSuggestionForm
+from .forms import DrummerSuggestionForm, AlbumSuggestionForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -14,7 +14,7 @@ def suggest_drummer(request):
             return redirect('suggestions_thank_you')
     else:
         form = DrummerSuggestionForm()
-    return render(request, 'suggestions_app/suggest_drummer.html', {'form': form})
+    return render(request, 'suggestions_app/suggest-drummer.html', {'form': form})
 
 @login_required
 def suggest_album(request):
@@ -27,5 +27,5 @@ def suggest_album(request):
             return redirect('suggestions_thank_you')
     else:
         form = AlbumSuggestionForm()
-    return render(request, 'suggestions_app/suggest_album.html', {'form': form})
+    return render(request, 'suggestions_app/suggest-album.html', {'form': form})
 
