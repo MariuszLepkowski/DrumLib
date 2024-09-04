@@ -3,6 +3,9 @@ from .forms import DrummerSuggestionForm, AlbumSuggestionForm
 from django.contrib.auth.decorators import login_required
 
 
+def suggest_content(request):
+    return render(request, 'suggestions_app/suggest-content.html')
+
 @login_required
 def suggest_drummer(request):
     if request.method == 'POST':

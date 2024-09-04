@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('user_management_app.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('comments/', include('comments_app.urls', namespace='comments_app')),
+    path('suggestions/', include('suggestions_app.urls', namespace='suggestions_app')),
 ]
 
 if settings.DEBUG:
