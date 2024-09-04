@@ -1,32 +1,4 @@
 {% load static %}
-<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
-<!--    <div class="container d-flex justify-content-between align-items-center">-->
-<!--        <a class="navbar-brand" href="{% url 'home_app:home_page' %}"><img src={% static "assets/img/drumlib-logo1.png"%}  class="drumlib-logo1" ></a>-->
-<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--            <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
-<!--        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">-->
-<!--            <ul class="navbar-nav">-->
-<!--                <li class="nav-item"><a class="nav-link" href="{% url 'home_app:home_page' %}">Home</a></li>-->
-
-
-
-<!--                <li class="nav-item"><a class="nav-link" href="{% url 'drummers_app:drummers_list' %}">Drummers Explorer</a></li>-->
-<!--                <li class="nav-item"><a class="nav-link" href="{% url 'drummers_app:add_drummer' %}">Add Drummer</a></li>-->
-<!--                <li class="nav-item"><a class="nav-link" href="{% url 'discography_app:drummers_list' %}">Discographies</a></li>-->
-<!--                <li class="nav-item"><a class="nav-link" href="{% url 'album_generator_app:album_generator_form' %}">Album Generator</a></li>-->
-
-<!--                {% if user.is_authenticated %}-->
-<!--                    <button type="button" class="btn btn-outline-primary me-2"><a class="nav-link" href="{% url 'user_management_app:logout' %}">Logout {{ user.username }} </a></button>-->
-<!--                {% else %}-->
-<!--                    <button type="button" class="btn btn-outline-primary me-2"><a class="nav-link" href="{% url 'user_management_app:login' %}">Login</a></button>-->
-<!--                    <button type="button" class="btn btn-primary"><a class="nav-link" href="{% url 'user_management_app:register' %}">Register</a></button>-->
-<!--                {% endif %}-->
-<!--                -->
-<!--            </ul>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</nav>-->
 
   <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -37,7 +9,6 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="{% url 'home_app:home_page' %}" class="nav-link px-2 link-secondary">Home</a></li>
         <li><a href="{% url 'drummers_app:drummers_list' %}" class="nav-link px-2 link-dark">Drummers <br> Explorer</a></li>
-        <li><a href="{% url 'drummers_app:add_drummer' %}" class="nav-link px-2 link-dark">Add<br> Drummer</a></li>
         <li><a href="{% url 'discography_app:drummers_list' %}" class="nav-link px-2 link-dark">Discographies</a></li>
         <li><a href="{% url 'album_generator_app:album_generator_form' %}" class="nav-link px-2 link-dark">Album <br> Generator</a></li>
       </ul>

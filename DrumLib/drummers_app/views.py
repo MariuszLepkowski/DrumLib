@@ -50,14 +50,3 @@ def drummer_profile(request, drummer_name):
     }
 
     return render(request, template_name, context)
-
-
-def add_drummer(request):
-    # response = 'add_drummer view. Allows users to add_new drummer to db through form.'
-    # return HttpResponse(response)
-    template_name = "drummers_app/add-drummer.html"
-    context = {
-        'title': 'Add Drummer'
-    }
-
-    return render(request, template_name, context)
