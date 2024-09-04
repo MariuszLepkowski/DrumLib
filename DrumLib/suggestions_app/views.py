@@ -1,3 +1,31 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import DrummerSuggestionForm
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+
+@login_required
+def suggest_drummer(request):
+    if request.method == 'POST':
+        form = DrummerSuggestionForm(request.POST)
+        if form.is_valid():
+            suggestion = form.save(commit=False)
+            suggestion.suggested_by = request.user
+            suggestion.save()
+            return redirect('suggestions_thank_you')
+    else:
+        form = DrummerSuggestionForm()
+    return render(request, 'suggestions_app/suggest_drummer.html', {'form': form})
+
+@login_required
+def suggest_album(request):
+    if request.method == 'POST':
+        form = AlbumSuggestionForm(request.POST)
+        if form.is_valid():
+            suggestion = form.save(commit=False)
+            suggestion.suggested_by = request.user
+            suggestion.save()
+            return redirect('suggestions_thank_you')
+    else:
+        form = AlbumSuggestionForm()
+    return render(request, 'suggestions_app/suggest_album.html', {'form': form})
+
