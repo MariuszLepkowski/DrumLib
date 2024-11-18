@@ -6,3 +6,4 @@ pygraphviz
 Pillow
 django-crispy-forms
 crispy-bootstrap5
+pytest
