@@ -53,7 +53,9 @@ class UserProfileForm(forms.ModelForm):
         super(UserProfileForm, self).__init__(*args, **kwargs)
         user = self.instance.user
 
+        self.fields['first_name'].initial = self.instance.user.first_name
         self.fields['first_name'].widget.attrs['placeholder'] = user.first_name
+        self.fields['last_name'].initial = self.instance.user.last_name
         self.fields['last_name'].widget.attrs['placeholder'] = user.last_name
         self.fields['personal_info'].widget.attrs['placeholder'] = "Tell us about yourself"  # Example placeholder
 
