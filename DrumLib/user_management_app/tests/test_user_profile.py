@@ -2,6 +2,9 @@ import pytest
 from django.contrib.auth.models import User
 from user_management_app.models import Profile
 from user_management_app.forms import UserProfileForm
+from django.core.files.uploadedfile import SimpleUploadedFile
+from PIL import Image
+from io import BytesIO
 
 
 @pytest.mark.django_db
@@ -100,3 +103,44 @@ class TestUserProfileForm:
         # Assert
         assert not form.is_valid()
         assert "Ensure this value has at most" in form.errors['first_name'][0]
+
+    def test_profile_form_avatar_validation(self):
+        user = User.objects.create_user(username="testuser", password="password123")
+        profile = Profile.objects.get(user=user)
+
+        # Generate a valid image file
+        image = Image.new("RGB", (100, 100), "white")
+        image_file = BytesIO()
+        image.save(image_file, format="JPEG")
+        image_file.seek(0)  # Reset the file pointer to the beginning
+
+        valid_image = SimpleUploadedFile("avatar.jpg", image_file.read(), content_type="image/jpeg")
+        invalid_file = SimpleUploadedFile("document.pdf", b"file_content", content_type="application/pdf")
+
+        # Test valid image
+        form = UserProfileForm(
+            instance=profile,
+            data={
+                "first_name": "John",
+                "last_name": "Doe",
+                "personal_info": "New personal info",
+            },
+            files={"avatar": valid_image},
+        )
+        assert form.is_valid()
+
+        # Test invalid file
+        form = UserProfileForm(
+            instance=profile,
+            data={
+                "first_name": "John",
+                "last_name": "Doe",
+                "personal_info": "New personal info",
+            },
+            files={"avatar": invalid_file},
+        )
+        assert not form.is_valid(), "Form should be invalid with a non-image file."
+        assert "avatar" in form.errors, "The error should be related to the avatar field."
+
+
+
