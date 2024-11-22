@@ -82,5 +82,21 @@ class TestUserProfileForm:
         assert user.first_name == "Jane"  # Check if user's first name was updated
         assert user.last_name == "Smith"  # Check if user's last name was updated
 
+    def test_profile_form_max_length_validation(self):
+        # Arrange
+        long_string = "a" * 31  # Assuming max_length=30
+        form_data = {
+            "first_name": long_string,
+            "last_name": "Doe",
+            "personal_info": "Some personal info",
+            "avatar": None,
+        }
+        user = User.objects.create_user(username="testuser", password="password123")
+        profile = Profile.objects.get(user=user)
 
+        # Act
+        form = UserProfileForm(instance=profile, data=form_data)
 
+        # Assert
+        assert not form.is_valid()
+        assert "Ensure this value has at most" in form.errors['first_name'][0]
