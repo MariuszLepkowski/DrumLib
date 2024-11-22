@@ -7,8 +7,8 @@ from .models import Profile
 
 class UserRegistrationForm(UserCreationForm):
     email=forms.EmailField()
-    first_name = forms.CharField(max_length=50)
-    last_name = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
 
     class Meta:
         model=User
