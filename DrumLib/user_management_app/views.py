@@ -43,7 +43,14 @@ def edit_profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
-            form.save()
+            # Save the profile
+            profile = form.save(commit=False)
+            # Update the user fields as well if needed
+            user = request.user
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
+            user.save()  # Save the user model
+            profile.save()  # Save the profile model
             messages.success(request, 'Your profile has been updated!')
             return redirect('user_management_app:profile')
     else:
