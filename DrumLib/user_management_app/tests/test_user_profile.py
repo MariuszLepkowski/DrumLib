@@ -142,5 +142,33 @@ class TestUserProfileForm:
         assert not form.is_valid(), "Form should be invalid with a non-image file."
         assert "avatar" in form.errors, "The error should be related to the avatar field."
 
+    def test_profile_form_integrity_no_side_effects(self):
+        """
+        Ensure that updating profile fields does not affect unrelated fields in the User model.
+        """
+        # Arrange: Create user and profile
+        user = User.objects.create_user(
+            username="testuser",
+            password="password123",
+            first_name="John",
+            last_name="Doe",
+            email="testuser@example.com",
+        )
+        profile = Profile.objects.get(user=user)
 
+        # Act: Update only profile fields
+        form_data = {
+            "personal_info": "Updated personal info",
+        }
+        form = UserProfileForm(instance=profile, data=form_data)
 
+        assert form.is_valid(), f"Form errors: {form.errors}"
+        profile = form.save(commit=False)
+        profile.save()
+
+        # Assert: Ensure unrelated User fields are unchanged
+        user.refresh_from_db()
+        assert user.username == "testuser", "Username should not be changed."
+        assert user.email == "testuser@example.com", "Email should not be changed."
+        assert user.first_name == "John", "First name should remain unchanged."
+        assert user.last_name == "Doe", "Last name should remain unchanged."
