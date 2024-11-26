@@ -21,19 +21,11 @@ class TestUserProfileForm:
         # Assert: Check if a Profile object was automatically created
         assert Profile.objects.filter(user=user).exists()
 
-    def test_profile_form_initialization_with_user_data(self):
+    def test_profile_form_initialization_with_user_data(self, profile):
         """
         Test that UserProfileForm initializes with user's first_name and last_name correctly.
         This ensures that the form pre-populates fields using the related User instance's data.
         """
-        # Arrange: Create a user with first_name and last_name
-        user = User.objects.create_user(
-            username="testuser",
-            password="password123",
-            first_name="John",
-            last_name="Doe"
-        )
-        profile = Profile.objects.get(user=user)  # Profile is created via signal
 
         # Act: Initialize the form with the profile instance
         form = UserProfileForm(instance=profile)
@@ -42,7 +34,7 @@ class TestUserProfileForm:
         assert isinstance(form, UserProfileForm)
         assert form.fields['first_name'].initial == "John"
         assert form.fields['last_name'].initial == "Doe"
-        assert profile.user == user  # Ensure profile is correctly linked to the user
+        assert profile.user.username == "testuser"  # Ensure profile is correctly linked to the user
 
     def test_profile_form_save_and_user_object_update(self):
         """
