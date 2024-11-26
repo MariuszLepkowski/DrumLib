@@ -88,10 +88,7 @@ class TestUserProfileForm:
         assert not form.is_valid()
         assert "Ensure this value has at most" in form.errors['first_name'][0]
 
-    def test_profile_form_avatar_validation(self):
-        user = User.objects.create_user(username="testuser", password="password123")
-        profile = Profile.objects.get(user=user)
-
+    def test_profile_form_avatar_validation(self, profile, user):
         # Generate a valid image file
         image = Image.new("RGB", (100, 100), "white")
         image_file = BytesIO()
