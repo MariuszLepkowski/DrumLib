@@ -36,18 +36,10 @@ class TestUserProfileForm:
         assert form.fields['last_name'].initial == "Doe"
         assert profile.user.username == "testuser"  # Ensure profile is correctly linked to the user
 
-    def test_profile_form_save_and_user_object_update(self):
+    def test_profile_form_save_and_user_object_update(self, profile, user):
         """
         Test saving the UserProfileForm updates both the Profile and User models.
         """
-        # Arrange: Create a user and their profile
-        user = User.objects.create_user(
-            username="testuser",
-            password="password123",
-            first_name="John",
-            last_name="Doe"
-        )
-        profile = Profile.objects.get(user=user)
 
         # Act: Update the form data and save it
         form_data = {
