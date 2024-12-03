@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse, resolve
 
 
+@pytest.mark.logout_tests
 @pytest.mark.django_db
 class TestLogoutView:
     def test_logout_view_url(self):
