@@ -46,11 +46,10 @@ test_data = [
     )
 ]
 
-
+@pytest.mark.registration_tests
 @pytest.mark.django_db
 class TestRegistration:
 
-    @pytest.mark.registration_tests
     @pytest.mark.parametrize(
         "data, is_valid",
         test_data,
