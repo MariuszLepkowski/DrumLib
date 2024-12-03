@@ -2,11 +2,10 @@ import pytest
 from django.contrib.auth.models import User
 from user_management_app.forms import CustomAuthenticationForm
 
-
+@pytest.mark.login_tests
 @pytest.mark.django_db
 class TestCustomAuthenticationForm:
 
-    @pytest.mark.login_tests
     @pytest.mark.parametrize(
         "username, password, expected_error",
         [
