@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse, resolve
 from user_management_app.views import edit_profile
 
+
 @pytest.fixture
 def logged_in_user(client, django_user_model):
     """
@@ -11,6 +12,7 @@ def logged_in_user(client, django_user_model):
     client.login(username='testuser', password='password123')
     return user
 
+@pytest.mark.user_profile
 @pytest.mark.django_db
 class TestEditProfileView:
     def test_edit_profile_view_resolves_to_correct_view(self):
@@ -32,10 +34,14 @@ class TestEditProfileView:
         response = client.get(url)
         assert 'form' in response.context
 
-    def test_edit_profile_view_redirects_for_anonymous_user(self):
+    def test_edit_profile_view_redirects_for_anonymous_user(self, client):
         """
         Test that the profile view redirects an anonymous user:
         - Response has a status code of 302.
         - The user is redirected to the login page with the 'next' parameter set.
         """
-        pass
+        url = reverse('user_management_app:edit_profile')
+        response = client.get(url)
+
+        assert response.status_code == 302
+        assert response.url == f"{reverse('user_management_app:login')}?next={url}"
