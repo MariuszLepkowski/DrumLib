@@ -10,6 +10,10 @@ class TestDrummersView:
         url = reverse(viewname="drummers_app:drummers_list")
         assert resolve(url).func == drummers
 
+    def test_drummers_view_status_code(self, client):
+        response = client.get(reverse('drummers_app:drummers_list'))
+        assert response.status_code == 200
+
     def test_drummers_view_uses_correct_template(self, client):
         url = reverse(viewname="drummers_app:drummers_list")
         response = client.get(url)
