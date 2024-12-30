@@ -1,8 +1,7 @@
-from django.shortcuts import render, HttpResponse
 from .models import Drummer, DrummerPhoto
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from comments_app.forms import CommentForm
+from django.http import HttpResponseForbidden
 
 
 def sort_by_last_name(drummer):
@@ -28,18 +27,19 @@ def drummer_profile(request, drummer_name):
     template_name = "drummers_app/drummer-profile.html"
 
     drummer = Drummer.objects.get(name=drummer_name)
-
     comments = drummer.comment_set.filter(album__isnull=True)
     form = CommentForm()
 
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden("You must be logged in to post a comment.")
+
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
             comment.drummer = drummer
             comment.save()
-
             return redirect('drummers_app:drummer_profile', drummer_name=drummer.name)
 
     context = {
