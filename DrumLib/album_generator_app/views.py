@@ -45,12 +45,12 @@ def album_generator_form(request):
 
 def generate_random_album(request):
     drummer_id = request.POST.get('drummer')
-    random_drummer = Drummer.objects.get(id=drummer_id)
-    albums = Album.objects.filter(drummers=random_drummer)
-    album = choice(albums) if albums.exists() else None
+    drummer = Drummer.objects.get(id=drummer_id)
+    albums = Album.objects.filter(drummers=drummer)
+    random_album = choice(albums) if albums.exists() else None
 
-    if album and album.tracks.exists():
-        tracks = Track.objects.filter(albums=album, drummers=random_drummer)
+    if random_album and random_album.tracks.exists():
+        tracks = Track.objects.filter(albums=random_album, drummers=drummer)
 
         for track in tracks:
             track.video_id = get_video_id(track.track_url)
@@ -58,17 +58,18 @@ def generate_random_album(request):
     else:
         tracks = None
 
-    if album and album.artists.exists():
-        artists = ', '.join(artist.name for artist in album.artists.all())
+    if random_album and random_album.artists.exists():
+        artists = ', '.join(artist.name for artist in random_album.artists.all())
     else:
         artists = None
 
     context = {
         'title': 'Album Generator',
-        'drummer': random_drummer,
-        'album': album,
+        'drummer': drummer,
+        'album': random_album,
         'artists': artists,
         'tracks': tracks,
     }
 
     return render(request, 'album_generator_app/album-details.html', context)
+
