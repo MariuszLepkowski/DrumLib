@@ -32,6 +32,7 @@ from random import choice
 from drummers_app.models import Drummer
 from discography_app.models import Album, Track
 from discography_app.utils import get_video_id
+from django.http import Http404
 
 
 def album_generator_form(request):
@@ -45,7 +46,12 @@ def album_generator_form(request):
 
 def generate_random_album(request):
     drummer_id = request.POST.get('drummer')
-    drummer = Drummer.objects.get(id=drummer_id)
+
+    try:
+        drummer = Drummer.objects.get(id=drummer_id)
+    except Drummer.DoesNotExist:
+        raise Http404("Drummer does not exist")
+
     albums = Album.objects.filter(drummers=drummer)
     random_album = choice(albums) if albums.exists() else None
 
