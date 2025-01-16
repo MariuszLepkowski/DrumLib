@@ -33,6 +33,7 @@ from drummers_app.models import Drummer
 from discography_app.models import Album, Track
 from discography_app.utils import get_video_id
 from django.http import Http404
+from django.http import HttpResponseBadRequest
 
 
 def album_generator_form(request):
@@ -46,6 +47,9 @@ def album_generator_form(request):
 
 def generate_random_album(request):
     drummer_id = request.POST.get('drummer')
+
+    if not drummer_id:
+        return HttpResponseBadRequest("Drummer ID is required.")
 
     try:
         drummer = Drummer.objects.get(id=drummer_id)
