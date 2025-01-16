@@ -59,3 +59,29 @@ class TestGenerateRandomAlbumView:
         response = client.post(url, {"drummer": drummer.id})
 
         assert response.context["album"] == album
+
+    def test_returns_none_when_no_albums_exist(self, client, drummer):
+        url = reverse(viewname="album_generator_app:generate_random_album")
+        response = client.post(url, {"drummer": drummer.id})
+        assert response.context["album"] is None
+
+    def test_returns_404_with_invalid_drummer_id(self, client):
+        url = reverse(viewname="album_generator_app:generate_random_album")
+        response = client.post(url, {"drummer": 9999})
+        assert response.status_code == 404
+
+    def test_returns_404_when_no_drummer_id_provided(self, client):
+        url = reverse(viewname="album_generator_app:generate_random_album")
+        response = client.post(url, {})
+        assert response.status_code == 400
+
+    def test_returns_album_without_tracks_or_artists(self, client, drummer, album):
+        album.tracks.clear()
+        album.artists.clear()
+
+        url = reverse(viewname="album_generator_app:generate_random_album")
+        response = client.post(url, {"drummer": drummer.id})
+
+        assert response.context["album"] == album
+        assert response.context["tracks"] is None
+        assert response.context["artists"] is None
