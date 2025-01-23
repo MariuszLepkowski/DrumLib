@@ -12,6 +12,10 @@ def user():
 def another_user(db):
     return User.objects.create_user(username="another_user", email="another_user@example.com", password="password123")
 
+@pytest.fixture
+def staff_user():
+    return User.objects.create_user(username='staffuser', password='staffpassword', is_staff=True)
+
 
 @pytest.fixture
 def drummer():
