@@ -8,6 +8,10 @@ from discography_app.models import Album
 def user():
     return User.objects.create_user(username="testuser", password="testpassword")
 
+@pytest.fixture
+def another_user(db):
+    return User.objects.create_user(username="another_user", email="another_user@example.com", password="password123")
+
 
 @pytest.fixture
 def drummer():
