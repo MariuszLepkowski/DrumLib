@@ -7,11 +7,11 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="{% url 'home_app:home_page' %}" class="nav-link px-2 link-secondary">Home</a></li>
-        <li><a href="{% url 'drummers_app:drummers_list' %}" class="nav-link px-2 link-dark">Drummers <br> Explorer</a></li>
-        <li><a href="{% url 'discography_app:drummers_list' %}" class="nav-link px-2 link-dark">Discographies</a></li>
-        <li><a href="{% url 'album_generator_app:album_generator_form' %}" class="nav-link px-2 link-dark">Album <br> Generator</a></li>
-        <li><a href="{% url 'suggestions_app:suggest_content' %}" class="nav-link px-2 link-dark">Suggest <br> Content</a></li>
+        <li><a href="{% url 'home_app:home_page' %}" class="nav-link px-2 link-light">Home</a></li>
+        <li><a href="{% url 'drummers_app:drummers_list' %}" class="nav-link px-2 link-light">Drummers <br> Explorer</a></li>
+        <li><a href="{% url 'discography_app:drummers_list' %}" class="nav-link px-2 link-light">Discographies</a></li>
+        <li><a href="{% url 'album_generator_app:album_generator_form' %}" class="nav-link px-2 link-light">Album <br> Generator</a></li>
+        <li><a href="{% url 'suggestions_app:suggest_content' %}" class="nav-link px-2 link-light">Suggest <br> Content</a></li>
       </ul>
 
       <div class="col-md-3 text-end">
@@ -32,7 +32,7 @@
               </ul>
             </div>
           {% else %}
-            <button type="button" class="btn btn-outline-primary me-2"><a class="nav-link" href="{% url 'user_management_app:login' %}">Login</a></button>
+            <button type="button" class="btn btn-outline-primary me-2"><a class="nav-link link-light" href="{% url 'user_management_app:login' %}">Login</a></button>
             <button type="button" class="btn btn-primary"><a class="nav-link" href="{% url 'user_management_app:register' %}">Register</a></button>
           {% endif %}
       </div>
