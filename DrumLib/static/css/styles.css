@@ -31,7 +31,7 @@
 .main-content {
     overflow-y: auto;
     color: #454a4d;
-    margin-bottom:20px;
+    margin-bottom:50px;
 }
 
 .lead {
@@ -558,6 +558,11 @@ body {
 
 #reset-password-join {
     margin-top:20px;
+}
+
+.card p-4 {
+    background-color: rgb(24, 26, 27);
+    color: rgb(186, 180, 171)
 }
 
 /********************************** forms ****************************************/
