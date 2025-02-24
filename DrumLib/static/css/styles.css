@@ -24,17 +24,19 @@
     }
 
     .avatar-placeholder {
-        background-color: #007bff;  /* Błękitne tło */
+        background-color: #007bff;
         color: white;
     }
 /**************************** Main content ***********************************/
 .main-content {
     overflow-y: auto;
     color: #454a4d;
-    margin-bottom:165px;
+    margin-bottom:20px;
 }
 
-
+.lead {
+    color:#d5d2cc;
+}
 
 /**************************** Home page ***********************************/
 .welcome-container {
@@ -218,10 +220,15 @@
     margin: 0 auto;
     text-align: justify;
     line-height: 1.6;
+    color:#d5d2cc;
 }
 
 #drummer-bio p {
     margin-bottom: 4em;
+}
+
+#collaborating-artists {
+    color:#d5d2cc;
 }
 
 #drummer-bio p::first-line {
@@ -233,7 +240,8 @@
 
 .discographies {
     max-width: 1000px;
-
+    margin-bottom:40px;
+    --bs-body-bg:#1c1e1f;
 }
 
 
@@ -244,6 +252,7 @@
     gap: 20px;
     max-width: 600px;
     margin-left:120px;
+    color:#d5d2cc;
 
 }
 
@@ -291,6 +300,7 @@
     align-items: left;
     margin-top:30px;
     gap: 10px;
+    color:#d5d2cc;
 }
 
 .album-cover-img2{
@@ -450,9 +460,14 @@
 }
 
 
+.list-group {
+    --bs-body-bg:#1c1e1f;
+    --bs-body-color:#d5d2cc;
+}
 
 .list-group-item {
-    background-color: #fff;
+    --bs-body-bg:#1c1e1f;
+
 }
 
 .centered-badge {
@@ -484,17 +499,16 @@
 }
 
 .album-cover img {
-    width: 300px;  /* Ustaw szerokość okładki albumu */
-    height: 300px; /* Ustaw wysokość okładki albumu */
-    object-fit: cover; /* Dopasuj obrazek do kontenera */
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
     border: 1px solid #ddd;
     padding: 5px;
 }
 
 
 .tracklist-heading {
-    margin-top: 2rem; /* Dodatkowy margines górny */
- /* Dodatkowy margines dolny */
+    margin-top: 2rem;
 }
 
 
@@ -546,3 +560,12 @@ body {
     margin-top:20px;
 }
 
+/********************************** forms ****************************************/
+.form-group {
+    color:#d5d2cc;
+}
+
+/**************************** Comments***********************************/
+.comments-section {
+    color:#d5d2cc;
+}
