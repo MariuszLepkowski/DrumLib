@@ -9,7 +9,7 @@
     <img src={% static "assets/img/section-title-bg-img.jpg" %} class="drummers-bg">
 </div>
 
-    <ul class="list-group">
+    <ul class="list-group" style="margin-bottom:125px;">
         {% for track in tracks %}
             {% for artist in track.artists.all %}
             <li class="list-group-item">{{ artist.name }} - {{ track.title }}

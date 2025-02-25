@@ -17,7 +17,7 @@
       <div class="col-md-3 text-end">
           {% if user.is_authenticated %}
             <div class="dropdown text-end">
-              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 {% if user.profile.avatar %}
                     <img src="{{ user.profile.avatar.url }}" alt="Avatar" width="32" height="32" class="rounded-circle">
                 {% else %}
