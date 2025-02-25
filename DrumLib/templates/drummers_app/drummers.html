@@ -14,8 +14,8 @@
     <div class="drummers-explorer container mt-4">
     <div class="row">
         {% for drummer in drummers %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
+        <div class="col-md-4 mb-4" style="--bs-body-bg:#1c1e1f;">
+            <div class="card" style="color:#fff;">
                 {% if drummer.photos.exists %}
                 <img src="{{ drummer.photos.first.image.url }}" class="card-img-top" alt="{{ drummer.name }}">
                 {% endif %}
