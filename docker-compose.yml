@@ -1,33 +1,25 @@
-version: '3.8'
+version: '3'
 
 services:
+
   web:
-    image: mlhost81/drumlib-render:latest
-    environment:
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=db
-      - SECRET_KEY=${SECRET_KEY}
-      - EMAIL_HOST=${EMAIL_HOST}
-      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
-      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+    image: python:3.8
+    command: bash -c "apt-get update && apt-get install -y graphviz libgraphviz-dev && pip install -r /code/requirements.txt && python /code/DrumLib/manage.py migrate && python /code/DrumLib/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
     ports:
       - "8000:8000"
     depends_on:
       - db
-    command: ["gunicorn", "--bind", "0.0.0.0:8000", "DrumLib.wsgi:application"]
 
   db:
-    image: postgres:13
-    restart: always
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - DrumLibDBVolume:/var/lib/postgresql/data
+      image: postgres:13
+      environment:
+        POSTGRES_DB: ${DB_NAME}
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+      volumes:
+        - DrumLibDBVolume:/var/lib/postgresql/data
 
 volumes:
   DrumLibDBVolume:
-

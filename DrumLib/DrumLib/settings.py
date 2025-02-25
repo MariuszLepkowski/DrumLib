@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-import dj_database_url #delete later only for render configuration
 
 load_dotenv()
 
@@ -28,15 +27,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-# ALLOWED_HOSTS = [
-#     '0.0.0.0',
-#     'localhost',
-#     '127.0.0.1',
-# ]
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    'localhost',
+    '127.0.0.1'
+]
 
-ALLOWED_HOSTS = ["drumlib.onrender.com"]
 
 
 # Application definition
@@ -59,7 +57,6 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap5',
-    'whitenoise.runserver_nostatic', #to be deleted, only for render, Wyłącz wbudowany serwer statyczny Django
 
 ]
 
@@ -71,7 +68,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # DELETE later,WhiteNoise obsłuży pliki statyczne,
 ]
 
 ROOT_URLCONF = 'DrumLib.urls'
@@ -98,23 +94,17 @@ WSGI_APPLICATION = 'DrumLib.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         "NAME": os.environ.get('DB_NAME'),
-#         "USER": os.environ.get('DB_USER'),
-#         "PASSWORD": os.environ.get('DB_PASSWORD'),
-#         "HOST": "db",
-#         "PORT": "5432",
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('PROD_DB_EXTERNAL_URL'),  # Używa zmiennej środowiskowej DATABASE_URL
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        "NAME": os.environ.get('DB_NAME'),
+        "USER": os.environ.get('DB_USER'),
+        "PASSWORD": os.environ.get('DB_PASSWORD'),
+        "HOST": "db",
+        "PORT": "5432",
+    }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -156,8 +146,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -181,22 +169,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-
-#usuń potem
-CSRF_TRUSTED_ORIGINS = [
-    "https://drumlib.onrender.com",
-]
-
-
-CSRF_COOKIE_SECURE = True  # Ustaw na True, jeśli masz HTTPS
-SESSION_COOKIE_SECURE = True
-
-
-
-#usuń potem
-# This production code might break development mode, so we check whether we're in DEBUG mode
-if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

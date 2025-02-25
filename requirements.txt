@@ -1,18 +1,10 @@
 Django==4.2.13
 psycopg2-binary==2.9.9
 python-dotenv==1.0.0
-django-extensions==3.2.3
-pygraphviz==1.14
-Pillow==11.1.0
-django-crispy-forms==2.3
-crispy-bootstrap5==2024.10
-pytest==8.3.5
-pytest-django==4.10.0
-asgiref==3.8.1
-gunicorn==23.0.0
-iniconfig==2.0.0
-packaging==24.2
-pluggy==1.5.0
-sqlparse==0.5.3
-whitenoise #delete it later, only for render to serve static files
-dj-database-url #delete later, for render configuration only
+django_extensions==3.2.3
+pygraphviz
+Pillow
+django-crispy-forms
+crispy-bootstrap5
+pytest
+pytest-django
