@@ -1,22 +1,25 @@
+version: '3.8'
+
 services:
   web:
-    image: mlhost81/drumlib:latest
-    command: gunicorn DrumLib.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
+    build: .
     environment:
-      - DEBUG=False
-      - SECRET_KEY=${SECRET_KEY}
-      - DB_HOST=db
-      - DB_PORT=5432
-        DB_NAME=${DB_NAME}
+      - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db
+      - SECRET_KEY=${SECRET_KEY}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
 
   db:
     image: postgres:13
+    restart: always
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
@@ -26,3 +29,4 @@ services:
 
 volumes:
   DrumLibDBVolume:
+
