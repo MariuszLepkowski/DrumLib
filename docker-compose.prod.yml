@@ -1,19 +1,19 @@
-version: '3'
-
 services:
-
   web:
     image: mlhost81/drumlib:latest
-    environment:
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=db
+    command: gunicorn DrumLib.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
     ports:
       - "8000:8000"
-    depends_on:
-      - db
-    command: python /app/DrumLib/manage.py runserver 0.0.0.0:8000
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_HOST=db
+      - DB_PORT=5432
+        DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
 
   db:
     image: postgres:13
