@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    build: .
+    image: mlhost81/drumlib:latest
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
@@ -16,6 +16,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    command: ["gunicorn", "--bind", "0.0.0.0:8000", "DrumLib.wsgi:application"]
 
   db:
     image: postgres:13
