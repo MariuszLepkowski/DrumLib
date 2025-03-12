@@ -1,3 +1,4 @@
+# Użyj oficjalnego obrazu Pythona jako bazowego
 FROM python:3.12-slim
 
 WORKDIR /app
@@ -12,6 +13,10 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY DrumLib/. /app/
 
-CMD ["python", "DrumLib/manage.py", "runserver", "0.0.0.0:8000"]
+ENV PYTHONPATH=/app
+
+RUN python manage.py collectstatic --noinput
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "DrumLib.wsgi:application"]

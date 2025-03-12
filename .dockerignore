@@ -11,8 +11,6 @@ DrumLib/media
 *.sqlite3
 
 docker-compose.yml
-docker-compose.local.yml
-docker-compose.prod.yml
 
 .git
 .gitignore
