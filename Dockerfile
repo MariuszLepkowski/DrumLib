@@ -1,4 +1,3 @@
-# Użyj oficjalnego obrazu Pythona jako bazowego
 FROM python:3.12-slim
 
 WORKDIR /app
@@ -19,4 +18,5 @@ ENV PYTHONPATH=/app
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "DrumLib.wsgi:application"]
+CMD gunicorn --bind 0.0.0.0:$PORT DrumLib.wsgi:application
+
