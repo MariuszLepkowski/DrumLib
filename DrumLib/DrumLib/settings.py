@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
     '0.0.0.0',
     'localhost',
     '127.0.0.1',
-    'drumlib-render-latest.onrender.com',
+    'drumlib-render-latest.onrender.com'
 ]
 
 
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap5',
+    'whitenoise.runserver_nostatic', #to be deleted, only for render, Wyłącz wbudowany serwer statyczny Django
 
 ]
 
@@ -69,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # DELETE later,WhiteNoise obsłuży pliki statyczne,
 ]
 
 ROOT_URLCONF = 'DrumLib.urls'
