@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url #delete later only for render configuration
 
 load_dotenv()
 
@@ -29,13 +30,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '0.0.0.0',
-    'localhost',
-    '127.0.0.1',
-    'drumlib-render-latest.onrender.com'
-]
+# ALLOWED_HOSTS = [
+#     '0.0.0.0',
+#     'localhost',
+#     '127.0.0.1',
+# ]
 
+ALLOWED_HOSTS = ["drumlib.onrender.com"]
 
 
 # Application definition
@@ -109,14 +110,10 @@ WSGI_APPLICATION = 'DrumLib.wsgi.application'
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        "NAME": os.environ.get('PROD_DB_NAME'),
-        "USER": os.environ.get('PROD_DB_USER'),
-        "PASSWORD": os.environ.get('PROD_DB_PASSWORD'),
-        "HOST": os.environ.get('PROD_DB_HOST'),
-        "PORT": "5432",
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('PROD_DB_EXTERNAL_URL'),  # Używa zmiennej środowiskowej DATABASE_URL
+        conn_max_age=600
+    )
 }
 
 # Password validation
@@ -184,3 +181,22 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+#usuń potem
+CSRF_TRUSTED_ORIGINS = [
+    "https://drumlib.onrender.com",
+]
+
+
+CSRF_COOKIE_SECURE = True  # Ustaw na True, jeśli masz HTTPS
+SESSION_COOKIE_SECURE = True
+
+
+
+#usuń potem
+# This production code might break development mode, so we check whether we're in DEBUG mode
+if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

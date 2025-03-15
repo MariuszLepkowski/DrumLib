@@ -15,3 +15,4 @@ packaging==24.2
 pluggy==1.5.0
 sqlparse==0.5.3
 whitenoise #delete it later, only for render to serve static files
+dj-database-url #delete later, for render configuration only

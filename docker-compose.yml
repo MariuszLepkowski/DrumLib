@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: mlhost81/drumlib:local
+    image: mlhost81/drumlib-render:latest
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}

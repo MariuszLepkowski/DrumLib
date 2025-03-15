@@ -18,6 +18,4 @@ ENV PYTHONPATH=/app
 
 RUN python manage.py collectstatic --noinput
 
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "DrumLib.wsgi:application"]
-
-
+ENTRYPOINT ["sh", "-c", "python manage.py migrate && python create_superuser.py && gunicorn --bind 0.0.0.0:$PORT DrumLib.wsgi:application"]
