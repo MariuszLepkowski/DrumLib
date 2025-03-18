@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: drumlib_prod
+    container_name: drumlib_web_prod
+    restart: always
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+
+  db:
+    image: postgres:13
+    container_name: drumlib_db_prod
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - DrumLibDBVolume:/var/lib/postgresql/data
+
+volumes:
+  DrumLibDBVolume:
+  static_volume:
+  media_volume:
+
