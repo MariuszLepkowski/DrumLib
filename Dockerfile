@@ -9,13 +9,13 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt requirements-dev.txt .
+RUN pip install --no-cache-dir -r requirements-dev.txt
 
-COPY DrumLib/. /app/
+COPY . .
 
 ENV PYTHONPATH=/app
 
 RUN python manage.py collectstatic --noinput
 
-ENTRYPOINT ["sh", "-c", "python manage.py migrate && python create_superuser.py && gunicorn --bind 0.0.0.0:$PORT DrumLib.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
