@@ -27,13 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = [
-    '0.0.0.0',
-    'localhost',
-    '127.0.0.1'
-]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost 127.0.0.1 0.0.0.0').split()
 
 
 
@@ -145,6 +141,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+STATIC_ROOT = "/app/staticfiles"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
