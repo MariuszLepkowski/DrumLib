@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
     volumes:
-      - static_volume:/app/static
+      - static_volume:/app/staticfiles
       - media_volume:/app/media
 
   db:
@@ -30,4 +30,3 @@ volumes:
   DrumLibDBVolume:
   static_volume:
   media_volume:
-
