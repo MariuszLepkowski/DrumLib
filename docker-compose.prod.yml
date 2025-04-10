@@ -1,9 +1,6 @@
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
-    image: drumlib_prod
+    image: mlhost81/drumlib_prod:latest
     container_name: drumlib_web_prod
     restart: always
     env_file: .env
