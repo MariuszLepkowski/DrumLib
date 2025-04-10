@@ -139,6 +139,10 @@
     width: 80px;
 }
 
+.drumlib-logo4 {
+    width: 350px;
+}
+
 
 /**************************** Badges with section titles ***********************************/
 .text-bg-primary {
@@ -573,4 +577,15 @@ body {
 /**************************** Comments***********************************/
 .comments-section {
     color:#d5d2cc;
+}
+
+/**************************** Rotation settings for mobile devices***********************************/
+@media (max-width: 768px) {
+    #rotate-notice {
+        display: block;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+    }
 }

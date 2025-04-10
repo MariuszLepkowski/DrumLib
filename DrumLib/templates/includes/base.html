@@ -1,18 +1,61 @@
+{% load static %}
 {% include "includes/header.html" %}
 
 <body id="main-body">
 
-{% include "includes/navbar.html" %}
+<div id="rotate-notice" class="d-md-none text-center text-dark" style="display: none;
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background-color: rgba(0, 0, 0, 0.6); z-index: 9999; padding: 20px;">
 
-<div class="main-content container mt-4">
-    {% block content %}
-    {% endblock %}
+    <img src="{% static 'assets/img/drumlib-logo1.png' %}" class="drumlib-logo4 mb-4" alt="Drumlib Logo" style="max-width: 350px; height: auto;">
+
+    <p class="rotate-text fw-bold" style="font-size: 1.5rem; margin: 0;">
+        Please rotate your device
+    </p>
+
+    <span class="arrows" style="margin-top: 15px;">
+        <img src="{% static 'assets/img/rotate-arrow.jpg' %}" alt="rotate-arrow" style="max-width: 120px;">
+    </span>
 </div>
 
-<div class="footer">
-    {% include "includes/footer.html" %}
+
+
+<div id="main-content-wrapper">
+    {% include "includes/navbar.html" %}
+
+    <div class="main-content container mt-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div class="footer">
+        {% include "includes/footer.html" %}
+    </div>
 </div>
 
 {% include "includes/scripts.html" %}
 
+<script>
+  function checkOrientation() {
+    const notice = document.getElementById('rotate-notice');
+    const content = document.getElementById('main-content-wrapper');
+
+    if (window.innerHeight > window.innerWidth) {
+      // Portrait
+      notice.style.display = 'flex';
+      content.style.display = 'none';
+    } else {
+      // Landscape
+      notice.style.display = 'none';
+      content.style.display = 'block';
+    }
+  }
+
+  window.addEventListener("resize", checkOrientation);
+  window.addEventListener("orientationchange", checkOrientation);
+  window.addEventListener("load", checkOrientation);
+</script>
+
 </body>
+
