@@ -1,40 +1,48 @@
 {% load static %}
 
-  <div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-        <img src={% static "assets/img/drumlib-logo1.png"%}  class="drumlib-logo1" >
-      </a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark border-bottom">
+  <div class="container-fluid" style="background-color: #f8f9fa;">
+    <a class="navbar-brand" href="/">
+      <img src="{% static 'assets/img/drumlib-logo1.png' %}" class="drumlib-logo1" alt="Logo">
+    </a>
 
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="{% url 'home_app:home_page' %}" class="nav-link px-2 link-light">Home</a></li>
-        <li><a href="{% url 'drummers_app:drummers_list' %}" class="nav-link px-2 link-light">Drummers <br> Explorer</a></li>
-        <li><a href="{% url 'discography_app:drummers_list' %}" class="nav-link px-2 link-light">Discographies</a></li>
-        <li><a href="{% url 'album_generator_app:album_generator_form' %}" class="nav-link px-2 link-light">Album <br> Generator</a></li>
-        <li><a href="{% url 'suggestions_app:suggest_content' %}" class="nav-link px-2 link-light">Suggest <br> Content</a></li>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarCollapseContent">
+      <ul class="navbar-nav mb-2 mb-md-0">
+        <li class="nav-item"><a href="{% url 'home_app:home_page' %}" class="nav-link link-light">Home</a></li>
+        <li class="nav-item"><a href="{% url 'drummers_app:drummers_list' %}" class="nav-link link-light">Drummers Explorer</a></li>
+        <li class="nav-item"><a href="{% url 'discography_app:drummers_list' %}" class="nav-link link-light">Discographies</a></li>
+        <li class="nav-item"><a href="{% url 'album_generator_app:album_generator_form' %}" class="nav-link link-light">Album Generator</a></li>
+        <li class="nav-item"><a href="{% url 'suggestions_app:suggest_content' %}" class="nav-link link-light">Suggest Content</a></li>
       </ul>
+    </div>
 
-      <div class="col-md-3 text-end">
-          {% if user.is_authenticated %}
-            <div class="dropdown text-end">
-              <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                {% if user.profile.avatar %}
-                    <img src="{{ user.profile.avatar.url }}" alt="Avatar" width="32" height="32" class="rounded-circle">
-                {% else %}
-                    <div class="avatar-placeholder rounded-circle">{{ user.username|slice:":1" }}</div>
-                {% endif %}
-                  {{ user.username }}
-              </a>
-              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="{% url 'user_management_app:profile' %}">View profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'user_management_app:logout' %}">Sign out</a></li>
-              </ul>
-            </div>
-          {% else %}
-            <button type="button" class="btn btn-outline-primary me-2"><a class="nav-link link-light" href="{% url 'user_management_app:login' %}">Login</a></button>
-            <button type="button" class="btn btn-primary"><a class="nav-link" href="{% url 'user_management_app:register' %}">Register</a></button>
-          {% endif %}
-      </div>
-    </header>
+    <div class="d-flex align-items-center">
+      {% if user.is_authenticated %}
+        <div class="dropdown text-end ms-3">
+          <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown">
+            {% if user.profile.avatar %}
+              <img src="{{ user.profile.avatar.url }}" alt="Avatar" width="32" height="32" class="rounded-circle">
+            {% else %}
+              <div class="avatar-placeholder rounded-circle">{{ user.username|slice:":1" }}</div>
+            {% endif %}
+            {{ user.username }}
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="{% url 'user_management_app:profile' %}">View profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'user_management_app:logout' %}">Sign out</a></li>
+          </ul>
+        </div>
+      {% else %}
+        <a class="btn btn-outline-primary me-2" href="{% url 'user_management_app:login' %}">Login</a>
+        <a class="btn btn-primary" href="{% url 'user_management_app:register' %}">Register</a>
+      {% endif %}
+    </div>
   </div>
+</nav>
+
+
