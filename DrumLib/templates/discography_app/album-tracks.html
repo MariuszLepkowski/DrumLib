@@ -4,7 +4,7 @@
 
 {% block content %}
 <div id="section-title">
-    <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1 style="padding-bottom:30px; padding-top:10px;">{% for artist in artists %} {{ artist.name }} {% endfor %} - {{ title }}</h1>{% endblock %}</span>
+    <span class="badge text-bg-primary centered-badge">{% block page_title %}<h1 style="padding-bottom:20px; padding-top:20px;">{% for artist in artists %} {{ artist.name }} {% endfor %} - {{ title }}</h1>{% endblock %}</span>
     {% load static %}
 </div>
 
@@ -35,7 +35,7 @@
 
 <div class="comments-section" style="margin-bottom:90px;">
     <span class="badge text-bg-primary">
-        <h1>Comments</h1>
+        <h1 style="margin-top:5px;">Comments</h1>
     </span>
 
     {% if user.is_authenticated %}
