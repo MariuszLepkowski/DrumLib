@@ -1,18 +1,15 @@
 /**************************************************************************************************************
  * PLAYER INITIALIZATION AND PLAYBACK MANAGEMENT *
  **************************************************************************************************************/
+let duration = 0;
+let currentTime = 0;
+let player;
+let isPlaying = false;
+let previousVolume = 100;
 
-var duration;
-var currentTime;
-var player;
-var isPlaying = false;
-var previousVolume;
-
-
-// Function called when the YouTube Iframe API is ready
 function onYouTubeIframeAPIReady() {
-    var container = document.getElementById("youtube-audio");
-    var playerContainer = document.createElement("div");
+    const container = document.getElementById("youtube-audio");
+    const playerContainer = document.createElement("div");
     playerContainer.setAttribute("id", "youtube-player");
     container.appendChild(playerContainer);
 
@@ -34,50 +31,57 @@ function onYouTubeIframeAPIReady() {
                 updateUI();
                 setInterval(updateTimeInfo, 1000);
                 startTitleChecking();
-                updateVolumeIcon(); // Call the function when the player is ready
+                updateVolumeSlider();
+                updateVolumeIcon();
             },
             onStateChange: function (event) {
-                if (event.data === YT.PlayerState.ENDED) {
+                if (event.data === YT.PlayerState.ENDED || event.data === YT.PlayerState.PAUSED) {
                     isPlaying = false;
                 } else if (event.data === YT.PlayerState.PLAYING) {
                     isPlaying = true;
-                } else if (event.data === YT.PlayerState.PAUSED) {
-                    isPlaying = false;
                 }
                 updateUI();
             },
             onError: function (event) {
                 showAlternativeLink(event.target.getVideoData().video_id);
-            },
-            onVolumeChange: updateVolumeIcon // Call the function when volume changes
+            }
         }
     });
+
+    // Hide player if the default video is set
+    var defaultVideoId = "RMx7uHtZbuo";
+    var containerVideoId = document.getElementById("youtube-audio").dataset.video;
+
+    if (containerVideoId === defaultVideoId) {
+        document.querySelector('.player').style.display = 'none';
+    }
 }
 
+function initYouTube() {
+    if (window.YT && YT.Player) {
+        onYouTubeIframeAPIReady();
+    } else {
+        window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+    }
+}
 
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initYouTube);
+} else {
+    initYouTube();
+}
 
-// Function to start checking for title availability
 function startTitleChecking() {
-    var titleCheckInterval = setInterval(function() {
-        var titleElement = document.getElementById('title');
-        console.log("Title Element:", titleElement);
-        console.log("Title Content:", titleElement.textContent.trim());
-        console.log("Condition:", titleElement && titleElement.textContent.trim() !== "");
+    const titleCheckInterval = setInterval(() => {
+        const titleElement = document.getElementById('title');
         if (titleElement && titleElement.textContent.trim() !== "") {
             clearInterval(titleCheckInterval);
-        } else {
-
-            if (!isPlaying) {
-                console.log("Show Alternative Link!");
-                showAlternativeLink(document.getElementById("youtube-audio").dataset.video);
-            }
+        } else if (!isPlaying) {
+            showAlternativeLink(document.getElementById("youtube-audio").dataset.video);
         }
     }, 1000);
 }
 
-
-
-// Function to toggle play/pause
 function togglePlayPause() {
     if (isPlaying) {
         player.pauseVideo();
@@ -88,95 +92,75 @@ function togglePlayPause() {
     updateUI();
 }
 
-
-
-// Function to update time information
 function updateTimeInfo() {
     currentTime = player.getCurrentTime();
     updateUI();
 }
 
-
-
-// Function to format time
 function formatTime(time) {
-    var minutes = Math.floor(time / 60);
-    var seconds = Math.floor(time % 60);
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
-
-// Function to seek to a specific time
 function seekToTime(event) {
-    var progressBar = document.getElementById('progressContainer');
-    var clickPosition = event.clientX - progressBar.getBoundingClientRect().left;
-    var percentage = clickPosition / progressBar.clientWidth;
-    var seekTime = duration * percentage;
+    const progressBar = document.getElementById('progressContainer');
+    const clickPosition = event.clientX - progressBar.getBoundingClientRect().left;
+    const percentage = clickPosition / progressBar.clientWidth;
+    const seekTime = duration * percentage;
     player.seekTo(seekTime);
 }
 
-
-// Function to update the video title
 function updateTitle() {
-    var currentTitleElement = document.getElementById('title');
-    var videoData = player.getVideoData();
-    var title = videoData.title;
-
-    currentTitleElement.textContent = title;
+    const currentTitleElement = document.getElementById('title');
+    const videoData = player.getVideoData();
+    currentTitleElement.textContent = videoData.title;
 }
 
-// Function to update the UI
 function updateUI() {
-    var durationElement = document.getElementById('timeInfo');
-    var progressBar = document.getElementById('progressBar');
-    var progressThumb = document.getElementById('progressThumb');
-    var progressContainer = document.getElementById('progressContainer');
-    var progressPercentage = (currentTime / duration) * 100;
+    const durationElement = document.getElementById('timeInfo');
+    const progressBar = document.getElementById('progressBar');
+    const progressThumb = document.getElementById('progressThumb');
+    const progressPercentage = (currentTime / duration) * 100;
+
     progressBar.style.width = progressPercentage + '%';
     progressThumb.style.left = (progressPercentage - 1) + '%';
 
-    var youtubeIcon = document.getElementById('youtube-icon');
-    youtubeIcon.style.backgroundImage = 'url(' + (isPlaying ? '/static/assets/img/pause.png' : '/static/assets/img/play.png') + ')';
+    const youtubeIcon = document.getElementById('youtube-icon');
+    youtubeIcon.style.backgroundImage = `url(${isPlaying ? '/static/assets/img/pause.png' : '/static/assets/img/play.png'})`;
 
-    var formattedTime = formatTime(currentTime) + ' / ' + formatTime(duration);
-    durationElement.textContent = formattedTime;
+    durationElement.textContent = formatTime(currentTime) + ' / ' + formatTime(duration);
 
     updateTitle();
 }
 
-
-// Function to display an alternative link
 function showAlternativeLink(videoId) {
-    var alternativeLinkDiv = document.getElementById('alternative-link');
-    var playerContainer = document.getElementById('container');
-    var loadingDiv = document.getElementById('title');
+    const alternativeLinkDiv = document.getElementById('alternative-link');
+    const playerContainer = document.getElementById('container');
+    const loadingDiv = document.getElementById('title');
 
     if (loadingDiv.style.display !== 'none') {
         alternativeLinkDiv.style.display = '';
-        alternativeLinkDiv.innerHTML = '<p>The audio/video available only on <a href="https://www.youtube.com/watch?v=' + videoId + '" target="_blank"><img id="youtube-logo" src="static/assets/img/YouTubeLogo.png" alt="YouTube Logo"> <br> Click to listen/watch.</a></p>';
+        alternativeLinkDiv.innerHTML = `<p>The audio/video available only on
+        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank">
+        <img id="youtube-logo" src="static/assets/img/YouTubeLogo.png" alt="YouTube Logo"> <br> Click to listen/watch.</a></p>`;
 
         playerContainer.style.display = 'none';
         loadingDiv.style.display = 'none';
     }
 }
 
-
 /*********************************************************************************************************************************************
  * PLAY TRACK BUTTONS MANAGEMENT *
  *********************************************************************************************************************************************/
-var buttons = document.querySelectorAll('.play-button');
-console.log(buttons);
 
 function updateHTMLView(videoId) {
-    var youtubePlayerDiv = document.getElementById('youtube-audio');
+    const youtubePlayerDiv = document.getElementById('youtube-audio');
     youtubePlayerDiv.setAttribute('data-video', videoId);
 
-    var youtubePlayerIFrame = document.getElementById('youtube-player');
-    var youtubePlayerSrc = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&loop=1&enablejsapi=1";
-    youtubePlayerIFrame.setAttribute('src', youtubePlayerSrc);
-    var titleElement = document.getElementById('title');
-    var containerElement = document.getElementById('container');
-    var alternativeLinkElement = document.getElementById('alternative-link');
+    const titleElement = document.getElementById('title');
+    const containerElement = document.getElementById('container');
+    const alternativeLinkElement = document.getElementById('alternative-link');
 
     if (alternativeLinkElement.style.display === '' &&
         titleElement.style.display === 'none' &&
@@ -186,7 +170,7 @@ function updateHTMLView(videoId) {
     } else {
         alternativeLinkElement.style.display = 'none';
 
-        setTimeout(function() {
+        setTimeout(() => {
             if (titleElement.textContent.trim() !== '') {
                 titleElement.style.display = '';
                 containerElement.style.display = '';
@@ -194,223 +178,133 @@ function updateHTMLView(videoId) {
         }, 3000);
     }
 
+    player.loadVideoById(videoId);
     isPlaying = true;
 }
 
-
-document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('play-button')) {
-        var button = event.target;
-        var videoId = button.getAttribute('data-video-id');
-
+document.querySelectorAll('.play-button').forEach(button => {
+    button.addEventListener('click', (event) => {
+        const videoId = event.target.getAttribute('data-video-id');
         updateHTMLView(videoId);
-        console.log('data-video updated to:', videoId);
-        console.log('Clicked button with videoId:', videoId);
-    }
-});
-
-document.querySelector('.player').style.display = 'none';
-
-document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('play-button')) {
-        var button = event.target;
-        var videoId = button.getAttribute('data-video-id');
-
-        updateHTMLView(videoId);
-        console.log('data-video updated to:', videoId);
-
         document.querySelector('.player').style.display = 'block';
-
-        console.log('Clicked button with videoId:', videoId);
-    }
+    });
 });
-
 
 /*********************************************************************************************************************************************
- * VOLUME CONTROL AND VOLUME ICON *
+ * VOLUME CONTROL *
  *********************************************************************************************************************************************/
 
-
-// Function to update volume button based on volume slider value
-function updateVolumeButton() {
-  var volumeSlider = document.getElementById('volumeSlider');
-  var volumeButton = document.getElementById('volumeButton');
-
-  if (player.isMuted() || player.getVolume() === 0) {
-      volumeButton.classList.add('muted');
-  } else {
-      volumeButton.classList.remove('muted');
-  }
-}
-
-// Call the function to update volume button after each volume change
-document.getElementById('volumeSlider').addEventListener('input', updateVolumeButton);
-
-
-// Function to change volume
 function changeVolume(volume) {
-  var volumeSlider = document.getElementById('volumeSlider');
-  var volumeButton = document.getElementById('volumeButton');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeButton = document.getElementById('volumeButton');
 
-  if (volume === 0) {
-      volumeButton.classList.add('muted');
-      volumeSlider.value = 0;
-      player.mute();
-  } else {
-      volumeButton.classList.remove('muted');
-      volumeSlider.value = volume;
-      player.unMute();
-  }
+    if (volume == 0) {
+        player.mute();
+        volumeButton.classList.add('muted');
+    } else {
+        player.unMute();
+        player.setVolume(volume);
+        volumeButton.classList.remove('muted');
+    }
 
-  player.setVolume(volume);
+    volumeSlider.value = volume;
 }
-
-
-// Function to update volume slider value based on current player volume
-function updateVolumeSlider() {
-  var volumeSlider = document.getElementById('volumeSlider');
-  if (player && volumeSlider) {
-      var currentVolume = player.getVolume();
-      volumeSlider.value = currentVolume;
-  }
-}
-
-// Call the function to update volume slider after the player is ready
-player.addEventListener('onReady', updateVolumeSlider);
-
-var previousVolume = 100;
-
-
 
 function toggleMute() {
-  var volumeSlider = document.getElementById('volumeSlider');
-  var volumeButton = document.getElementById('volumeButton');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeButton = document.getElementById('volumeButton');
 
-  if (player.isMuted()) {
-
-      player.unMute();
-      volumeButton.classList.remove('muted');
-      volumeSlider.value = previousVolume;
-      player.setVolume(previousVolume);
-  } else {
-      previousVolume = volumeSlider.value;
-      player.mute();
-      volumeButton.classList.add('muted');
-      volumeSlider.value = 0;
-  }
+    if (player.isMuted()) {
+        player.unMute();
+        player.setVolume(previousVolume);
+        volumeSlider.value = previousVolume;
+        volumeButton.classList.remove('muted');
+    } else {
+        previousVolume = volumeSlider.value;
+        player.mute();
+        volumeSlider.value = 0;
+        volumeButton.classList.add('muted');
+    }
 }
 
-// Add event handling for the volume icon click
-document.getElementById('volume-icon').addEventListener('click', function() {
-  toggleMute();
-});
-
+function updateVolumeSlider() {
+    const volumeSlider = document.getElementById('volumeSlider');
+    if (player && volumeSlider) {
+        const currentVolume = player.getVolume();
+        volumeSlider.value = currentVolume;
+    }
+}
 
 function updateVolumeIcon() {
-  var volumeButton = document.getElementById('volumeButton');
-  if (volumeButton) {
-      var volumeSlider = document.getElementById('volumeSlider');
-      var volumeValue = parseInt(volumeSlider.value);
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeButton = document.getElementById('volumeButton');
 
-      if (volumeValue === 0) {
-          volumeButton.classList.add('muted');
-      } else {
-          volumeButton.classList.remove('muted');
-      }
-  }
+    if (player.isMuted() || parseInt(volumeSlider.value) === 0) {
+        volumeButton.classList.add('muted');
+    } else {
+        volumeButton.classList.remove('muted');
+    }
 }
 
+document.getElementById('volumeSlider').addEventListener('input', function () {
+    changeVolume(this.value);
+    updateVolumeIcon();
+});
 
-document.getElementById('volumeSlider').addEventListener('input', updateVolumeIcon);
-
+document.getElementById('volume-icon').addEventListener('click', toggleMute);
 
 /************************************************************************************************************************************************
  * PROGRESS BAR HANDLING *
  ************************************************************************************************************************************************/
 
-// Function to move the progress thumb when clicked
 function moveProgressThumb(event) {
-    var progressBar = document.getElementById('progressContainer');
-
-    var clickPosition = event.clientX - progressBar.getBoundingClientRect().left;
-
-    var percentage = clickPosition / progressBar.clientWidth;
-
-    var seekTime = duration * percentage;
-
+    const progressBar = document.getElementById('progressContainer');
+    const clickPosition = event.clientX - progressBar.getBoundingClientRect().left;
+    const percentage = clickPosition / progressBar.clientWidth;
+    const seekTime = duration * percentage;
     player.seekTo(seekTime);
-
-    var progressThumb = document.getElementById('progressThumb');
-    progressThumb.style.left = percentage * 100 + '%';
 }
 
 document.getElementById('progressContainer').addEventListener('click', moveProgressThumb);
 
-
-// Function for smooth transition of the progress thumb
 function smoothMoveProgressThumb() {
-    var progressThumb = document.getElementById('progressThumb');
+    const progressThumb = document.getElementById('progressThumb');
     progressThumb.style.transition = 'left 0.1s linear';
 }
 
-document.getElementById('progressThumb').addEventListener('transitionend', function() {
+document.getElementById('progressThumb').addEventListener('transitionend', function () {
     this.style.transition = '';
+    updateTimeInfo();
 });
 
-
-
-// Function to update the time on seeking
-function updateTimeOnSeek() {
-    currentTime = player.getCurrentTime();
-    updateUI();
-}
-
-document.getElementById('progressThumb').addEventListener('transitionend', updateTimeOnSeek);
-
-
-
-// Function to continuously update the progress thumb position based on the current time
 function updateProgressThumb() {
-    var progressPercentage = (currentTime / duration) * 100;
-
-    var progressThumb = document.getElementById('progressThumb');
+    const progressPercentage = (currentTime / duration) * 100;
+    const progressThumb = document.getElementById('progressThumb');
     progressThumb.style.left = progressPercentage + '%';
 }
 
 setInterval(updateProgressThumb, 100);
 
-
-
-// Function to move the progress thumb and progress bar together when clicked and dragged
 function moveProgressThumbAndBar(event) {
     event.preventDefault();
-
-    var progressBar = document.getElementById('progressContainer');
-    var clickPosition = event.clientX - progressBar.getBoundingClientRect().left;
-    var percentage = clickPosition / progressBar.clientWidth;
-
+    const progressBar = document.getElementById('progressContainer');
+    const clickPosition = event.clientX - progressBar.getBoundingClientRect().left;
+    let percentage = clickPosition / progressBar.clientWidth;
     percentage = Math.max(0, Math.min(1, percentage));
 
-    var seekTime = duration * percentage;
-
+    const seekTime = duration * percentage;
     player.seekTo(seekTime);
 
-    var progressThumb = document.getElementById('progressThumb');
-    progressThumb.style.left = percentage * 100 + '%';
-
-    var progressBar = document.getElementById('progressBar');
-    progressBar.style.width = percentage * 100 + '%';
+    document.getElementById('progressThumb').style.left = percentage * 100 + '%';
+    document.getElementById('progressBar').style.width = percentage * 100 + '%';
 }
 
-document.getElementById('progressContainer').addEventListener('mousedown', function(event) {
+document.getElementById('progressContainer').addEventListener('mousedown', function (event) {
     moveProgressThumbAndBar(event);
     document.addEventListener('mousemove', moveProgressThumbAndBar);
-
-    // Function to handle mouseup event
     function handleMouseUp() {
         document.removeEventListener('mousemove', moveProgressThumbAndBar);
         document.removeEventListener('mouseup', handleMouseUp);
     }
-
     document.addEventListener('mouseup', handleMouseUp);
 });
