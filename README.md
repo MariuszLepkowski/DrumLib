@@ -8,7 +8,7 @@ The project also includes social features such as user registration, login, prof
 
 ## 🎯 Project Goals
 
-The main goal of **DrumLib** was to serve as a learning environment for mastering backend development with Django. From designing the architecture and building the API to deployment and containerization – this project reflects my self-taught journey and growth as a developer.
+The main goal of **DrumLib** was to serve as a learning environment for mastering backend development with Django. From designing the architecture to deployment and containerization – this project reflects my self-taught journey and growth as a developer.
 
 ---
 
@@ -97,7 +97,7 @@ Building DrumLib from scratch helped me develop key backend and DevOps skills:
 
 ### 🔧 Backend
 - Designing modular Django architecture
-- Building APIs and application logic (FBVs, CBVs)
+- Building application logic (FBVs, CBVs)
 - Handling forms, views, templates
 
 ### 💾 Databases
