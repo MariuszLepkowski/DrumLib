@@ -1,4 +1,4 @@
-# ![alt text](DrumLib/static/assets/img/drumlib-logo2.png)
+<img src=DrumLib/static/assets/img/drumlib-logo2.png alt="Alt Text" style="width:70%; height:auto;">
 
 **DrumLib** is a self-developed web application created out of a passion for music, drumming, and backend development. It allows users to explore profiles of legendary drummers, browse their discographies, and listen to related tracks using a built-in custom audio player.
 
