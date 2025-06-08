@@ -1,4 +1,4 @@
-<img src=DrumLib/static/assets/img/drumlib-logo2.png alt="Alt Text" style="width:70%; height:auto;">
+<img src=DrumLib/static/assets/img/drumlib-logo2.png alt="Alt Text" style="width:70%; height:auto; display: block; margin-left:auto; margin-right:auto;">
 
 **DrumLib** is a self-developed web application created out of a passion for music, drumming, and backend development. It allows users to explore profiles of legendary drummers, browse their discographies, and listen to related tracks using a built-in custom audio player.
 
@@ -12,7 +12,7 @@ The main goal of **DrumLib** was to serve as a learning environment for masterin
 
 ---
 
-## 🔧 Tech Stack
+## Tech Stack
 
 - **Backend:** Python 3.11, Django 4.x  
 - **Frontend:** Django Templates, HTML/CSS, JavaScript (custom audio player)  
