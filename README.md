@@ -6,7 +6,7 @@ The project also includes social features such as user registration, login, prof
 
 ---
 
-## 🎯 Project Goals
+## Project Goals
 
 The main goal of **DrumLib** was to serve as a learning environment for mastering backend development with Django. From designing the architecture to deployment and containerization – this project reflects my self-taught journey and growth as a developer.
 
@@ -23,54 +23,54 @@ The main goal of **DrumLib** was to serve as a learning environment for masterin
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 The project follows Django’s modular architecture, with each app responsible for specific features:
 
 ```
 DrumLib/
 ├── DrumLib/                    # Django project config (settings, URLs, WSGI)
-├── drummers_app/              # 🥁 Drummer profiles and photos
-├── discography_app/           # 💿 Albums, tracks, and views
-├── album_generator_app/       # 🎲 Random album generator
-├── comments_app/              # 💬 User comments
-├── suggestions_app/           # 💌 Suggest new content
-├── user_management_app/       # 👤 Auth, registration, profiles
-├── home_app/                  # 🏠 Landing page
+├── drummers_app/              # Drummer profiles and photos
+├── discography_app/           # Albums, tracks, and views
+├── album_generator_app/       # Random album generator
+├── comments_app/              # User comments
+├── suggestions_app/           # Suggest new content
+├── user_management_app/       # Auth, registration, profiles
+├── home_app/                  # Landing page
 │
-├── templates/                 # 📄 HTML templates grouped by app
-├── static/                    # 🎨 CSS, JS, images
+├── templates/                 # HTML templates grouped by app
+├── static/                    # CSS, JS, images
 │
 ├── manage.py                  # Django CLI runner
 │
 ├── requirements.txt           # Base dependencies
 ├── requirements-dev.txt       # Dev environment dependencies
-├── requirements-prod.txt      # 📦 Production dependencies
+├── requirements-prod.txt      # Production dependencies
 │
-├── Dockerfile                 # 🐳 Dev Docker image
-├── Dockerfile.prod            # 🐳 Production Docker image
-├── docker-compose.yml         # 🧪 Dev service orchestration
-├── docker-compose.prod.yml    # 🚀 Prod service orchestration
-├── .env                       # 🔐 Environment variables (used in both modes)
-└── README.md                  # 📘 Project documentation
+├── Dockerfile                 # Dev Docker image
+├── Dockerfile.prod            # Production Docker image
+├── docker-compose.yml         # Dev service orchestration
+├── docker-compose.prod.yml    # Prod service orchestration
+├── .env                       # Environment variables (used in both modes)
+└── README.md                  # Project documentation
 
 
 ```
 ---
 
-## 🚀 Features
+## Features
 
-- 🔊 **Custom audio player** – built in vanilla JavaScript, supports play, pause, seek, volume control (YouTube-based)
-- 🥁 **Drummer exploration** – detailed artist pages
-- 💿 **Discographies** – albums and track listings for each drummer
-- 🎲 **Random album generator** – pick a random record by a selected drummer
-- 👥 **Community features** – user accounts, comments, profile management
-- 💌 **Content suggestions** – users can submit ideas for new drummers and albums
-- 🛠️ **Admin panel** – Django admin interface for content and user management
+-  **Custom audio player** – built in vanilla JavaScript, supports play, pause, seek, volume control (YouTube-based)
+-  **Drummer exploration** – detailed artist pages
+-  **Discographies** – albums and track listings for each drummer
+-  **Random album generator** – pick a random record by a selected drummer
+-  **Community features** – user accounts, comments, profile management
+-  **Content suggestions** – users can submit ideas for new drummers and albums
+-  **Admin panel** – Django admin interface for content and user management
 
 ---
 
-## ⚙️ Deployment & Hosting
+## Deployment & Hosting
 
 The application is deployed on a **DigitalOcean VPS** using:
 
@@ -82,7 +82,7 @@ Production environment setup includes `.env` variables and separate configuratio
 
 ---
 
-## 🧪 Testing
+## Testing
 
 All apps include unit and integration tests using:
 
@@ -91,42 +91,42 @@ All apps include unit and integration tests using:
 
 ---
 
-## 📘 What I Learned
+## What I Learned
 
 Building DrumLib from scratch helped me develop key backend and DevOps skills:
 
-### 🔧 Backend
+### Backend
 - Designing modular Django architecture
 - Building application logic (FBVs, CBVs)
 - Handling forms, views, templates
 
-### 💾 Databases
+### Databases
 - Modeling data with Django ORM
 - Using PostgreSQL
 - Managing migrations and schema evolution
 
-### 🧪 Testing
+### Testing
 - Writing unit and integration tests with pytest
 
-### 💻 Frontend
+### Frontend
 - Implementing interactive components in JavaScript
 - Designing a responsive UI with plain HTML/CSS
 
-### 🚀 DevOps
+### DevOps
 - Creating Docker containers for dev & production
 - Configuring Nginx, Gunicorn, and environment variables
 - Hosting and managing the app on a VPS
 
-### 🔁 Workflow & Version Control
+### Workflow & Version Control
 - Using Git for version control
 - Managing dependencies and environments
 
 ---
 
-## 🌍 Live Demo & Repository
+## Live Demo & Repository
 
-- 🔗 **Live App:** [https://drumlib.duckdns.org/](https://drumlib.duckdns.org/)
-- 💻 **Source Code:** [github.com/MariuszLepkowski/DrumLib](https://github.com/MariuszLepkowski/DrumLib)
+- **Live App:** [https://drumlib.duckdns.org/](https://drumlib.duckdns.org/)
+- **Source Code:** [github.com/MariuszLepkowski/DrumLib](https://github.com/MariuszLepkowski/DrumLib)
 
 ---
 
