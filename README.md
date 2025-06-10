@@ -1,8 +1,27 @@
+<div align="center">
 <img src=DrumLib/static/assets/img/drumlib-logo2.png alt="Alt Text" style="width:70%; height:auto; display: block; margin-left:auto; margin-right:auto;">
+</div>
 
-**DrumLib** is a self-developed web application created out of a passion for music, drumming, and backend development. It allows users to explore profiles of legendary drummers, browse their discographies, and listen to related tracks using a built-in custom audio player.
+**DrumLib** is a self-developed web platform developed out of a passion for music, drumming, and programming.  
+<div align="center">
+<img src=DrumLib/static/assets/img/drumlib_home_page.jpg alt="Alt Text" style="width:70%; height:auto; display: block; margin-left:auto; margin-right:auto;">
+</div>
 
-The project also includes social features such as user registration, login, profile editing, and the ability to comment and suggest new content.
+It combines three key components:
+
+1. A **music application** with a custom-built audio player for track playback.
+2. A **content management system**, allowing easy administration of drummers, albums, and tracks.
+3. A **thematic social space**, where users can register, comment, and suggest new content.
+
+<div align="center">
+<img src=DrumLib/static/assets/img/drumlib_album_generator.jpg alt="Alt Text" style="width:70%; height:auto; display: block; margin-left:auto; margin-right:auto;">
+</div>
+
+The platform lets users explore profiles of iconic drummers, browse their discographies, and listen to albums and tracks featuring their drumming within the platform.
+
+<div align="center">
+<img src=DrumLib/static/assets/img/drumlib_drummers_explorer.jpg alt="Alt Text" style="width:70%; height:auto; display: block; margin-left:auto; margin-right:auto;">
+</div>
 
 ---
 
@@ -11,6 +30,20 @@ The project also includes social features such as user registration, login, prof
 The main goal of **DrumLib** was to serve as a learning environment for mastering backend development with Django. From designing the architecture to deployment and containerization – this project reflects my self-taught journey and growth as a developer.
 
 ---
+
+
+## Features
+
+-  **Custom audio player** – built in vanilla JavaScript, supports play, pause, seek, volume control (YouTube-based)
+-  **Drummer exploration** – detailed artist pages
+-  **Discographies** – albums and track listings for each drummer
+-  **Random album generator** – pick a random record by a selected drummer
+-  **Community features** – user accounts, comments, profile management
+-  **Content suggestions** – users can submit ideas for new drummers and albums
+-  **Admin panel** – Django admin interface for content and user management
+
+---
+
 
 ## Tech Stack
 
@@ -22,6 +55,56 @@ The main goal of **DrumLib** was to serve as a learning environment for masterin
 - **Hosting:** DigitalOcean VPS (Ubuntu)  
 
 ---
+
+## Setup / Running Locally
+#### Prerequisites:
+- Docker & Docker Compose installed on your machine
+- Git
+
+**To run DrumLib locally, follow these steps:**
+### 1. Clone the repository
+  ```sh
+    git clone https://github.com/MariuszLepkowski/DrumLib.git
+    cd DrumLib
+  ```
+### 2. Set up environment variables
+Copy the example env file and edit it if needed:
+  ```sh
+    cp .env.example .env
+  ```
+### 3. Build and start the containers
+If you're on Linux, you might need to use sudo unless your user has Docker permissions:
+  ```sh
+    docker compose up --build
+  ```
+This will build the Docker image and start two containers:
+- drumlib_web_local (the Django app)
+- drumlib_db_local (PostgreSQL database)
+
+App will be available at http://localhost:8000
+
+---
+### 4. Run migrations and create superuser (only on first run)
+Once containers are up, in a new terminal:
+  ```sh
+    docker exec -it drumlib_web_local python manage.py migrate
+    docker exec -it drumlib_web_local python manage.py createsuperuser
+  ```
+---
+
+### 5. Access the admin panel
+
+Go to: http://localhost:8000/admin.
+
+Login with the superuser credentials you just created.
+
+**Note:** Some features (like album generator and drummer profiles) require content to be added via the Django Admin Panel. 
+
+**The database is empty by default.** 
+
+Use the superuser account to populate it after initial setup.
+
+---  
 
 ## Project Structure
 
@@ -57,16 +140,12 @@ DrumLib/
 
 ```
 ---
+## Testing
 
-## Features
+All apps include unit and integration tests using:
 
--  **Custom audio player** – built in vanilla JavaScript, supports play, pause, seek, volume control (YouTube-based)
--  **Drummer exploration** – detailed artist pages
--  **Discographies** – albums and track listings for each drummer
--  **Random album generator** – pick a random record by a selected drummer
--  **Community features** – user accounts, comments, profile management
--  **Content suggestions** – users can submit ideas for new drummers and albums
--  **Admin panel** – Django admin interface for content and user management
+- `pytest`
+- `pytest-django`
 
 ---
 
@@ -82,44 +161,13 @@ Production environment setup includes `.env` variables and separate configuratio
 
 ---
 
-## Testing
+## License / Disclaimer
 
-All apps include unit and integration tests using:
+**Disclaimer:** The project has been created by Mariusz Łepkowski as a non-commercial programming portfolio project for educational and recruitment purposes only.
 
-- `pytest`
-- `pytest-django`
+**DrumLib is not licensed for commercial use or redistribution.**
 
----
-
-## What I Learned
-
-Building DrumLib from scratch helped me develop key backend and DevOps skills:
-
-### Backend
-- Designing modular Django architecture
-- Building application logic (FBVs, CBVs)
-- Handling forms, views, templates
-
-### Databases
-- Modeling data with Django ORM
-- Using PostgreSQL
-- Managing migrations and schema evolution
-
-### Testing
-- Writing unit and integration tests with pytest
-
-### Frontend
-- Implementing interactive components in JavaScript
-- Designing a responsive UI with plain HTML/CSS
-
-### DevOps
-- Creating Docker containers for dev & production
-- Configuring Nginx, Gunicorn, and environment variables
-- Hosting and managing the app on a VPS
-
-### Workflow & Version Control
-- Using Git for version control
-- Managing dependencies and environments
+All rights reserved.
 
 ---
 
