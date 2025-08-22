@@ -12,6 +12,3 @@ class DrummerPhotoAdmin(admin.ModelAdmin):
     filter_horizontal = ('drummers',)
     list_display = ('source', 'image_author')
 
-# Alternatively, you can use admin.site.register with the admin class
-# admin.site.register(Drummer, DrummerAdmin)
-# admin.site.register(DrummerPhoto, DrummerPhotoAdmin)
