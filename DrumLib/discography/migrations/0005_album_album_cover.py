@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discography_app', '0004_alter_artist_name'),
+        ("discography_app", "0004_alter_artist_name"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='album',
-            name='album_cover',
-            field=models.ImageField(default='', upload_to='album_covers/'),
+            model_name="album",
+            name="album_cover",
+            field=models.ImageField(default="", upload_to="album_covers/"),
             preserve_default=False,
         ),
     ]

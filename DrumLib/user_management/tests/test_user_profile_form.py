@@ -1,10 +1,11 @@
+from io import BytesIO
+
 import pytest
 from django.contrib.auth.models import User
-from user_management_app.models import Profile
-from user_management_app.forms import UserProfileForm
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
-from io import BytesIO
+from user_management_app.forms import UserProfileForm
+from user_management_app.models import Profile
 
 
 @pytest.mark.django_db
@@ -32,9 +33,11 @@ class TestUserProfileForm:
 
         # Assert: Verify the form's type and field initialization
         assert isinstance(form, UserProfileForm)
-        assert form.fields['first_name'].initial == "John"
-        assert form.fields['last_name'].initial == "Doe"
-        assert profile.user.username == "testuser"  # Ensure profile is correctly linked to the user
+        assert form.fields["first_name"].initial == "John"
+        assert form.fields["last_name"].initial == "Doe"
+        assert (
+            profile.user.username == "testuser"
+        )  # Ensure profile is correctly linked to the user
 
     def test_profile_form_save_and_user_object_update(self, profile, user):
         """
@@ -55,8 +58,8 @@ class TestUserProfileForm:
 
         # Save the form
         profile = form.save(commit=False)
-        user.first_name = form.cleaned_data['first_name']
-        user.last_name = form.cleaned_data['last_name']
+        user.first_name = form.cleaned_data["first_name"]
+        user.last_name = form.cleaned_data["last_name"]
         user.save()  # Save the User model
         profile.save()  # Save the Profile model
 
@@ -86,7 +89,7 @@ class TestUserProfileForm:
 
         # Assert
         assert not form.is_valid()
-        assert "Ensure this value has at most" in form.errors['first_name'][0]
+        assert "Ensure this value has at most" in form.errors["first_name"][0]
 
     def test_profile_form_avatar_validation(self, profile, user):
         # Generate a valid image file
@@ -95,8 +98,12 @@ class TestUserProfileForm:
         image.save(image_file, format="JPEG")
         image_file.seek(0)  # Reset the file pointer to the beginning
 
-        valid_image = SimpleUploadedFile("avatar.jpg", image_file.read(), content_type="image/jpeg")
-        invalid_file = SimpleUploadedFile("document.pdf", b"file_content", content_type="application/pdf")
+        valid_image = SimpleUploadedFile(
+            "avatar.jpg", image_file.read(), content_type="image/jpeg"
+        )
+        invalid_file = SimpleUploadedFile(
+            "document.pdf", b"file_content", content_type="application/pdf"
+        )
 
         # Test valid image
         form = UserProfileForm(
@@ -121,7 +128,9 @@ class TestUserProfileForm:
             files={"avatar": invalid_file},
         )
         assert not form.is_valid(), "Form should be invalid with a non-image file."
-        assert "avatar" in form.errors, "The error should be related to the avatar field."
+        assert (
+            "avatar" in form.errors
+        ), "The error should be related to the avatar field."
 
     def test_profile_form_integrity_no_side_effects(self, profile, user):
         """

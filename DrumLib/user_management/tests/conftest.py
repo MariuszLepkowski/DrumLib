@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from user_management_app.models import Profile
 
+
 @pytest.fixture
 def user():
     """
@@ -15,6 +16,7 @@ def user():
         email="testuser@example.com",
     )
 
+
 @pytest.fixture
 def profile(user):
     """
@@ -22,4 +24,3 @@ def profile(user):
     It is assumed that the profile is automatically created by a signal.
     """
     return Profile.objects.get(user=user)
-

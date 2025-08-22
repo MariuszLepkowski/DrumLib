@@ -1,10 +1,12 @@
 import pytest
 from drummers_app.models import Drummer, DrummerPhoto
 
+
 @pytest.mark.django_db
 def test_drummer_str():
     drummer = Drummer.objects.create(name="Vinnie Colaiuta")
     assert str(drummer) == "Vinnie Colaiuta"
+
 
 @pytest.mark.django_db
 def test_drummer_photo_relationship():
@@ -41,8 +43,3 @@ def test_drummer_photo_relationship():
     assert drummer2 in photo2.drummers.all()
     assert photo2 in drummer1.photos.all()
     assert photo2 in drummer2.photos.all()
-
-
-
-
-

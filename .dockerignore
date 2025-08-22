@@ -17,4 +17,3 @@ docker-compose.yml
 
 .pytest_cache/
 .DS_Store
-

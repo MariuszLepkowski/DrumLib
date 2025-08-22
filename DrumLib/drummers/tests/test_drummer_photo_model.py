@@ -9,6 +9,7 @@ def test_drummer_photo_single_str():
     photo.drummers.add(drummer)
     assert str(photo) == f"Vinnie Colaiuta's Photo"
 
+
 @pytest.mark.django_db
 def test_drummer_photo_str_multiple_drummers():
     drummer1 = Drummer.objects.create(name="John Bonham")

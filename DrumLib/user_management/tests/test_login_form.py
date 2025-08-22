@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from user_management_app.forms import CustomAuthenticationForm
 
+
 @pytest.mark.login_tests
 @pytest.mark.django_db
 class TestCustomAuthenticationForm:
@@ -12,13 +13,12 @@ class TestCustomAuthenticationForm:
             ("existing_user", "correct_password", None),
             ("nonexistent_user", "any_password", "The user does not exist."),
             ("existing_user", "incorrect_password", "Invalid password. Try again."),
-
         ],
         ids=[
             "valid_login",
             "nonexistent_user",
             "incorrect_password",
-        ]
+        ],
     )
     def test_authentication_form(self, username, password, expected_error):
         User.objects.create_user(username="existing_user", password="correct_password")
@@ -32,4 +32,3 @@ class TestCustomAuthenticationForm:
             assert expected_error in form.errors["__all__"][0]
         else:
             assert form.is_valid()
-

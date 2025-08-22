@@ -1,6 +1,6 @@
 import pytest
+from discography_app.models import Artist, Track
 from django.urls import reverse
-from discography_app.models import Track, Artist
 from drummers_app.models import Drummer
 
 
@@ -18,8 +18,12 @@ def artists(db):
 
 @pytest.fixture
 def tracks(db, drummer, artists):
-    track1 = Track.objects.create(title="Whole Lotta Love", track_url="http://example.com/track1")
-    track2 = Track.objects.create(title="Moby Dick", track_url="http://example.com/track2")
+    track1 = Track.objects.create(
+        title="Whole Lotta Love", track_url="http://example.com/track1"
+    )
+    track2 = Track.objects.create(
+        title="Moby Dick", track_url="http://example.com/track2"
+    )
 
     track1.artists.add(artists[0])
     track1.drummers.add(drummer)
@@ -29,24 +33,38 @@ def tracks(db, drummer, artists):
 
     return [track1, track2]
 
+
 @pytest.mark.django_db
 class TestDrummerTracksView:
     def test_drummer_tracks_status_code(self, client, drummer):
-        url = reverse("discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name})
+        url = reverse(
+            "discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name}
+        )
         response = client.get(url)
         assert response.status_code == 200
 
     def test_drummer_tracks_context(self, client, drummer, tracks):
-        url = reverse("discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name})
+        url = reverse(
+            "discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name}
+        )
         response = client.get(url)
         assert "tracks" in response.context
         assert response.context["drummer"] == drummer
 
-        sorted_tracks = sorted(tracks, key=lambda track: track.artists.first().name if track.artists.exists() else "")
+        sorted_tracks = sorted(
+            tracks,
+            key=lambda track: (
+                track.artists.first().name if track.artists.exists() else ""
+            ),
+        )
         assert list(response.context["tracks"]) == sorted_tracks
 
     def test_drummer_tracks_template_used(self, client, drummer):
-        url = reverse("discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name})
+        url = reverse(
+            "discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name}
+        )
         response = client.get(url)
         assert response.status_code == 200
-        assert "discography_app/drummer-tracks.html" in [t.name for t in response.templates]
+        assert "discography_app/drummer-tracks.html" in [
+            t.name for t in response.templates
+        ]

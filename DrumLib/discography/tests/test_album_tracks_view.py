@@ -1,11 +1,11 @@
 import pytest
-from django.urls import reverse
+from comments_app.forms import CommentForm
+from comments_app.models import Comment
+from discography_app.models import Album, Artist, Track
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
-from discography_app.models import Album, Track, Artist
+from django.urls import reverse
 from drummers_app.models import Drummer
-from comments_app.models import Comment
-from comments_app.forms import CommentForm
 
 
 @pytest.fixture
@@ -39,8 +39,7 @@ def album(db, drummer, artists):
 @pytest.fixture
 def tracks(db, album, drummer):
     track = Track.objects.create(
-        title="Stairway to Heaven",
-        track_url="http://example.com/track"
+        title="Stairway to Heaven", track_url="http://example.com/track"
     )
     track.albums.add(album)
     track.drummers.add(drummer)
@@ -56,16 +55,13 @@ def user(db):
 def comments(db, album, drummer, user):
     return [
         Comment.objects.create(
-            album=album,
-            drummer=drummer,
-            author=user,
-            text="Amazing album!"
+            album=album, drummer=drummer, author=user, text="Amazing album!"
         ),
         Comment.objects.create(
             album=album,
             drummer=drummer,
             author=user,
-            text="My favorite tracks are here."
+            text="My favorite tracks are here.",
         ),
     ]
 
@@ -107,7 +103,9 @@ class TestAlbumTracksView:
             kwargs={"album_title": album.title, "drummer_name": drummer.name},
         )
         response = client.get(url)
-        assert "discography_app/album-tracks.html" in [t.name for t in response.templates]
+        assert "discography_app/album-tracks.html" in [
+            t.name for t in response.templates
+        ]
 
     def test_album_tracks_post_comment(self, client, drummer, album, user):
         client.login(username="testuser", password="password123")
@@ -119,4 +117,6 @@ class TestAlbumTracksView:
         response = client.post(url, data)
 
         assert response.status_code == 302  # Redirect after POST
-        assert Comment.objects.filter(text="New comment", album=album, drummer=drummer).exists()
+        assert Comment.objects.filter(
+            text="New comment", album=album, drummer=drummer
+        ).exists()

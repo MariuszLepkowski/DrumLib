@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class DrummerSuggestion(models.Model):
@@ -10,6 +10,7 @@ class DrummerSuggestion(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class AlbumSuggestion(models.Model):
     album_author = models.CharField(max_length=255)

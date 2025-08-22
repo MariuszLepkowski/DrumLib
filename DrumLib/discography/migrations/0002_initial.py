@@ -8,34 +8,46 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('discography_app', '0001_initial'),
-        ('drummers_app', '0001_initial'),
+        ("discography_app", "0001_initial"),
+        ("drummers_app", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='track',
-            name='drummers',
-            field=models.ManyToManyField(blank=True, related_name='tracks_played', to='drummers_app.drummer'),
+            model_name="track",
+            name="drummers",
+            field=models.ManyToManyField(
+                blank=True, related_name="tracks_played", to="drummers_app.drummer"
+            ),
         ),
         migrations.AddField(
-            model_name='artist',
-            name='collaborating_drummers',
-            field=models.ManyToManyField(blank=True, related_name='artists_collaborating_with_drummer', to='drummers_app.drummer'),
+            model_name="artist",
+            name="collaborating_drummers",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="artists_collaborating_with_drummer",
+                to="drummers_app.drummer",
+            ),
         ),
         migrations.AddField(
-            model_name='album',
-            name='artists',
-            field=models.ManyToManyField(blank=True, related_name='albums_featured', to='discography_app.artist'),
+            model_name="album",
+            name="artists",
+            field=models.ManyToManyField(
+                blank=True, related_name="albums_featured", to="discography_app.artist"
+            ),
         ),
         migrations.AddField(
-            model_name='album',
-            name='drummers',
-            field=models.ManyToManyField(blank=True, related_name='albums_played', to='drummers_app.drummer'),
+            model_name="album",
+            name="drummers",
+            field=models.ManyToManyField(
+                blank=True, related_name="albums_played", to="drummers_app.drummer"
+            ),
         ),
         migrations.AddField(
-            model_name='album',
-            name='tracks',
-            field=models.ManyToManyField(blank=True, related_name='albums', to='discography_app.track'),
+            model_name="album",
+            name="tracks",
+            field=models.ManyToManyField(
+                blank=True, related_name="albums", to="discography_app.track"
+            ),
         ),
     ]

@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discography_app', '0002_initial'),
+        ("discography_app", "0002_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='album',
-            name='album_url',
+            model_name="album",
+            name="album_url",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='track',
-            name='track_url',
+            model_name="track",
+            name="track_url",
             field=models.TextField(blank=True, null=True),
         ),
     ]

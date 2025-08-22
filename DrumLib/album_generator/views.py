@@ -1,23 +1,23 @@
-from django.shortcuts import render
 from random import choice
-from drummers_app.models import Drummer
+
 from discography_app.models import Album, Track
 from discography_app.utils import get_video_id
-from django.http import Http404
-from django.http import HttpResponseBadRequest
+from django.http import Http404, HttpResponseBadRequest
+from django.shortcuts import render
+from drummers_app.models import Drummer
 
 
 def album_generator_form(request):
     drummers = Drummer.objects.all()
     context = {
-        'title': 'Album Generator',
-        'drummers': drummers,
+        "title": "Album Generator",
+        "drummers": drummers,
     }
-    return render(request, 'album_generator_app/album-generator-form.html', context)
+    return render(request, "album_generator_app/album-generator-form.html", context)
 
 
 def generate_random_album(request):
-    drummer_id = request.POST.get('drummer')
+    drummer_id = request.POST.get("drummer")
 
     if not drummer_id:
         return HttpResponseBadRequest("Drummer ID is required.")
@@ -40,17 +40,16 @@ def generate_random_album(request):
         tracks = None
 
     if random_album and random_album.artists.exists():
-        artists = ', '.join(artist.name for artist in random_album.artists.all())
+        artists = ", ".join(artist.name for artist in random_album.artists.all())
     else:
         artists = None
 
     context = {
-        'title': 'Album Generator',
-        'drummer': drummer,
-        'album': random_album,
-        'artists': artists,
-        'tracks': tracks,
+        "title": "Album Generator",
+        "drummer": drummer,
+        "album": random_album,
+        "artists": artists,
+        "tracks": tracks,
     }
 
-    return render(request, 'album_generator_app/album-details.html', context)
-
+    return render(request, "album_generator_app/album-details.html", context)

@@ -2,7 +2,7 @@
 <img src=DrumLib/static/assets/img/drumlib-logo2.png alt="Alt Text" style="width:70%; height:auto; display: block; margin-left:auto; margin-right:auto;">
 </div>
 
-**DrumLib** is a self-developed web platform developed out of a passion for music, drumming, and programming.  
+**DrumLib** is a self-developed web platform developed out of a passion for music, drumming, and programming.
 <div align="center">
 <img src=DrumLib/static/assets/img/drumlib_home_page.jpg alt="Alt Text" style="width:70%; height:auto; display: block; margin-left:auto; margin-right:auto;">
 </div>
@@ -47,12 +47,12 @@ The main goal of **DrumLib** was to serve as a learning environment for masterin
 
 ## Tech Stack
 
-- **Backend:** Python 3.11, Django 4.x  
-- **Frontend:** Django Templates, HTML/CSS, JavaScript (custom audio player)  
-- **Database:** PostgreSQL  
-- **DevOps:** Docker, Docker Compose, Nginx, Gunicorn, Let's Encrypt (SSL)  
-- **Testing:** `pytest`, `pytest-django`  
-- **Hosting:** DigitalOcean VPS (Ubuntu)  
+- **Backend:** Python 3.11, Django 4.x
+- **Frontend:** Django Templates, HTML/CSS, JavaScript (custom audio player)
+- **Database:** PostgreSQL
+- **DevOps:** Docker, Docker Compose, Nginx, Gunicorn, Let's Encrypt (SSL)
+- **Testing:** `pytest`, `pytest-django`
+- **Hosting:** DigitalOcean VPS (Ubuntu)
 
 ---
 
@@ -98,13 +98,13 @@ Go to: http://localhost:8000/admin.
 
 Login with the superuser credentials you just created.
 
-**Note:** Some features (like album generator and drummer profiles) require content to be added via the Django Admin Panel. 
+**Note:** Some features (like album generator and drummer profiles) require content to be added via the Django Admin Panel.
 
-**The database is empty by default.** 
+**The database is empty by default.**
 
 Use the superuser account to populate it after initial setup.
 
----  
+---
 
 ## Project Structure
 
@@ -177,4 +177,3 @@ All rights reserved.
 - **Source Code:** [github.com/MariuszLepkowski/DrumLib](https://github.com/MariuszLepkowski/DrumLib)
 
 ---
-

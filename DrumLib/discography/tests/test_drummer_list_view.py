@@ -29,4 +29,6 @@ class TestDrummersListView:
     def test_drummers_list_template_used(self, client):
         url = reverse("discography_app:drummers_list")
         response = client.get(url)
-        assert "discography_app/drummers-list.html" in [t.name for t in response.templates]
+        assert "discography_app/drummers-list.html" in [
+            t.name for t in response.templates
+        ]

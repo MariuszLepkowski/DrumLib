@@ -1,7 +1,8 @@
-from .models import Drummer, DrummerPhoto
-from django.shortcuts import render, redirect
 from comments_app.forms import CommentForm
 from django.http import HttpResponseForbidden
+from django.shortcuts import redirect, render
+
+from .models import Drummer, DrummerPhoto
 
 
 def sort_by_last_name(drummer):
@@ -12,12 +13,12 @@ def sort_by_last_name(drummer):
 def drummers(request):
     template_name = "drummers_app/drummers.html"
 
-    drummers = Drummer.objects.all().order_by('name')
+    drummers = Drummer.objects.all().order_by("name")
     drummers_sorted = sorted(drummers, key=sort_by_last_name)
 
     context = {
-        'title': 'Drummers Explorer',
-        'drummers': drummers_sorted,
+        "title": "Drummers Explorer",
+        "drummers": drummers_sorted,
     }
 
     return render(request, template_name, context)
@@ -30,7 +31,7 @@ def drummer_profile(request, drummer_name):
     comments = drummer.comment_set.filter(album__isnull=True)
     form = CommentForm()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         if not request.user.is_authenticated:
             return HttpResponseForbidden("You must be logged in to post a comment.")
 
@@ -40,13 +41,13 @@ def drummer_profile(request, drummer_name):
             comment.author = request.user
             comment.drummer = drummer
             comment.save()
-            return redirect('drummers_app:drummer_profile', drummer_name=drummer.name)
+            return redirect("drummers_app:drummer_profile", drummer_name=drummer.name)
 
     context = {
-        'title': f'{drummer_name}',
-        'drummer': drummer,
-        'form': form,
-        'comments': comments,
+        "title": f"{drummer_name}",
+        "drummer": drummer,
+        "form": form,
+        "comments": comments,
     }
 
     return render(request, template_name, context)

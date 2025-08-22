@@ -1,8 +1,9 @@
 import pytest
-from django.urls import reverse
-from drummers_app.models import Drummer
 from discography_app.models import Album
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
+from drummers_app.models import Drummer
+
 
 @pytest.fixture
 def drummer():
@@ -34,17 +35,24 @@ def albums(drummer):
 @pytest.mark.django_db
 class TestDrummerAlbumsView:
     def test_drummer_albums_status_code(self, client, drummer):
-        url = reverse("discography_app:drummer_albums", kwargs={"drummer_name": drummer.name})
+        url = reverse(
+            "discography_app:drummer_albums", kwargs={"drummer_name": drummer.name}
+        )
         response = client.get(url)
         assert response.status_code == 200
 
     def test_drummer_albums_404_for_nonexistent_drummer(self, client):
-        url = reverse("discography_app:drummer_albums", kwargs={"drummer_name": "Nonexistent Drummer"})
+        url = reverse(
+            "discography_app:drummer_albums",
+            kwargs={"drummer_name": "Nonexistent Drummer"},
+        )
         response = client.get(url)
         assert response.status_code == 404
 
     def test_drummer_albums_context(self, client, drummer, albums):
-        url = reverse("discography_app:drummer_albums", kwargs={"drummer_name": drummer.name})
+        url = reverse(
+            "discography_app:drummer_albums", kwargs={"drummer_name": drummer.name}
+        )
         response = client.get(url)
         assert "albums" in response.context
 
@@ -53,6 +61,10 @@ class TestDrummerAlbumsView:
         assert list(response.context["albums"]) == sorted_albums
 
     def test_drummer_albums_template_used(self, client, drummer):
-        url = reverse("discography_app:drummer_albums", kwargs={"drummer_name": drummer.name})
+        url = reverse(
+            "discography_app:drummer_albums", kwargs={"drummer_name": drummer.name}
+        )
         response = client.get(url)
-        assert "discography_app/drummer-albums.html" in [t.name for t in response.templates]
+        assert "discography_app/drummer-albums.html" in [
+            t.name for t in response.templates
+        ]

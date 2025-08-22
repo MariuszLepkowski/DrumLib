@@ -1,11 +1,13 @@
 import pytest
-from discography_app.models import Track, Artist
+from discography_app.models import Artist, Track
 from drummers_app.models import Drummer
 
 
 @pytest.fixture
 def drummer():
-    return Drummer.objects.create(name="John Bonham", bio="Legendary drummer of Led Zeppelin.")
+    return Drummer.objects.create(
+        name="John Bonham", bio="Legendary drummer of Led Zeppelin."
+    )
 
 
 @pytest.fixture
@@ -15,7 +17,9 @@ def artist():
 
 @pytest.fixture
 def track(drummer, artist):
-    track = Track.objects.create(title="Stairway to Heaven", track_url="https://example.com/track")
+    track = Track.objects.create(
+        title="Stairway to Heaven", track_url="https://example.com/track"
+    )
     track.artists.add(artist)
     track.drummers.add(drummer)
     return track

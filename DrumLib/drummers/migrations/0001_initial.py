@@ -8,33 +8,70 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('discography_app', '0001_initial'),
+        ("discography_app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Drummer',
+            name="Drummer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('bio', models.TextField(blank=True, null=True)),
-                ('birth_date', models.DateField(blank=True, null=True)),
-                ('death_date', models.DateField(blank=True, null=True)),
-                ('nationality', models.CharField(blank=True, max_length=255, null=True)),
-                ('collaborating_artists', models.ManyToManyField(blank=True, related_name='drummers_collaborating_with_artist', to='discography_app.artist')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255)),
+                ("bio", models.TextField(blank=True, null=True)),
+                ("birth_date", models.DateField(blank=True, null=True)),
+                ("death_date", models.DateField(blank=True, null=True)),
+                (
+                    "nationality",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                (
+                    "collaborating_artists",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="drummers_collaborating_with_artist",
+                        to="discography_app.artist",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='DrummerPhoto',
+            name="DrummerPhoto",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.BinaryField()),
-                ('drummers', models.ManyToManyField(blank=True, related_name='photos_of_drummer', to='drummers_app.drummer')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("image", models.BinaryField()),
+                (
+                    "drummers",
+                    models.ManyToManyField(
+                        blank=True,
+                        related_name="photos_of_drummer",
+                        to="drummers_app.drummer",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='drummer',
-            name='photos',
-            field=models.ManyToManyField(blank=True, related_name='drummers_on_photo', to='drummers_app.drummerphoto'),
+            model_name="drummer",
+            name="photos",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="drummers_on_photo",
+                to="drummers_app.drummerphoto",
+            ),
         ),
     ]

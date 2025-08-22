@@ -1,6 +1,7 @@
 import pytest
 from discography_app.utils import get_video_id
 
+
 @pytest.mark.parametrize(
     "url, expected_video_id",
     [

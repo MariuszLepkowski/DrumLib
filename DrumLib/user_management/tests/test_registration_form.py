@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from user_management_app.forms import UserRegistrationForm
 
 test_data = [
-    (  #valid_registration
+    (  # valid_registration
         {
             "first_name": "John",
             "last_name": "Doe",
@@ -12,9 +12,9 @@ test_data = [
             "password1": "testpassword123",
             "password2": "testpassword123",
         },
-        True
+        True,
     ),
-    (  #invalid_passwords_mismatch
+    (  # invalid_passwords_mismatch
         {
             "first_name": "John",
             "last_name": "Doe",
@@ -23,28 +23,31 @@ test_data = [
             "password1": "testpassword123",
             "password2": "differentpassword123",
         },
-        False
+        False,
     ),
-    (  #missing_email
-        {   "first_name": "John",
+    (  # missing_email
+        {
+            "first_name": "John",
             "last_name": "Doe",
             "username": "test_user",
             "password1": "strongpassword123",
             "password2": "strongpassword123",
         },
-        False
+        False,
     ),
     (  # wrong mail format
-        {   "first_name": "John",
+        {
+            "first_name": "John",
             "last_name": "Doe",
             "username": "test_user",
             "email": "mail.com",
             "password1": "strongpassword123",
             "password2": "strongpassword123",
-         },
-        False
-    )
+        },
+        False,
+    ),
 ]
+
 
 @pytest.mark.registration_tests
 @pytest.mark.django_db
@@ -54,11 +57,11 @@ class TestRegistration:
         "data, is_valid",
         test_data,
         ids=[
-        "valid_registration",
-        "invalid_passwords_mismatch",
-        "missing_email",
-        "wrong_mail_format",
-        ]
+            "valid_registration",
+            "invalid_passwords_mismatch",
+            "missing_email",
+            "wrong_mail_format",
+        ],
     )
     def test_user_registration_form(self, data, is_valid):
         form = UserRegistrationForm(data=data)

@@ -1,4 +1,4 @@
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
 
 def get_video_id(url):
@@ -6,4 +6,3 @@ def get_video_id(url):
     query = parse_qs(url_data.query)
     video_id = query.get("v", [None])[0]
     return video_id
-

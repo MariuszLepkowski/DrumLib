@@ -13,4 +13,6 @@ def test_comment_form_invalid_data():
 
 def test_comment_form_widget():
     form = CommentForm()
-    assert form.fields["text"].widget.attrs["placeholder"] == "Write your comment here..."
+    assert (
+        form.fields["text"].widget.attrs["placeholder"] == "Write your comment here..."
+    )

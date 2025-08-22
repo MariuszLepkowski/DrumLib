@@ -14,13 +14,20 @@ class Drummer(models.Model):
     - photos: Many-to-many relationship with DrummerPhoto model, stores drummer's photos (optional).
     - collaborating_artists: Many-to-many relationship with Artist model, indicating artists the drummer has collaborated with (optional).
     """
+
     name = models.CharField(max_length=255)
     bio = models.TextField(blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     death_date = models.DateField(blank=True, null=True)
     nationality = models.CharField(max_length=255, blank=True, null=True)
-    photos = models.ManyToManyField('DrummerPhoto', related_name='drummers_on_photo', blank=True)
-    collaborating_artists = models.ManyToManyField('discography_app.Artist', related_name='drummers_collaborating_with_artist', blank=True)
+    photos = models.ManyToManyField(
+        "DrummerPhoto", related_name="drummers_on_photo", blank=True
+    )
+    collaborating_artists = models.ManyToManyField(
+        "discography_app.Artist",
+        related_name="drummers_collaborating_with_artist",
+        blank=True,
+    )
 
     def __str__(self):
         return self.name
@@ -36,8 +43,11 @@ class DrummerPhoto(models.Model):
     - source: Field indicating the source of the photo.
     - image_author: Field indicating the author of the photo.
     """
-    drummers = models.ManyToManyField('Drummer', related_name='photos_of_drummer', blank=True)
-    image = models.ImageField(upload_to='drummer_photos/', blank=True, null=True)
+
+    drummers = models.ManyToManyField(
+        "Drummer", related_name="photos_of_drummer", blank=True
+    )
+    image = models.ImageField(upload_to="drummer_photos/", blank=True, null=True)
     source = models.CharField(max_length=255, blank=True, null=True)
     image_author = models.CharField(max_length=255, blank=True, null=True)
 
