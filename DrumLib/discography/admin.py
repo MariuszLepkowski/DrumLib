@@ -1,7 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
-
 from .models import Album, Artist, Track
 
 
@@ -21,8 +18,3 @@ class ArtistAdmin(admin.ModelAdmin):
 class TrackAdmin(admin.ModelAdmin):
     filter_horizontal = ('artists', 'drummers',)
     list_display = ('title', 'track_url',)
-
-# Alternatively, you can use admin.site.register with the admin class
-# admin.site.register(Album, AlbumAdmin)
-# admin.site.register(Artist, ArtistAdmin)
-# admin.site.register(Track, TrackAdmin)
