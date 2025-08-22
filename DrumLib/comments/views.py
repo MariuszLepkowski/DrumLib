@@ -1,7 +1,7 @@
-from discography_app.models import Album
+from discography.models import Album
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from drummers_app.models import Drummer
+from drummers.models import Drummer
 
 from .forms import CommentForm
 from .models import Comment

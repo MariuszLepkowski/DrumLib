@@ -1,7 +1,7 @@
-from discography_app.models import Album, Track
+from discography.models import Album
 from django.contrib.auth.models import User
 from django.db import models
-from drummers_app.models import Drummer
+from drummers.models import Drummer
 
 
 class Comment(models.Model):
