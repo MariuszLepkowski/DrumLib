@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import album_generator_form, generate_random_album
 
-app_name = "album_generator_app"
+app_name = "album_generator"
 
 urlpatterns = [
     path("", album_generator_form, name="album_generator_form"),
