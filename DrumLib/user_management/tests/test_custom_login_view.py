@@ -1,6 +1,6 @@
 import pytest
 from django.urls import resolve, reverse
-from user_management_app.views import CustomLoginView
+from user_management.views import CustomLoginView
 
 
 @pytest.mark.login_tests
@@ -14,7 +14,7 @@ class TestCustomLoginView:
         - Confirms the correct template and context are used.
         """
 
-        url = reverse("user_management_app:login")
+        url = reverse("user_management:login")
         response = client.get(url)
 
         # Check if URL resolves to the correct view class
@@ -22,7 +22,7 @@ class TestCustomLoginView:
 
         # Check response and template
         assert response.status_code == 200
-        assert "user_management_app/login.html" in [t.name for t in response.templates]
+        assert "user_management/login.html" in [t.name for t in response.templates]
 
         # Check if the form is passed in the context
         assert "form" in response.context

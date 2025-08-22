@@ -11,7 +11,7 @@ def sort_by_last_name(drummer):
 
 
 def drummers(request):
-    template_name = "drummers_app/drummers.html"
+    template_name = "drummers/drummers.html"
 
     drummers = Drummer.objects.all().order_by("name")
     drummers_sorted = sorted(drummers, key=sort_by_last_name)
@@ -25,7 +25,7 @@ def drummers(request):
 
 
 def drummer_profile(request, drummer_name):
-    template_name = "drummers_app/drummer-profile.html"
+    template_name = "drummers/drummer-profile.html"
 
     drummer = Drummer.objects.get(name=drummer_name)
     comments = drummer.comment_set.filter(album__isnull=True)
@@ -41,7 +41,7 @@ def drummer_profile(request, drummer_name):
             comment.author = request.user
             comment.drummer = drummer
             comment.save()
-            return redirect("drummers_app:drummer_profile", drummer_name=drummer.name)
+            return redirect("drummers:drummer_profile", drummer_name=drummer.name)
 
     context = {
         "title": f"{drummer_name}",

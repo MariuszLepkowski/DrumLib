@@ -1,5 +1,5 @@
 import pytest
-from suggestions_app.forms import AlbumSuggestionForm, DrummerSuggestionForm
+from suggestions.forms import AlbumSuggestionForm, DrummerSuggestionForm
 
 
 @pytest.mark.django_db

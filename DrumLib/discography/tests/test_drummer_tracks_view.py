@@ -1,7 +1,7 @@
 import pytest
-from discography_app.models import Artist, Track
+from discography.models import Artist, Track
 from django.urls import reverse
-from drummers_app.models import Drummer
+from drummers.models import Drummer
 
 
 @pytest.fixture
@@ -38,14 +38,14 @@ def tracks(db, drummer, artists):
 class TestDrummerTracksView:
     def test_drummer_tracks_status_code(self, client, drummer):
         url = reverse(
-            "discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name}
+            "discography:drummer_tracks", kwargs={"drummer_name": drummer.name}
         )
         response = client.get(url)
         assert response.status_code == 200
 
     def test_drummer_tracks_context(self, client, drummer, tracks):
         url = reverse(
-            "discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name}
+            "discography:drummer_tracks", kwargs={"drummer_name": drummer.name}
         )
         response = client.get(url)
         assert "tracks" in response.context
@@ -61,10 +61,8 @@ class TestDrummerTracksView:
 
     def test_drummer_tracks_template_used(self, client, drummer):
         url = reverse(
-            "discography_app:drummer_tracks", kwargs={"drummer_name": drummer.name}
+            "discography:drummer_tracks", kwargs={"drummer_name": drummer.name}
         )
         response = client.get(url)
         assert response.status_code == 200
-        assert "discography_app/drummer-tracks.html" in [
-            t.name for t in response.templates
-        ]
+        assert "discography/drummer-tracks.html" in [t.name for t in response.templates]

@@ -1,6 +1,6 @@
 import pytest
 from django.contrib.auth.models import User
-from user_management_app.forms import CustomAuthenticationForm
+from user_management.forms import CustomAuthenticationForm
 
 
 @pytest.mark.login_tests

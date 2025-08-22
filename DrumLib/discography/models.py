@@ -23,7 +23,7 @@ class Album(models.Model):
     release_year = models.IntegerField(blank=True, null=True)
     genre = models.CharField(max_length=255, blank=True, null=True)
     drummers = models.ManyToManyField(
-        "drummers_app.Drummer", related_name="albums_played", blank=True
+        "drummers.Drummer", related_name="albums_played", blank=True
     )
     tracks = models.ManyToManyField("Track", related_name="albums", blank=True)
     album_url = models.TextField(blank=True, null=True)
@@ -44,7 +44,7 @@ class Artist(models.Model):
 
     name = models.CharField(max_length=255, unique=True)
     collaborating_drummers = models.ManyToManyField(
-        "drummers_app.Drummer",
+        "drummers.Drummer",
         related_name="artists_collaborating_with_drummer",
         blank=True,
     )
@@ -69,7 +69,7 @@ class Track(models.Model):
         "Artist", related_name="tracks_with_artist", blank=True
     )
     drummers = models.ManyToManyField(
-        "drummers_app.Drummer", related_name="tracks_played", blank=True
+        "drummers.Drummer", related_name="tracks_played", blank=True
     )
     track_url = models.TextField(blank=True, null=True)
 

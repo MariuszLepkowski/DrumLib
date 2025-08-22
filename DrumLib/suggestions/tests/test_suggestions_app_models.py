@@ -1,5 +1,5 @@
 import pytest
-from suggestions_app.models import AlbumSuggestion, DrummerSuggestion
+from suggestions.models import AlbumSuggestion, DrummerSuggestion
 
 
 @pytest.mark.django_db

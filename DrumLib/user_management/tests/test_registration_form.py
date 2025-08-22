@@ -1,6 +1,6 @@
 import pytest
 from django.contrib.auth.models import User
-from user_management_app.forms import UserRegistrationForm
+from user_management.forms import UserRegistrationForm
 
 test_data = [
     (  # valid_registration

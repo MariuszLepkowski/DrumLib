@@ -1,4 +1,4 @@
-from comments_app.forms import CommentForm
+from comments.forms import CommentForm
 
 
 def test_comment_form_valid_data():

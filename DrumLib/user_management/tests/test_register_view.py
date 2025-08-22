@@ -1,7 +1,7 @@
 import pytest
 from django.contrib.auth.models import User
 from django.urls import resolve, reverse
-from user_management_app.views import register
+from user_management.views import register
 
 
 @pytest.mark.registration_tests
@@ -14,7 +14,7 @@ class TestRegisterView:
         - Ensures a 200 response status.
         - Confirms the correct template and context are used.
         """
-        url = reverse("user_management_app:register")
+        url = reverse("user_management:register")
         response = client.get(url)
 
         # Check the resolved function (optional, integrates the removed test)
@@ -22,16 +22,14 @@ class TestRegisterView:
 
         # Check response and template
         assert response.status_code == 200
-        assert "user_management_app/register.html" in [
-            t.name for t in response.templates
-        ]
+        assert "user_management/register.html" in [t.name for t in response.templates]
 
         # Check if the form is passed in the context
         assert "form" in response.context
 
     def test_register_view_post_valid_data(self, client):
         """Test that valid POST data registers a new user and redirects to profile."""
-        url = reverse("user_management_app:register")
+        url = reverse("user_management:register")
         valid_data = {
             "first_name": "John",
             "last_name": "Doe",
@@ -44,12 +42,12 @@ class TestRegisterView:
 
         # Assert the user is created and logged in
         assert response.status_code == 302  # Redirect after success
-        assert response.url == reverse("user_management_app:profile")
+        assert response.url == reverse("user_management:profile")
         assert User.objects.filter(username="new_user").exists()
 
     def test_register_view_post_invalid_data(self, client):
         """Test that invalid POST data does not register a new user."""
-        url = reverse("user_management_app:register")
+        url = reverse("user_management:register")
         invalid_data = {
             "first_name": "John",
             "last_name": "Doe",
@@ -62,9 +60,7 @@ class TestRegisterView:
 
         # Assert no user is created and form is re-rendered with errors
         assert response.status_code == 200
-        assert "user_management_app/register.html" in [
-            t.name for t in response.templates
-        ]
+        assert "user_management/register.html" in [t.name for t in response.templates]
         assert not User.objects.filter(username="new_user").exists()
         assert "form" in response.context
         assert response.context["form"].errors
@@ -77,12 +73,12 @@ class TestRegisterView:
         )
         client.login(username="testuser", password="password123")
 
-        url = reverse("user_management_app:register")
+        url = reverse("user_management:register")
         response = client.get(url)
 
         # Assert status code 302 and correct template
         assert response.status_code == 302
-        assert "user_management_app/registration-error-302.html" in [
+        assert "user_management/registration-error-302.html" in [
             t.name for t in response.templates
         ]
         assert (

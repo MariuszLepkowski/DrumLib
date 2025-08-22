@@ -1,6 +1,6 @@
 import pytest
 from django.urls import resolve, reverse
-from user_management_app.views import edit_profile
+from user_management.views import edit_profile
 
 
 @pytest.fixture
@@ -19,25 +19,25 @@ def logged_in_user(client, django_user_model):
 @pytest.mark.django_db
 class TestEditProfileView:
     def test_edit_profile_view_resolves_to_correct_view(self):
-        url = reverse("user_management_app:edit_profile")
+        url = reverse("user_management:edit_profile")
         assert resolve(url).func == edit_profile
 
     def test_edit_profile_view_accessible_for_logged_in_user(
         self, client, logged_in_user
     ):
-        url = reverse("user_management_app:edit_profile")
+        url = reverse("user_management:edit_profile")
         response = client.get(url)
         assert response.status_code == 200
 
     def test_edit_profile_view_uses_correct_template(self, client, logged_in_user):
-        url = reverse("user_management_app:edit_profile")
+        url = reverse("user_management:edit_profile")
         response = client.get(url)
-        assert "user_management_app/edit_profile.html" in [
+        assert "user_management/edit_profile.html" in [
             t.name for t in response.templates
         ]
 
     def test_edit_profile_view_contains_form_in_context(self, client, logged_in_user):
-        url = reverse("user_management_app:edit_profile")
+        url = reverse("user_management:edit_profile")
         response = client.get(url)
         assert "form" in response.context
 
@@ -47,8 +47,8 @@ class TestEditProfileView:
         - Response has a status code of 302.
         - The user is redirected to the login page with the 'next' parameter set.
         """
-        url = reverse("user_management_app:edit_profile")
+        url = reverse("user_management:edit_profile")
         response = client.get(url)
 
         assert response.status_code == 302
-        assert response.url == f"{reverse('user_management_app:login')}?next={url}"
+        assert response.url == f"{reverse('user_management:login')}?next={url}"

@@ -1,6 +1,6 @@
 import pytest
 from django.urls import resolve, reverse
-from user_management_app.views import profile
+from user_management.views import profile
 
 
 @pytest.mark.django_db
@@ -21,15 +21,13 @@ class TestProfileView:
         client.login(username="testuser", password="password123")
 
         # Act: Send GET request to the profile view
-        url = reverse("user_management_app:profile")
+        url = reverse("user_management:profile")
         response = client.get(url)
 
         # Assert: Check URL resolution, response status, and template
         assert resolve(url).func == profile
         assert response.status_code == 200
-        assert "user_management_app/profile.html" in [
-            t.name for t in response.templates
-        ]
+        assert "user_management/profile.html" in [t.name for t in response.templates]
 
     def test_profile_view_redirects_for_anonymous_user(self, client):
         """
@@ -38,9 +36,9 @@ class TestProfileView:
         - The user is redirected to the login page with the 'next' parameter set.
         """
         # Act: Send GET request to the profile view without logging in
-        url = reverse("user_management_app:profile")
+        url = reverse("user_management:profile")
         response = client.get(url)
 
         # Assert: Check redirection to the login page
         assert response.status_code == 302
-        assert response.url == f"{reverse('user_management_app:login')}?next={url}"
+        assert response.url == f"{reverse('user_management:login')}?next={url}"

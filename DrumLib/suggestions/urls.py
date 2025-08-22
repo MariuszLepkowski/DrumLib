@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-app_name = "suggestions_app"
+app_name = "suggestions"
 
 urlpatterns = [
     path("", views.suggest_content, name="suggest_content"),

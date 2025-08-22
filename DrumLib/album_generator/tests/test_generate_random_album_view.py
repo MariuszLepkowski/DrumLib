@@ -1,9 +1,9 @@
 import pytest
-from album_generator_app.views import generate_random_album
-from discography_app.models import Album
+from album_generator.views import generate_random_album
+from discography.models import Album
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import resolve, reverse
-from drummers_app.models import Drummer
+from drummers.models import Drummer
 
 
 @pytest.fixture
@@ -28,27 +28,27 @@ def album(drummer):
 @pytest.mark.django_db
 class TestGenerateRandomAlbumView:
     def test_generate_random_album_view_resolves_to_correct_view(self):
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         assert resolve(url).func == generate_random_album
 
     def test_post_request_to_generate_random_album_view_returns_correct_status_code(
         self, client, drummer
     ):
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         response = client.post(url, {"drummer": drummer.id})
         assert response.status_code == 200
 
     def test_generate_random_album_view_uses_correct_template(self, client, drummer):
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         response = client.post(url, {"drummer": drummer.id})
-        assert "album_generator_app/album-details.html" in [
+        assert "album_generator/album-details.html" in [
             t.name for t in response.templates
         ]
 
     def test_generate_random_album_view_returns_valid_album_data_in_context(
         self, client, drummer, album
     ):
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         response = client.post(url, {"drummer": drummer.id})
 
         assert response.context["drummer"] == drummer
@@ -59,23 +59,23 @@ class TestGenerateRandomAlbumView:
     def test_returns_album_when_albums_exist(self, client, drummer, album):
         album.drummers.add(drummer)
 
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         response = client.post(url, {"drummer": drummer.id})
 
         assert response.context["album"] == album
 
     def test_returns_none_when_no_albums_exist(self, client, drummer):
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         response = client.post(url, {"drummer": drummer.id})
         assert response.context["album"] is None
 
     def test_returns_404_with_invalid_drummer_id(self, client):
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         response = client.post(url, {"drummer": 9999})
         assert response.status_code == 404
 
     def test_returns_404_when_no_drummer_id_provided(self, client):
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         response = client.post(url, {})
         assert response.status_code == 400
 
@@ -83,7 +83,7 @@ class TestGenerateRandomAlbumView:
         album.tracks.clear()
         album.artists.clear()
 
-        url = reverse(viewname="album_generator_app:generate_random_album")
+        url = reverse(viewname="album_generator:generate_random_album")
         response = client.post(url, {"drummer": drummer.id})
 
         assert response.context["album"] == album

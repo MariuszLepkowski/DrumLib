@@ -1,6 +1,6 @@
 import pytest
-from discography_app.models import Artist, Track
-from drummers_app.models import Drummer
+from discography.models import Artist, Track
+from drummers.models import Drummer
 
 
 @pytest.fixture

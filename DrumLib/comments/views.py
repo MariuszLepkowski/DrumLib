@@ -19,7 +19,7 @@ def add_comment(request, content_type, object_id):
                 comment.drummer = content_object
                 comment.save()
                 return redirect(
-                    "drummers_app:drummer_profile", drummer_name=content_object.name
+                    "drummers:drummer_profile", drummer_name=content_object.name
                 )
         else:
             form = CommentForm()
@@ -36,14 +36,14 @@ def add_comment(request, content_type, object_id):
                 comment.album = content_object
                 comment.save()
                 return redirect(
-                    "discography_app:album_tracks",
+                    "discography:album_tracks",
                     album_title=content_object.title,
                     drummer_name=drummer_name,
                 )
         else:
             form = CommentForm()
 
-    return render(request, "comments_app/add_comment.html", {"form": form})
+    return render(request, "comments/add_comment.html", {"form": form})
 
 
 @login_required
@@ -55,17 +55,17 @@ def edit_comment(request, comment_id):
             form.save()
             if comment.album:
                 return redirect(
-                    "discography_app:album_tracks",
+                    "discography:album_tracks",
                     album_title=comment.album.title,
                     drummer_name=comment.drummer.name,
                 )
             elif comment.drummer:
                 return redirect(
-                    "drummers_app:drummer_profile", drummer_name=comment.drummer.name
+                    "drummers:drummer_profile", drummer_name=comment.drummer.name
                 )
     else:
         form = CommentForm(instance=comment)
-    return render(request, "comments_app/edit_comment.html", {"form": form})
+    return render(request, "comments/edit_comment.html", {"form": form})
 
 
 @login_required
@@ -74,16 +74,16 @@ def delete_comment(request, comment_id):
     if comment.author == request.user or request.user.is_staff:
         if comment.album:
             redirect_url = redirect(
-                "discography_app:album_tracks",
+                "discography:album_tracks",
                 album_title=comment.album.title,
                 drummer_name=comment.drummer.name,
             )
         elif comment.drummer:
             redirect_url = redirect(
-                "drummers_app:drummer_profile", drummer_name=comment.drummer.name
+                "drummers:drummer_profile", drummer_name=comment.drummer.name
             )
         comment.delete()
         return redirect_url
     return redirect(
-        "drummers_app:drummer_profile", drummer_name=comment.drummer.name
+        "drummers:drummer_profile", drummer_name=comment.drummer.name
     )  # Fallback in case of failure

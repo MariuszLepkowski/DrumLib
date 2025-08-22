@@ -20,7 +20,7 @@ def register(request):
             username = form.cleaned_data.get("username")
             messages.success(request, f"Account for {username} created successfully!")
             login(request, user)
-            return redirect("user_management_app:profile")
+            return redirect("user_management:profile")
         else:
             messages.error(
                 request, "Registration failed. Please correct the errors below."

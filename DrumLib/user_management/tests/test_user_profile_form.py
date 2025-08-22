@@ -4,8 +4,8 @@ import pytest
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
-from user_management_app.forms import UserProfileForm
-from user_management_app.models import Profile
+from user_management.forms import UserProfileForm
+from user_management.models import Profile
 
 
 @pytest.mark.django_db

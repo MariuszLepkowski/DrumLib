@@ -24,7 +24,7 @@ class Drummer(models.Model):
         "DrummerPhoto", related_name="drummers_on_photo", blank=True
     )
     collaborating_artists = models.ManyToManyField(
-        "discography_app.Artist",
+        "discography.Artist",
         related_name="drummers_collaborating_with_artist",
         blank=True,
     )

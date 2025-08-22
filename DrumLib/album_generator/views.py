@@ -13,7 +13,7 @@ def album_generator_form(request):
         "title": "Album Generator",
         "drummers": drummers,
     }
-    return render(request, "album_generator_app/album-generator-form.html", context)
+    return render(request, "album_generator/album-generator-form.html", context)
 
 
 def generate_random_album(request):
@@ -52,4 +52,4 @@ def generate_random_album(request):
         "tracks": tracks,
     }
 
-    return render(request, "album_generator_app/album-details.html", context)
+    return render(request, "album_generator/album-details.html", context)

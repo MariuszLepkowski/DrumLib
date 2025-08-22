@@ -10,9 +10,9 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("drummers_app", "0004_drummerphoto_image_author"),
+        ("drummers", "0004_drummerphoto_image_author"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("discography_app", "0005_album_album_cover"),
+        ("discography", "0005_album_album_cover"),
     ]
 
     operations = [
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="discography_app.album",
+                        to="discography.album",
                     ),
                 ),
                 (
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="drummers_app.drummer",
+                        to="drummers.drummer",
                     ),
                 ),
                 (
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         null=True,
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="discography_app.track",
+                        to="discography.track",
                     ),
                 ),
             ],

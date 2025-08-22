@@ -8,8 +8,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("discography_app", "0001_initial"),
-        ("drummers_app", "0001_initial"),
+        ("discography", "0001_initial"),
+        ("drummers", "0001_initial"),
     ]
 
     operations = [
@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             model_name="track",
             name="drummers",
             field=models.ManyToManyField(
-                blank=True, related_name="tracks_played", to="drummers_app.drummer"
+                blank=True, related_name="tracks_played", to="drummers.drummer"
             ),
         ),
         migrations.AddField(
@@ -26,28 +26,28 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(
                 blank=True,
                 related_name="artists_collaborating_with_drummer",
-                to="drummers_app.drummer",
+                to="drummers.drummer",
             ),
         ),
         migrations.AddField(
             model_name="album",
             name="artists",
             field=models.ManyToManyField(
-                blank=True, related_name="albums_featured", to="discography_app.artist"
+                blank=True, related_name="albums_featured", to="discography.artist"
             ),
         ),
         migrations.AddField(
             model_name="album",
             name="drummers",
             field=models.ManyToManyField(
-                blank=True, related_name="albums_played", to="drummers_app.drummer"
+                blank=True, related_name="albums_played", to="drummers.drummer"
             ),
         ),
         migrations.AddField(
             model_name="album",
             name="tracks",
             field=models.ManyToManyField(
-                blank=True, related_name="albums", to="discography_app.track"
+                blank=True, related_name="albums", to="discography.track"
             ),
         ),
     ]

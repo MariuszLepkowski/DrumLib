@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("discography_app", "0001_initial"),
+        ("discography", "0001_initial"),
     ]
 
     operations = [
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                     models.ManyToManyField(
                         blank=True,
                         related_name="drummers_collaborating_with_artist",
-                        to="discography_app.artist",
+                        to="discography.artist",
                     ),
                 ),
             ],
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
                     models.ManyToManyField(
                         blank=True,
                         related_name="photos_of_drummer",
-                        to="drummers_app.drummer",
+                        to="drummers.drummer",
                     ),
                 ),
             ],
@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(
                 blank=True,
                 related_name="drummers_on_photo",
-                to="drummers_app.drummerphoto",
+                to="drummers.drummerphoto",
             ),
         ),
     ]

@@ -1,7 +1,7 @@
 import pytest
-from discography_app.models import Album
+from discography.models import Album
 from django.contrib.auth.models import User
-from drummers_app.models import Drummer
+from drummers.models import Drummer
 
 
 @pytest.fixture

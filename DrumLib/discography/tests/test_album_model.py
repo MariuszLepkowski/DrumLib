@@ -1,7 +1,7 @@
 import pytest
-from discography_app.models import Album, Artist, Track
+from discography.models import Album, Artist, Track
 from django.core.files.uploadedfile import SimpleUploadedFile
-from drummers_app.models import Drummer
+from drummers.models import Drummer
 
 
 @pytest.fixture

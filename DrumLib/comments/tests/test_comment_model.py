@@ -1,5 +1,5 @@
 import pytest
-from comments_app.models import Comment
+from comments.models import Comment
 
 
 @pytest.mark.django_db

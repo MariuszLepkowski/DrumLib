@@ -1,5 +1,5 @@
 import pytest
-from drummers_app.models import Drummer, DrummerPhoto
+from drummers.models import Drummer, DrummerPhoto
 
 
 @pytest.mark.django_db

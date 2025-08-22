@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
                     models.ManyToManyField(
                         blank=True,
                         related_name="tracks_with_artist",
-                        to="discography_app.artist",
+                        to="discography.artist",
                     ),
                 ),
             ],

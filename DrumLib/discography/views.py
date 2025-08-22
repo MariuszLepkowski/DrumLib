@@ -16,7 +16,7 @@ def drummers_list(request):
         "title": "Discographies",
         "drummers": drummers_sorted,
     }
-    return render(request, "discography_app/drummers-list.html", context)
+    return render(request, "discography/drummers-list.html", context)
 
 
 def drummer_albums(request, drummer_name):
@@ -32,7 +32,7 @@ def drummer_albums(request, drummer_name):
         "drummer": drummer,
         "albums": albums,
     }
-    return render(request, "discography_app/drummer-albums.html", context)
+    return render(request, "discography/drummer-albums.html", context)
 
 
 def drummer_tracks(request, drummer_name):
@@ -51,7 +51,7 @@ def drummer_tracks(request, drummer_name):
         "drummer": drummer,
         "tracks": tracks,
     }
-    return render(request, "discography_app/drummer-tracks.html", context)
+    return render(request, "discography/drummer-tracks.html", context)
 
 
 def album_tracks(request, album_title, drummer_name):
@@ -76,7 +76,7 @@ def album_tracks(request, album_title, drummer_name):
             comment.save()
 
             return redirect(
-                "discography_app:album_tracks",
+                "discography:album_tracks",
                 album_title=album.title,
                 drummer_name=drummer.name,
             )
@@ -91,4 +91,4 @@ def album_tracks(request, album_title, drummer_name):
         "comments": comments,
     }
 
-    return render(request, "discography_app/album-tracks.html", context)
+    return render(request, "discography/album-tracks.html", context)

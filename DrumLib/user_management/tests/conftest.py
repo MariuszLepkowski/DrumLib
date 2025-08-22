@@ -1,6 +1,6 @@
 import pytest
 from django.contrib.auth.models import User
-from user_management_app.models import Profile
+from user_management.models import Profile
 
 
 @pytest.fixture

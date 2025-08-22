@@ -1,11 +1,11 @@
 import pytest
-from comments_app.forms import CommentForm
-from comments_app.models import Comment
-from discography_app.models import Album, Artist, Track
+from comments.forms import CommentForm
+from comments.models import Comment
+from discography.models import Album, Artist, Track
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
-from drummers_app.models import Drummer
+from drummers.models import Drummer
 
 
 @pytest.fixture
@@ -70,7 +70,7 @@ def comments(db, album, drummer, user):
 class TestAlbumTracksView:
     def test_album_tracks_status_code(self, client, drummer, album):
         url = reverse(
-            "discography_app:album_tracks",
+            "discography:album_tracks",
             kwargs={"album_title": album.title, "drummer_name": drummer.name},
         )
         response = client.get(url)
@@ -78,7 +78,7 @@ class TestAlbumTracksView:
 
     def test_album_tracks_context(self, client, drummer, album, tracks, comments):
         url = reverse(
-            "discography_app:album_tracks",
+            "discography:album_tracks",
             kwargs={"album_title": album.title, "drummer_name": drummer.name},
         )
         response = client.get(url)
@@ -99,18 +99,16 @@ class TestAlbumTracksView:
 
     def test_album_tracks_template_used(self, client, drummer, album):
         url = reverse(
-            "discography_app:album_tracks",
+            "discography:album_tracks",
             kwargs={"album_title": album.title, "drummer_name": drummer.name},
         )
         response = client.get(url)
-        assert "discography_app/album-tracks.html" in [
-            t.name for t in response.templates
-        ]
+        assert "discography/album-tracks.html" in [t.name for t in response.templates]
 
     def test_album_tracks_post_comment(self, client, drummer, album, user):
         client.login(username="testuser", password="password123")
         url = reverse(
-            "discography_app:album_tracks",
+            "discography:album_tracks",
             kwargs={"album_title": album.title, "drummer_name": drummer.name},
         )
         data = {"text": "New comment"}
