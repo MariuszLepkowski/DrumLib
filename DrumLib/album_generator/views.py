@@ -1,10 +1,10 @@
 from random import choice
 
-from discography_app.models import Album, Track
-from discography_app.utils import get_video_id
+from discography.models import Album, Track
+from discography.utils import get_video_id
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import render
-from drummers_app.models import Drummer
+from drummers.models import Drummer
 
 
 def album_generator_form(request):
