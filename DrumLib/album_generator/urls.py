@@ -1,13 +1,3 @@
-# from django.urls import path
-# from . import views
-#
-# app_name = 'album_generator_app'
-
-
-# urlpatterns = [
-#     path('', views.random_album, name='random_album'),
-# ]
-
 from django.urls import path
 from .views import album_generator_form, generate_random_album
 
