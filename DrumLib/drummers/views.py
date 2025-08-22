@@ -1,8 +1,8 @@
-from comments_app.forms import CommentForm
+from comments.forms import CommentForm
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 
-from .models import Drummer, DrummerPhoto
+from .models import Drummer
 
 
 def sort_by_last_name(drummer):
