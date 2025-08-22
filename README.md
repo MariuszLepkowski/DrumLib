@@ -113,13 +113,13 @@ The project follows Django’s modular architecture, with each app responsible f
 ```
 DrumLib/
 ├── DrumLib/                    # Django project config (settings, URLs, WSGI)
-├── drummers_app/              # Drummer profiles and photos
-├── discography_app/           # Albums, tracks, and views
-├── album_generator_app/       # Random album generator
-├── comments_app/              # User comments
-├── suggestions_app/           # Suggest new content
-├── user_management_app/       # Auth, registration, profiles
-├── home_app/                  # Landing page
+├── drummers/              # Drummer profiles and photos
+├── discography/           # Albums, tracks, and views
+├── album_generator/       # Random album generator
+├── comments/              # User comments
+├── suggestions/           # Suggest new content
+├── user_management/       # Auth, registration, profiles
+├── home/                  # Landing page
 │
 ├── templates/                 # HTML templates grouped by app
 ├── static/                    # CSS, JS, images
