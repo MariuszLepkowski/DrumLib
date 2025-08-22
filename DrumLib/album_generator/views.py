@@ -1,32 +1,3 @@
-# from django.shortcuts import render
-# from random import choice
-# from drummers_app.models import Drummer
-# from discography_app.models import Album
-#
-#
-# def random_album(request):
-#     drummers = Drummer.objects.all()
-#     random_drummer = choice(drummers)
-#     albums = Album.objects.filter(drummers=random_drummer).prefetch_related('artists')
-#     random_album = choice(albums) if albums.exists() else None
-#
-#     if random_album:
-#         artists = ', '.join(artist.name for artist in random_album.artists.all())
-#     else:
-#         artists = None
-#
-#     context = {
-#         'title': 'Album Generator',
-#         'drummer': random_drummer.name,
-#         'album': random_album.title if random_album else 'No album found',
-#         'artists': artists,
-#     }
-#
-#     return render(request, 'album_generator_app/album-generator.html', context)
-#
-#
-
-
 from django.shortcuts import render
 from random import choice
 from drummers_app.models import Drummer
