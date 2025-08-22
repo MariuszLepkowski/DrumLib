@@ -1,8 +1,8 @@
-from comments_app.forms import CommentForm
-from comments_app.models import Comment
+from comments.forms import CommentForm
+from comments.models import Comment
 from django.shortcuts import get_object_or_404, redirect, render
-from drummers_app.models import Drummer
-from drummers_app.views import sort_by_last_name
+from drummers.models import Drummer
+from drummers.views import sort_by_last_name
 
 from .models import Album, Track
 from .utils import get_video_id
