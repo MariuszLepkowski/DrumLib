@@ -12,11 +12,11 @@
 
     <div class="collapse navbar-collapse justify-content-center" id="navbarCollapseContent">
       <ul class="navbar-nav mb-2 mb-md-0">
-        <li class="nav-item"><a href="{% url 'home_app:home_page' %}" class="nav-link link-light">Home</a></li>
-        <li class="nav-item"><a href="{% url 'drummers_app:drummers_list' %}" class="nav-link link-light">Drummers Explorer</a></li>
-        <li class="nav-item"><a href="{% url 'discography_app:drummers_list' %}" class="nav-link link-light">Discographies</a></li>
-        <li class="nav-item"><a href="{% url 'album_generator_app:album_generator_form' %}" class="nav-link link-light">Album Generator</a></li>
-        <li class="nav-item"><a href="{% url 'suggestions_app:suggest_content' %}" class="nav-link link-light">Suggest Content</a></li>
+        <li class="nav-item"><a href="{% url 'home:home_page' %}" class="nav-link link-light">Home</a></li>
+        <li class="nav-item"><a href="{% url 'drummers:drummers_list' %}" class="nav-link link-light">Drummers Explorer</a></li>
+        <li class="nav-item"><a href="{% url 'discography:drummers_list' %}" class="nav-link link-light">Discographies</a></li>
+        <li class="nav-item"><a href="{% url 'album_generator:album_generator_form' %}" class="nav-link link-light">Album Generator</a></li>
+        <li class="nav-item"><a href="{% url 'suggestions:suggest_content' %}" class="nav-link link-light">Suggest Content</a></li>
       </ul>
     </div>
 
@@ -32,14 +32,14 @@
             {{ user.username }}
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="{% url 'user_management_app:profile' %}">View profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'user_management:profile' %}">View profile</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{% url 'user_management_app:logout' %}">Sign out</a></li>
+            <li><a class="dropdown-item" href="{% url 'user_management:logout' %}">Sign out</a></li>
           </ul>
         </div>
       {% else %}
-        <a class="btn btn-outline-primary me-2" href="{% url 'user_management_app:login' %}">Login</a>
-        <a class="btn btn-primary" href="{% url 'user_management_app:register' %}">Register</a>
+        <a class="btn btn-outline-primary me-2" href="{% url 'user_management:login' %}">Login</a>
+        <a class="btn btn-primary" href="{% url 'user_management:register' %}">Register</a>
       {% endif %}
     </div>
   </div>

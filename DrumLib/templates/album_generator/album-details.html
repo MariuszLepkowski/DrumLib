@@ -37,7 +37,7 @@
             </li>
             {% endfor %}
         </ul>
-        <a href="{% url 'album_generator_app:album_generator_form' %}" type="button" class="btn btn-primary mb-4">Generate another album</a>
+        <a href="{% url 'album_generator:album_generator_form' %}" type="button" class="btn btn-primary mb-4">Generate another album</a>
     </div>
 
     <div class="album-cover ms-4">
@@ -47,7 +47,7 @@
 
 {% else %}
     <p class="mb-4">No albums found for {{ drummer }} on the database.</p>
-    <a href="{% url 'album_generator_app:album_generator_form' %}" type="button" class="btn btn-primary">Back to Album Generator</a>
+    <a href="{% url 'album_generator:album_generator_form' %}" type="button" class="btn btn-primary">Back to Album Generator</a>
 {% endif %}
 </div>
 

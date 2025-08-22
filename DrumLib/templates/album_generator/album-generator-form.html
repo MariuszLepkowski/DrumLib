@@ -12,7 +12,7 @@
 </div>
 
 <div class="container mt-4">
-    <form method="post" action="{% url 'album_generator_app:generate_random_album' %}">
+    <form method="post" action="{% url 'album_generator:generate_random_album' %}">
         {% csrf_token %}
         <div class="form-group">
             <label for="drummer">Select Drummer:</label>

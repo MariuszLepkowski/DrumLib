@@ -17,8 +17,8 @@
                 <div class="name">
                     <h2>{{ drummer.name }}</h2>
                     <div>
-                        <a href="{% url 'discography_app:drummer_albums' drummer_name=drummer.name %}" class="btn btn-primary btn-sm">View Albums</a>
-                        <a href="{% url 'discography_app:drummer_tracks' drummer_name=drummer.name %}" class="btn btn-secondary btn-sm">View Tracks</a>
+                        <a href="{% url 'discography:drummer_albums' drummer_name=drummer.name %}" class="btn btn-primary btn-sm">View Albums</a>
+                        <a href="{% url 'discography:drummer_tracks' drummer_name=drummer.name %}" class="btn btn-secondary btn-sm">View Tracks</a>
                     </div>
                 </div>
                 <div class="disc-photo">

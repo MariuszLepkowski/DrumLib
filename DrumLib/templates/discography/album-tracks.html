@@ -40,7 +40,7 @@
 
     {% if user.is_authenticated %}
         <div class="add-comment mt-4">
-            <form method="post" action="{% url 'discography_app:album_tracks' album_title=album.title drummer_name=drummer.name %}">
+            <form method="post" action="{% url 'discography:album_tracks' album_title=album.title drummer_name=drummer.name %}">
                 {% csrf_token %}
                 <input type="hidden" name="drummer_name" value="{{ drummer.name }}">
                 {% load crispy_forms_tags %}
@@ -49,7 +49,7 @@
             </form>
         </div>
     {% else %}
-        <p>You must be <a href="{% url 'user_management_app:login' %}">logged in</a> to add a comment.</p>
+        <p>You must be <a href="{% url 'user_management:login' %}">logged in</a> to add a comment.</p>
     {% endif %}
     <br><br>
 
@@ -66,8 +66,8 @@
             <p>{{ comment.text }}</p>
 
             {% if comment.author == user or user.is_staff %}
-                <a href="{% url 'comments_app:edit_comment' comment.id %}" class="btn btn-sm btn-warning">Edit</a>
-                <form method="post" action="{% url 'comments_app:delete_comment' comment.id %}" style="display:inline;">
+                <a href="{% url 'comments:edit_comment' comment.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <form method="post" action="{% url 'comments:delete_comment' comment.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                 </form>
