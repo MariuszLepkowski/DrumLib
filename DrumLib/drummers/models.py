@@ -15,7 +15,8 @@ class Drummer(models.Model):
     - collaborating_artists: Many-to-many relationship with Artist model, indicating artists the drummer has collaborated with (optional).
     """
 
-    name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     death_date = models.DateField(blank=True, null=True)
@@ -28,6 +29,12 @@ class Drummer(models.Model):
         related_name="drummers_collaborating_with_artist",
         blank=True,
     )
+
+    @property
+    def name(self):
+        if self.first_name and self.last_name:
+            return f"{self.first_name} {self.last_name}"
+        return self.first_name or self.last_name or ""
 
     def __str__(self):
         return self.name

@@ -1,53 +1,53 @@
 from comments.forms import CommentForm
 from django.http import HttpResponseForbidden
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
+from django.urls import reverse
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormMixin
 
 from .models import Drummer
 
 
-def sort_by_last_name(drummer):
-    """Returns only last name of a drummer."""
-    return drummer.name.split()[-1]
-
-
-def drummers(request):
+class DrummerListView(ListView):
+    model = Drummer
     template_name = "drummers/drummers.html"
+    context_object_name = "drummers"
 
-    drummers = Drummer.objects.all().order_by("name")
-    drummers_sorted = sorted(drummers, key=sort_by_last_name)
+    def get_queryset(self):
+        return Drummer.objects.all().order_by("last_name", "first_name")
 
-    context = {
-        "title": "Drummers Explorer",
-        "drummers": drummers_sorted,
-    }
-
-    return render(request, template_name, context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Drummers Explorer"
+        return context
 
 
-def drummer_profile(request, drummer_name):
+class DrummerDetailView(FormMixin, DetailView):
+    model = Drummer
     template_name = "drummers/drummer-profile.html"
+    context_object_name = "drummer"
+    form_class = CommentForm
 
-    drummer = Drummer.objects.get(name=drummer_name)
-    comments = drummer.comment_set.filter(album__isnull=True)
-    form = CommentForm()
+    def get_success_url(self):
+        return reverse("drummers:drummer_profile", kwargs={"pk": self.object.pk})
 
-    if request.method == "POST":
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        drummer = self.get_object()
+        context["title"] = str(drummer)
+        context["comments"] = drummer.comment_set.filter(album__isnull=True)
+        context["form"] = self.get_form()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
         if not request.user.is_authenticated:
             return HttpResponseForbidden("You must be logged in to post a comment.")
-
-        form = CommentForm(request.POST)
+        form = self.get_form()
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
-            comment.drummer = drummer
+            comment.drummer = self.object
             comment.save()
-            return redirect("drummers:drummer_profile", drummer_name=drummer.name)
-
-    context = {
-        "title": f"{drummer_name}",
-        "drummer": drummer,
-        "form": form,
-        "comments": comments,
-    }
-
-    return render(request, template_name, context)
+            return redirect(self.get_success_url())
+        return self.form_invalid(form)
