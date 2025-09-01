@@ -24,7 +24,7 @@ def add_comment(request, content_type, object_id):
 
     elif content_type == "album":
         content_object = get_object_or_404(Album, id=object_id)
-        drummer_name = request.POST.get("drummer_name")
+        drummer_slug = request.POST.get("drummer_slug")
 
         if request.method == "POST":
             form = CommentForm(request.POST)
@@ -32,11 +32,12 @@ def add_comment(request, content_type, object_id):
                 comment = form.save(commit=False)
                 comment.author = request.user
                 comment.album = content_object
+                comment.drummer = get_object_or_404(Drummer, slug=drummer_slug)
                 comment.save()
                 return redirect(
                     "discography:album_tracks",
                     album_title=content_object.title,
-                    pk=content_object.pk,
+                    slug=comment.drummer.slug,
                 )
         else:
             form = CommentForm()
@@ -55,7 +56,7 @@ def edit_comment(request, comment_id):
                 return redirect(
                     "discography:album_tracks",
                     album_title=comment.album.title,
-                    pk=comment.album.pk,
+                    slug=comment.drummer.slug,
                 )
             elif comment.drummer:
                 return redirect(
@@ -75,7 +76,7 @@ def delete_comment(request, comment_id):
             redirect_url = redirect(
                 "discography:album_tracks",
                 album_title=comment.album.title,
-                pk=comment.album.pk,
+                slug=comment.drummer.slug,
             )
         elif comment.drummer:
             redirect_url = redirect(
