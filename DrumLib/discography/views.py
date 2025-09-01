@@ -53,7 +53,7 @@ def drummer_tracks(request, slug):
 
 
 def album_tracks(request, album_title, slug):
-    drummer = get_object_or_404(Drummer, name=slug)
+    drummer = get_object_or_404(Drummer, slug=slug)
     album = get_object_or_404(Album, title=album_title)
     tracks = Track.objects.filter(albums=album, drummers=drummer)
     artists = album.artists.all()
@@ -76,7 +76,7 @@ def album_tracks(request, album_title, slug):
             return redirect(
                 "discography:album_tracks",
                 album_title=album.title,
-                drummer_name=drummer.name,
+                slug=drummer.slug,
             )
 
     context = {

@@ -40,7 +40,7 @@
 
     {% if user.is_authenticated %}
         <div class="add-comment mt-4">
-            <form method="post" action="{% url 'discography:album_tracks' album_title=album.title drummer_name=drummer.name %}">
+            <form method="post" action="{% url 'discography:album_tracks' album_title=album.title slug=drummer.slug %}">
                 {% csrf_token %}
                 <input type="hidden" name="drummer_name" value="{{ drummer.name }}">
                 {% load crispy_forms_tags %}
