@@ -6,10 +6,17 @@ app_name = "discography"
 
 urlpatterns = [
     path("", views.drummers_list, name="drummers_list"),
-    path("<str:drummer_name>/albums/", views.drummer_albums, name="drummer_albums"),
-    path("<str:drummer_name>/tracks/", views.drummer_tracks, name="drummer_tracks"),
     path(
-        "<str:album_title>/tracklist/<str:drummer_name>",
+        "discographies/<slug:slug>/albums/", views.drummer_albums, name="drummer_albums"
+    ),
+    path(
+        "discographies/<slug:slug>/albums/", views.drummer_albums, name="drummer_albums"
+    ),
+    path(
+        "discographies/<slug:slug>/tracks/", views.drummer_tracks, name="drummer_tracks"
+    ),
+    path(
+        "discographies/<slug:slug>/<album_title>/tracks/",
         views.album_tracks,
         name="album_tracks",
     ),

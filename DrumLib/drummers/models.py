@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 class Drummer(models.Model):
@@ -17,6 +18,7 @@ class Drummer(models.Model):
 
     first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100, blank=True, null=True)
+    slug = models.SlugField(unique=True, blank=True)
     bio = models.TextField(blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     death_date = models.DateField(blank=True, null=True)
@@ -29,6 +31,12 @@ class Drummer(models.Model):
         related_name="drummers_collaborating_with_artist",
         blank=True,
     )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = f"{self.first_name or ''} {self.last_name or ''}".strip()
+            self.slug = slugify(base)
+        super().save(*args, **kwargs)
 
     @property
     def name(self):

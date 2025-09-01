@@ -2,25 +2,23 @@ from comments.forms import CommentForm
 from comments.models import Comment
 from django.shortcuts import get_object_or_404, redirect, render
 from drummers.models import Drummer
-from drummers.views import sort_by_last_name
 
 from .models import Album, Track
 from .utils import get_video_id
 
 
 def drummers_list(request):
-    drummers = Drummer.objects.all().order_by("name")
-    drummers_sorted = sorted(drummers, key=sort_by_last_name)
+    drummers = Drummer.objects.all().order_by("last_name")
 
     context = {
         "title": "Discographies",
-        "drummers": drummers_sorted,
+        "drummers": drummers,
     }
     return render(request, "discography/drummers-list.html", context)
 
 
-def drummer_albums(request, drummer_name):
-    drummer = get_object_or_404(Drummer, name=drummer_name)
+def drummer_albums(request, slug):
+    drummer = get_object_or_404(Drummer, slug=slug)
     albums = (
         Album.objects.filter(drummers=drummer)
         .order_by("title")
@@ -35,8 +33,8 @@ def drummer_albums(request, drummer_name):
     return render(request, "discography/drummer-albums.html", context)
 
 
-def drummer_tracks(request, drummer_name):
-    drummer = get_object_or_404(Drummer, name=drummer_name)
+def drummer_tracks(request, slug):
+    drummer = get_object_or_404(Drummer, slug=slug)
     tracks = (
         Track.objects.filter(drummers=drummer)
         .prefetch_related("artists")
@@ -54,8 +52,8 @@ def drummer_tracks(request, drummer_name):
     return render(request, "discography/drummer-tracks.html", context)
 
 
-def album_tracks(request, album_title, drummer_name):
-    drummer = get_object_or_404(Drummer, name=drummer_name)
+def album_tracks(request, album_title, slug):
+    drummer = get_object_or_404(Drummer, name=slug)
     album = get_object_or_404(Album, title=album_title)
     tracks = Track.objects.filter(albums=album, drummers=drummer)
     artists = album.artists.all()
