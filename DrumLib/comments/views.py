@@ -18,9 +18,7 @@ def add_comment(request, content_type, object_id):
                 comment.author = request.user
                 comment.drummer = content_object
                 comment.save()
-                return redirect(
-                    "drummers:drummer_profile", drummer_name=content_object.name
-                )
+                return redirect("drummers:drummer_profile", pk=content_object.pk)
         else:
             form = CommentForm()
 
@@ -38,7 +36,7 @@ def add_comment(request, content_type, object_id):
                 return redirect(
                     "discography:album_tracks",
                     album_title=content_object.title,
-                    drummer_name=drummer_name,
+                    pk=content_object.pk,
                 )
         else:
             form = CommentForm()
@@ -57,11 +55,12 @@ def edit_comment(request, comment_id):
                 return redirect(
                     "discography:album_tracks",
                     album_title=comment.album.title,
-                    drummer_name=comment.drummer.name,
+                    pk=comment.album.pk,
                 )
             elif comment.drummer:
                 return redirect(
-                    "drummers:drummer_profile", drummer_name=comment.drummer.name
+                    "drummers:drummer_profile",
+                    pk=comment.drummer.pk,
                 )
     else:
         form = CommentForm(instance=comment)
@@ -76,14 +75,16 @@ def delete_comment(request, comment_id):
             redirect_url = redirect(
                 "discography:album_tracks",
                 album_title=comment.album.title,
-                drummer_name=comment.drummer.name,
+                pk=comment.album.pk,
             )
         elif comment.drummer:
             redirect_url = redirect(
-                "drummers:drummer_profile", drummer_name=comment.drummer.name
+                "drummers:drummer_profile",
+                pk=comment.drummer.pk,
             )
         comment.delete()
         return redirect_url
     return redirect(
-        "drummers:drummer_profile", drummer_name=comment.drummer.name
-    )  # Fallback in case of failure
+        "drummers:drummer_profile",
+        pk=comment.drummer.pk,
+    )
