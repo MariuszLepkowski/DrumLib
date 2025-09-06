@@ -6,9 +6,9 @@ from drummers.models import Drummer
 @pytest.fixture
 def drummers():
     return [
-        Drummer.objects.create(name="John Bonham"),
-        Drummer.objects.create(name="Neil Peart"),
-        Drummer.objects.create(name="Phil Collins"),
+        Drummer.objects.create(first_name="John", last_name="Bonham"),
+        Drummer.objects.create(first_name="Neil", last_name="Peart"),
+        Drummer.objects.create(first_name="Phil", last_name="Collins"),
     ]
 
 

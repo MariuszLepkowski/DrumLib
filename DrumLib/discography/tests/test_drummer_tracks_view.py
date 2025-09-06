@@ -6,7 +6,9 @@ from drummers.models import Drummer
 
 @pytest.fixture
 def drummer(db):
-    return Drummer.objects.create(name="John Bonham")
+    return Drummer.objects.create(
+        first_name="John", last_name="Bonham", slug="john-bonham"
+    )
 
 
 @pytest.fixture
@@ -37,16 +39,12 @@ def tracks(db, drummer, artists):
 @pytest.mark.django_db
 class TestDrummerTracksView:
     def test_drummer_tracks_status_code(self, client, drummer):
-        url = reverse(
-            "discography:drummer_tracks", kwargs={"drummer_name": drummer.name}
-        )
+        url = reverse("discography:drummer_tracks", kwargs={"slug": drummer.slug})
         response = client.get(url)
         assert response.status_code == 200
 
     def test_drummer_tracks_context(self, client, drummer, tracks):
-        url = reverse(
-            "discography:drummer_tracks", kwargs={"drummer_name": drummer.name}
-        )
+        url = reverse("discography:drummer_tracks", kwargs={"slug": drummer.slug})
         response = client.get(url)
         assert "tracks" in response.context
         assert response.context["drummer"] == drummer
@@ -60,9 +58,7 @@ class TestDrummerTracksView:
         assert list(response.context["tracks"]) == sorted_tracks
 
     def test_drummer_tracks_template_used(self, client, drummer):
-        url = reverse(
-            "discography:drummer_tracks", kwargs={"drummer_name": drummer.name}
-        )
+        url = reverse("discography:drummer_tracks", kwargs={"slug": drummer.slug})
         response = client.get(url)
         assert response.status_code == 200
         assert "discography/drummer-tracks.html" in [t.name for t in response.templates]

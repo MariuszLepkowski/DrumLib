@@ -7,7 +7,9 @@ from drummers.models import Drummer
 
 @pytest.fixture
 def drummer():
-    return Drummer.objects.create(name="John Bonham")
+    return Drummer.objects.create(
+        first_name="John", last_name="Bonham", slug="john-bonham"
+    )
 
 
 @pytest.fixture
@@ -35,34 +37,24 @@ def albums(drummer):
 @pytest.mark.django_db
 class TestDrummerAlbumsView:
     def test_drummer_albums_status_code(self, client, drummer):
-        url = reverse(
-            "discography:drummer_albums", kwargs={"drummer_name": drummer.name}
-        )
+        url = reverse("discography:drummer_albums", kwargs={"slug": drummer.slug})
         response = client.get(url)
         assert response.status_code == 200
 
     def test_drummer_albums_404_for_nonexistent_drummer(self, client):
         url = reverse(
-            "discography:drummer_albums",
-            kwargs={"drummer_name": "Nonexistent Drummer"},
+            "discography:drummer_albums", kwargs={"slug": "nonexistent-drummer"}
         )
         response = client.get(url)
         assert response.status_code == 404
 
     def test_drummer_albums_context(self, client, drummer, albums):
-        url = reverse(
-            "discography:drummer_albums", kwargs={"drummer_name": drummer.name}
-        )
+        url = reverse("discography:drummer_albums", kwargs={"slug": drummer.slug})
         response = client.get(url)
-        assert "albums" in response.context
-
-        # Sort the albums by title to match the view logic
         sorted_albums = sorted(albums, key=lambda album: album.title)
         assert list(response.context["albums"]) == sorted_albums
 
     def test_drummer_albums_template_used(self, client, drummer):
-        url = reverse(
-            "discography:drummer_albums", kwargs={"drummer_name": drummer.name}
-        )
+        url = reverse("discography:drummer_albums", kwargs={"slug": drummer.slug})
         response = client.get(url)
         assert "discography/drummer-albums.html" in [t.name for t in response.templates]

@@ -6,7 +6,7 @@ from drummers.models import Drummer
 @pytest.fixture
 def drummer():
     return Drummer.objects.create(
-        name="John Bonham", bio="Legendary drummer of Led Zeppelin."
+        first_name="John", last_name="Bonham", bio="Legendary drummer of Led Zeppelin."
     )
 
 

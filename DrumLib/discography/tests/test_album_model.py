@@ -18,7 +18,9 @@ def artist():
 
 @pytest.fixture
 def drummer():
-    return Drummer.objects.create(name="Test Drummer", bio="Bio for test drummer.")
+    return Drummer.objects.create(
+        first_name="Test", last_name="Drummer", bio="Bio for test drummer."
+    )
 
 
 @pytest.fixture

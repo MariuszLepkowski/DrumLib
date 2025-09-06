@@ -10,7 +10,9 @@ from drummers.models import Drummer
 
 @pytest.fixture
 def drummer(db):
-    return Drummer.objects.create(name="John Bonham")
+    return Drummer.objects.create(
+        first_name="John", last_name="Bonham", slug="john-bonham"
+    )
 
 
 @pytest.fixture
@@ -71,7 +73,7 @@ class TestAlbumTracksView:
     def test_album_tracks_status_code(self, client, drummer, album):
         url = reverse(
             "discography:album_tracks",
-            kwargs={"album_title": album.title, "drummer_name": drummer.name},
+            kwargs={"album_title": album.title, "slug": drummer.slug},
         )
         response = client.get(url)
         assert response.status_code == 200
@@ -79,16 +81,9 @@ class TestAlbumTracksView:
     def test_album_tracks_context(self, client, drummer, album, tracks, comments):
         url = reverse(
             "discography:album_tracks",
-            kwargs={"album_title": album.title, "drummer_name": drummer.name},
+            kwargs={"album_title": album.title, "slug": drummer.slug},
         )
         response = client.get(url)
-
-        assert "album" in response.context
-        assert "drummer" in response.context
-        assert "tracks" in response.context
-        assert "artists" in response.context
-        assert "form" in response.context
-        assert "comments" in response.context
 
         assert response.context["album"] == album
         assert response.context["drummer"] == drummer
@@ -100,7 +95,7 @@ class TestAlbumTracksView:
     def test_album_tracks_template_used(self, client, drummer, album):
         url = reverse(
             "discography:album_tracks",
-            kwargs={"album_title": album.title, "drummer_name": drummer.name},
+            kwargs={"album_title": album.title, "slug": drummer.slug},
         )
         response = client.get(url)
         assert "discography/album-tracks.html" in [t.name for t in response.templates]
@@ -109,12 +104,12 @@ class TestAlbumTracksView:
         client.login(username="testuser", password="password123")
         url = reverse(
             "discography:album_tracks",
-            kwargs={"album_title": album.title, "drummer_name": drummer.name},
+            kwargs={"album_title": album.title, "slug": drummer.slug},
         )
         data = {"text": "New comment"}
         response = client.post(url, data)
 
-        assert response.status_code == 302  # Redirect after POST
+        assert response.status_code == 302
         assert Comment.objects.filter(
             text="New comment", album=album, drummer=drummer
         ).exists()

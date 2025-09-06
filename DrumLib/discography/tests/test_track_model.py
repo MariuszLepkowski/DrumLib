@@ -6,7 +6,7 @@ from drummers.models import Drummer
 @pytest.fixture
 def drummer():
     return Drummer.objects.create(
-        name="John Bonham", bio="Legendary drummer of Led Zeppelin."
+        first_name="John", last_name="Bonham", bio="Legendary drummer of Led Zeppelin."
     )
 
 
@@ -47,8 +47,8 @@ class TestTrackModel:
     def test_track_multiple_artists_and_drummers(self):
         artist1 = Artist.objects.create(name="The Beatles")
         artist2 = Artist.objects.create(name="The Rolling Stones")
-        drummer1 = Drummer.objects.create(name="Ringo Starr")
-        drummer2 = Drummer.objects.create(name="Charlie Watts")
+        drummer1 = Drummer.objects.create(first_name="Ringo", last_name="Starr")
+        drummer2 = Drummer.objects.create(first_name="Charlie", last_name="Watts")
 
         track = Track.objects.create(title="Come Together")
         track.artists.add(artist1, artist2)
