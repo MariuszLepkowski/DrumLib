@@ -23,20 +23,24 @@ class DrummerListView(ListView):
         return context
 
 
-def drummer_albums(request, slug):
-    drummer = get_object_or_404(Drummer, slug=slug)
-    albums = (
-        Album.objects.filter(drummers=drummer)
-        .order_by("title")
-        .prefetch_related("artists")
-    )
+class DrummerAlbumsView(ListView):
+    model = Album
+    template_name = "discography/drummer-albums.html"
+    context_object_name = "albums"
 
-    context = {
-        "title": f"{drummer}'s albums",
-        "drummer": drummer,
-        "albums": albums,
-    }
-    return render(request, "discography/drummer-albums.html", context)
+    def get_queryset(self):
+        self.drummer = get_object_or_404(Drummer, slug=self.kwargs["slug"])
+        return (
+            Album.objects.filter(drummers=self.drummer)
+            .order_by("title")
+            .prefetch_related("artists")
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = f"{self.drummer}'s albums"
+        context["drummer"] = self.drummer
+        return context
 
 
 def drummer_tracks(request, slug):
