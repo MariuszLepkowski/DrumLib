@@ -4,15 +4,15 @@ from drummers.models import Drummer, DrummerPhoto
 
 @pytest.mark.django_db
 def test_drummer_str():
-    drummer = Drummer.objects.create(name="Vinnie Colaiuta")
+    drummer = Drummer.objects.create(first_name="Vinnie", last_name="Colaiuta")
     assert str(drummer) == "Vinnie Colaiuta"
 
 
 @pytest.mark.django_db
 def test_drummer_photo_relationship():
     # Create drummer objects
-    drummer1 = Drummer.objects.create(name="Neil Peart")
-    drummer2 = Drummer.objects.create(name="Ginger Baker")
+    drummer1 = Drummer.objects.create(first_name="Neil", last_name="Peart")
+    drummer2 = Drummer.objects.create(first_name="Steve", last_name="Gadd")
 
     # Create two photo objects
     photo1 = DrummerPhoto.objects.create(image_author="John Doe")
