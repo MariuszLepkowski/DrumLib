@@ -5,7 +5,7 @@ from . import views
 app_name = "discography"
 
 urlpatterns = [
-    path("", views.drummers_list, name="drummers_list"),
+    path("", views.DrummerListView.as_view(), name="drummers_list"),
     path(
         "discographies/<slug:slug>/albums/", views.drummer_albums, name="drummer_albums"
     ),

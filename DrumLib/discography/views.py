@@ -1,20 +1,26 @@
 from comments.forms import CommentForm
 from comments.models import Comment
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormMixin
 from drummers.models import Drummer
 
 from .models import Album, Track
 from .utils import get_video_id
 
 
-def drummers_list(request):
-    drummers = Drummer.objects.all().order_by("last_name")
+class DrummerListView(ListView):
+    model = Drummer
+    template_name = "discography/drummers-list.html"
+    context_object_name = "drummers"
 
-    context = {
-        "title": "Discographies",
-        "drummers": drummers,
-    }
-    return render(request, "discography/drummers-list.html", context)
+    def get_queryset(self):
+        return Drummer.objects.all().order_by("last_name")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Discographies"
+        return context
 
 
 def drummer_albums(request, slug):
