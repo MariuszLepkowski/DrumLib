@@ -9,7 +9,7 @@ from drummers.models import Drummer
 @pytest.fixture
 def drummer():
     return Drummer.objects.create(
-        name="John Bonham", bio="Legendary drummer of Led Zeppelin."
+        first_name="John", last_name="Bonham", bio="Legendary drummer of Led Zeppelin."
     )
 
 
@@ -35,12 +35,12 @@ class TestGenerateRandomAlbumView:
         self, client, drummer
     ):
         url = reverse(viewname="album_generator:generate_random_album")
-        response = client.post(url, {"drummer": drummer.id})
+        response = client.post(url, {"drummer": drummer.pk})
         assert response.status_code == 200
 
     def test_generate_random_album_view_uses_correct_template(self, client, drummer):
         url = reverse(viewname="album_generator:generate_random_album")
-        response = client.post(url, {"drummer": drummer.id})
+        response = client.post(url, {"drummer": drummer.pk})
         assert "album_generator/album-details.html" in [
             t.name for t in response.templates
         ]
@@ -49,7 +49,7 @@ class TestGenerateRandomAlbumView:
         self, client, drummer, album
     ):
         url = reverse(viewname="album_generator:generate_random_album")
-        response = client.post(url, {"drummer": drummer.id})
+        response = client.post(url, {"drummer": drummer.pk})
 
         assert response.context["drummer"] == drummer
         assert response.context["album"] == album
@@ -60,13 +60,13 @@ class TestGenerateRandomAlbumView:
         album.drummers.add(drummer)
 
         url = reverse(viewname="album_generator:generate_random_album")
-        response = client.post(url, {"drummer": drummer.id})
+        response = client.post(url, {"drummer": drummer.pk})
 
         assert response.context["album"] == album
 
     def test_returns_none_when_no_albums_exist(self, client, drummer):
         url = reverse(viewname="album_generator:generate_random_album")
-        response = client.post(url, {"drummer": drummer.id})
+        response = client.post(url, {"drummer": drummer.pk})
         assert response.context["album"] is None
 
     def test_returns_404_with_invalid_drummer_id(self, client):
@@ -84,7 +84,7 @@ class TestGenerateRandomAlbumView:
         album.artists.clear()
 
         url = reverse(viewname="album_generator:generate_random_album")
-        response = client.post(url, {"drummer": drummer.id})
+        response = client.post(url, {"drummer": drummer.pk})
 
         assert response.context["album"] == album
         assert response.context["tracks"] is None

@@ -26,14 +26,18 @@ class TestAlbumGeneratorFormView:
         url = reverse(viewname="album_generator:album_generator_form")
 
         Drummer.objects.create(
-            name="John Bonham", bio="Legendary drummer of Led Zeppelin."
+            first_name="John",
+            last_name="Bonham",
+            bio="Legendary drummer of Led Zeppelin.",
         )
-        Drummer.objects.create(name="Neil Peart", bio="Iconic drummer of Rush.")
+        Drummer.objects.create(
+            first_name="Neil", last_name="Peart", bio="Iconic drummer of Rush."
+        )
 
         response = client.get(url)
         assert "drummers" in response.context
 
         drummers = response.context["drummers"]
         assert drummers.count() == 2
-        assert any(d.name == "John Bonham" for d in drummers)
-        assert any(d.name == "Neil Peart" for d in drummers)
+        assert any(d.slug == "john-bonham" for d in drummers)
+        assert any(d.slug == "neil-peart" for d in drummers)
