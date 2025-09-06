@@ -29,7 +29,7 @@ class DrummerDetailView(FormMixin, DetailView):
     form_class = CommentForm
 
     def get_success_url(self):
-        return reverse("drummers:drummer_profile", kwargs={"pk": self.object.pk})
+        return reverse("drummers:drummer_profile", kwargs={"slug": self.object.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -21,7 +21,7 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ drummer.name }}</h5>
-                    <a href="{% url 'drummers:drummer_profile' drummer.pk %}" class="btn btn-primary">View Profile</a>
+                    <a href="{% url 'drummers:drummer_profile' drummer.slug %}" class="btn btn-primary">View Profile</a>
                 </div>
             </div>
         </div>
