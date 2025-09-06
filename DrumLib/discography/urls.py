@@ -12,7 +12,9 @@ urlpatterns = [
         name="drummer_albums",
     ),
     path(
-        "discographies/<slug:slug>/tracks/", views.drummer_tracks, name="drummer_tracks"
+        "discographies/<slug:slug>/tracks/",
+        views.DrummerTracksView.as_view(),
+        name="drummer_tracks",
     ),
     path(
         "discographies/<slug:slug>/<album_title>/tracks/",
