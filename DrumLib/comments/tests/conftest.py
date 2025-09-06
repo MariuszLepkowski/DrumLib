@@ -27,7 +27,9 @@ def staff_user():
 
 @pytest.fixture
 def drummer():
-    return Drummer.objects.create(name="John Bonham")
+    return Drummer.objects.create(
+        first_name="John", last_name="Bonham", slug="john-bonham"
+    )
 
 
 @pytest.fixture
