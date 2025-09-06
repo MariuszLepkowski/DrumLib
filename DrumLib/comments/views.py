@@ -18,7 +18,7 @@ def add_comment(request, content_type, object_id):
                 comment.author = request.user
                 comment.drummer = content_object
                 comment.save()
-                return redirect("drummers:drummer_profile", pk=content_object.pk)
+                return redirect("drummers:drummer_profile", slug=content_object.slug)
         else:
             form = CommentForm()
 
@@ -81,11 +81,11 @@ def delete_comment(request, comment_id):
         elif comment.drummer:
             redirect_url = redirect(
                 "drummers:drummer_profile",
-                pk=comment.drummer.pk,
+                slug=comment.drummer.slug,
             )
         comment.delete()
         return redirect_url
     return redirect(
         "drummers:drummer_profile",
-        pk=comment.drummer.pk,
+        slug=comment.drummer.slug,
     )
