@@ -9,7 +9,9 @@ from .models import Album, Track
 from .utils import get_video_id
 
 
-class DrummerListView(ListView):
+class DrummersListView(ListView):
+    """List of all drummers with discographies."""
+
     model = Drummer
     template_name = "discography/drummers-list.html"
     context_object_name = "drummers"
@@ -24,6 +26,8 @@ class DrummerListView(ListView):
 
 
 class DrummerAlbumsView(ListView):
+    """Albums for a specific drummer."""
+
     model = Album
     template_name = "discography/drummer-albums.html"
     context_object_name = "albums"
@@ -44,6 +48,8 @@ class DrummerAlbumsView(ListView):
 
 
 class DrummerTracksView(ListView):
+    """Tracks for a specific drummer."""
+
     model = Track
     template_name = "discography/drummer-tracks.html"
     context_object_name = "tracks"
@@ -66,41 +72,51 @@ class DrummerTracksView(ListView):
         return context
 
 
-def album_tracks(request, album_title, slug):
-    drummer = get_object_or_404(Drummer, slug=slug)
-    album = get_object_or_404(Album, title=album_title)
-    tracks = Track.objects.filter(albums=album, drummers=drummer)
-    artists = album.artists.all()
+class AlbumTracksView(FormMixin, DetailView):
+    """Tracks from a specific album + comments form."""
 
-    for track in tracks:
-        track.video_id = get_video_id(track.track_url)
+    model = Album
+    template_name = "discography/album-tracks.html"
+    context_object_name = "album"
+    slug_field = "title"
+    slug_url_kwarg = "album_title"
+    form_class = CommentForm
 
-    comments = Comment.objects.filter(album=album, drummer=drummer)
-    form = CommentForm()
+    def get_object(self, queryset=None):
+        self.drummer = get_object_or_404(Drummer, slug=self.kwargs["slug"])
+        return get_object_or_404(
+            Album, title=self.kwargs["album_title"], drummers=self.drummer
+        )
 
-    if request.method == "POST":
-        form = CommentForm(request.POST)
+    def get_success_url(self):
+        return self.request.path
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
-            comment.album = album
-            comment.drummer = drummer
+            comment.album = self.object
+            comment.drummer = self.drummer
             comment.save()
+            return redirect(self.get_success_url())
+        return self.form_invalid(form)
 
-            return redirect(
-                "discography:album_tracks",
-                album_title=album.title,
-                slug=drummer.slug,
-            )
-
-    context = {
-        "title": album_title,
-        "tracks": tracks,
-        "artists": artists,
-        "album": album,
-        "drummer": drummer,
-        "form": form,
-        "comments": comments,
-    }
-
-    return render(request, "discography/album-tracks.html", context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        album = self.object
+        tracks = Track.objects.filter(albums=album, drummers=self.drummer)
+        for track in tracks:
+            track.video_id = get_video_id(track.track_url)
+        context.update(
+            {
+                "title": album.title,
+                "tracks": tracks,
+                "artists": album.artists.all(),
+                "drummer": self.drummer,
+                "form": self.get_form(),
+                "comments": Comment.objects.filter(album=album, drummer=self.drummer),
+            }
+        )
+        return context

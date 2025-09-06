@@ -5,7 +5,7 @@ from . import views
 app_name = "discography"
 
 urlpatterns = [
-    path("", views.DrummerListView.as_view(), name="drummers_list"),
+    path("", views.DrummersListView.as_view(), name="drummers_list"),
     path(
         "discographies/<slug:slug>/albums/",
         views.DrummerAlbumsView.as_view(),
@@ -18,7 +18,7 @@ urlpatterns = [
     ),
     path(
         "discographies/<slug:slug>/<album_title>/tracks/",
-        views.album_tracks,
+        views.AlbumTracksView.as_view(),
         name="album_tracks",
     ),
 ]
