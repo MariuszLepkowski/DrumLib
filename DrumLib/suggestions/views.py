@@ -1,41 +1,36 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, TemplateView
 
 from .forms import AlbumSuggestionForm, DrummerSuggestionForm
+from .models import AlbumSuggestion, DrummerSuggestion
 
 
-def suggest_content(request):
-    return render(request, "suggestions/suggest-content.html")
+class SuggestContentView(TemplateView):
+    template_name = "suggestions/suggest-content.html"
 
 
-@login_required
-def suggest_drummer(request):
-    if request.method == "POST":
-        form = DrummerSuggestionForm(request.POST)
-        if form.is_valid():
-            suggestion = form.save(commit=False)
-            suggestion.suggested_by = request.user
-            suggestion.save()
-            return redirect("suggestions:suggestions_thank_you")
-    else:
-        form = DrummerSuggestionForm()
-    return render(request, "suggestions/suggest-drummer.html", {"form": form})
+class SuggestDrummerView(LoginRequiredMixin, CreateView):
+    model = DrummerSuggestion
+    form_class = DrummerSuggestionForm
+    template_name = "suggestions/suggest-drummer.html"
+    success_url = reverse_lazy("suggestions:suggestions_thank_you")
+
+    def form_valid(self, form):
+        form.instance.suggested_by = self.request.user
+        return super().form_valid(form)
 
 
-@login_required
-def suggest_album(request):
-    if request.method == "POST":
-        form = AlbumSuggestionForm(request.POST)
-        if form.is_valid():
-            suggestion = form.save(commit=False)
-            suggestion.suggested_by = request.user
-            suggestion.save()
-            return redirect("suggestions:suggestions_thank_you")
-    else:
-        form = AlbumSuggestionForm()
-    return render(request, "suggestions/suggest-album.html", {"form": form})
+class SuggestAlbumView(LoginRequiredMixin, CreateView):
+    model = AlbumSuggestion
+    form_class = AlbumSuggestionForm
+    template_name = "suggestions/suggest-album.html"
+    success_url = reverse_lazy("suggestions:suggestions_thank_you")
+
+    def form_valid(self, form):
+        form.instance.suggested_by = self.request.user
+        return super().form_valid(form)
 
 
-@login_required
-def suggestions_thank_you(request):
-    return render(request, "suggestions/thank-you.html")
+class SuggestionsThankYouView(LoginRequiredMixin, TemplateView):
+    template_name = "suggestions/thank-you.html"
